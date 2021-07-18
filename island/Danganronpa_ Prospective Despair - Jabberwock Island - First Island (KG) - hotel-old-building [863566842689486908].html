@@ -1,0 +1,3591 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Danganronpa: Prospective Despair - hotel-old-building</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <style>
+        /* General */
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-300.woff);
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-400.woff);
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-500.woff);
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-600.woff);
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-700.woff);
+    font-weight: 700;
+}
+
+body {
+    font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 17px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+img {
+    object-fit: contain;
+}
+
+.markdown {
+    max-width: 100%;
+    line-height: 1.3;
+    overflow-wrap: break-word;
+}
+
+.preserve-whitespace {
+    white-space: pre-wrap;
+}
+
+.spoiler {
+    /* width: fit-content; */
+    display: inline-block;
+    /* This is more consistent across browsers, the old attribute worked well under Chrome but not FireFox. */
+}
+
+.spoiler--hidden {
+    cursor: pointer;
+}
+
+.spoiler-text {
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-text {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler--hidden .spoiler-text::selection {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-image {
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.spoiler--hidden .spoiler-image * {
+    filter: blur(44px);
+}
+
+.spoiler--hidden .spoiler-image:after {
+    content: "SPOILER";
+    color: #dcddde;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 600;
+    padding: 100%;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+    font-size: 0.9em;
+}
+
+.spoiler--hidden:hover .spoiler-image:after {
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.quote {
+    margin: 0.1em 0;
+    padding-left: 0.6em;
+    border-left: 4px solid;
+    border-radius: 3px;
+}
+
+.pre {
+    font-family: "Consolas", "Courier New", Courier, monospace;
+}
+
+.pre--multiline {
+    margin-top: 0.25em;
+    padding: 0.5em;
+    border: 2px solid;
+    border-radius: 5px;
+}
+
+.pre--inline {
+    padding: 2px;
+    border-radius: 3px;
+    font-size: 0.85em;
+}
+
+.mention {
+    border-radius: 3px;
+    padding: 0 2px;
+    color: #7289da;
+    background: rgba(114, 137, 218, .1);
+    font-weight: 500;
+}
+
+.emoji {
+    width: 1.25em;
+    height: 1.25em;
+    margin: 0 0.06em;
+    vertical-align: -0.4em;
+}
+
+.emoji--small {
+    width: 1em;
+    height: 1em;
+}
+
+.emoji--large {
+    width: 2.8em;
+    height: 2.8em;
+}
+
+/* Preamble */
+
+.preamble {
+    display: grid;
+    margin: 0 0.3em 0.6em 0.3em;
+    max-width: 100%;
+    grid-template-columns: auto 1fr;
+}
+
+.preamble__guild-icon-container {
+    grid-column: 1;
+}
+
+.preamble__guild-icon {
+    max-width: 88px;
+    max-height: 88px;
+}
+
+.preamble__entries-container {
+    grid-column: 2;
+    margin-left: 0.6em;
+}
+
+.preamble__entry {
+    font-size: 1.4em;
+}
+
+.preamble__entry--small {
+    font-size: 1em;
+}
+
+/* Chatlog */
+
+.chatlog {
+    max-width: 100%;
+}
+
+.chatlog__message-group {
+    display: grid;
+    margin: 0 0.6em;
+    padding: 0.9em 0;
+    border-top: 1px solid;
+    grid-template-columns: auto 1fr;
+}
+
+.chatlog__reference-symbol {
+    grid-column: 1;
+    border-style: solid;
+    border-width: 2px 0 0 2px;
+    border-radius: 8px 0 0 0;
+    margin-left: 16px;
+    margin-top: 8px;
+}
+
+.chatlog__reference {
+    display: flex;
+    grid-column: 2;
+    margin-left: 1.2em;
+    margin-bottom: 0.25em;
+    font-size: 0.875em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    align-items: center;
+}
+
+.chatlog__reference-avatar {
+    border-radius: 50%;
+    height: 16px;
+    width: 16px;
+    margin-right: 0.25em;
+}
+
+.chatlog__reference-name {
+    margin-right: 0.25em;
+    font-weight: 600;
+}
+
+.chatlog__reference-link {
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.chatlog__reference-link:hover {
+    text-decoration: none;
+}
+
+.chatlog__reference-content > * {
+    display: inline;
+}
+
+.chatlog__reference-edited-timestamp {
+    margin-left: 0.25em;
+    font-size: 0.8em;
+}
+
+.chatlog__author-avatar-container {
+    grid-column: 1;
+    width: 40px;
+    height: 40px;
+}
+
+.chatlog__author-avatar {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}
+
+.chatlog__messages {
+    grid-column: 2;
+    margin-left: 1.2em;
+    min-width: 50%;
+}
+
+.chatlog__author-name {
+    font-weight: 500;
+}
+
+.chatlog__timestamp {
+    margin-left: 0.3em;
+    font-size: 0.75em;
+}
+
+.chatlog__message {
+    padding: 0.1em 0.3em;
+    margin: 0 -0.3em;
+    background-color: transparent;
+    transition: background-color 1s ease;
+}
+
+.chatlog__content {
+    font-size: 0.95em;
+    word-wrap: break-word;
+}
+
+.chatlog__edited-timestamp {
+    margin-left: 0.15em;
+    font-size: 0.8em;
+}
+
+.chatlog__attachment {
+    margin-top: 0.3em;
+}
+
+.chatlog__attachment-thumbnail {
+    vertical-align: top;
+    max-width: 45vw;
+    max-height: 500px;
+    border-radius: 3px;
+}
+
+.chatlog__attachment-container {
+    height: 40px;
+    width: 100%;
+    max-width: 520px;
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.chatlog__attachment-icon {
+    float: left;
+    height: 100%;
+    margin-right: 10px;
+}
+
+.chatlog__attachment-icon > .a {
+    fill: #f4f5fb;
+    d: path("M50,935a25,25,0,0,1-25-25V50A25,25,0,0,1,50,25H519.6L695,201.32V910a25,25,0,0,1-25,25Z");
+}
+
+.chatlog__attachment-icon > .b {
+    fill: #7789c4;
+    d: path("M509.21,50,670,211.63V910H50V50H509.21M530,0H50A50,50,0,0,0,0,50V910a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50h0V191Z");
+}
+
+.chatlog__attachment-icon > .c {
+    fill: #f4f5fb;
+    d: path("M530,215a25,25,0,0,1-25-25V50a25,25,0,0,1,16.23-23.41L693.41,198.77A25,25,0,0,1,670,215Z");
+}
+
+.chatlog__attachment-icon > .d {
+    fill: #7789c4;
+    d: path("M530,70.71,649.29,190H530V70.71M530,0a50,50,0,0,0-50,50V190a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50Z");
+}
+
+.chatlog__attachment-filesize {
+    color: #72767d;
+    font-size: 12px;
+}
+
+.chatlog__attachment-filename {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.chatlog__embed {
+    display: flex;
+    margin-top: 0.3em;
+    max-width: 520px;
+}
+
+.chatlog__embed-color-pill {
+    flex-shrink: 0;
+    width: 0.25em;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.chatlog__embed-content-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em 0.6em;
+    border: 1px solid;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.chatlog__embed-content {
+    display: flex;
+    width: 100%;
+}
+
+.chatlog__embed-text {
+    flex: 1;
+}
+
+.chatlog__embed-author {
+    display: flex;
+    margin-bottom: 0.3em;
+    align-items: center;
+}
+
+.chatlog__embed-author-icon {
+    margin-right: 0.5em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.chatlog__embed-author-name {
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-title {
+    margin-bottom: 0.2em;
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-description {
+    font-weight: 500;
+    font-size: 0.85em;
+}
+
+.chatlog__embed-fields {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.chatlog__embed-field {
+    flex: 0;
+    min-width: 100%;
+    max-width: 506px;
+    padding-top: 0.6em;
+    font-size: 0.875em;
+}
+
+.chatlog__embed-field--inline {
+    flex: 1;
+    flex-basis: auto;
+    min-width: 150px;
+}
+
+.chatlog__embed-field-name {
+    margin-bottom: 0.2em;
+    font-weight: 600;
+}
+
+.chatlog__embed-field-value {
+    font-weight: 500;
+}
+
+.chatlog__embed-thumbnail {
+    flex: 0;
+    margin-left: 1.2em;
+    max-width: 80px;
+    max-height: 80px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-image-container {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-image {
+    max-width: 500px;
+    max-height: 400px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-footer {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-footer-icon {
+    margin-right: 0.2em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.chatlog__embed-footer-text {
+    font-size: 0.75em;
+    font-weight: 500;
+}
+
+.chatlog__reactions {
+    display: flex;
+}
+
+.chatlog__reaction {
+    display: flex;
+    align-items: center;
+    margin: 0.35em 0.1em 0.1em 0.1em;
+    padding: 0.2em 0.35em;
+    border-radius: 3px;
+}
+
+.chatlog__reaction-count {
+    min-width: 9px;
+    margin-left: 0.35em;
+    font-size: 0.875em;
+}
+
+.chatlog__bot-tag {
+    position: relative;
+    top: -.2em;
+    margin-left: 0.3em;
+    padding: 0.05em 0.3em;
+    border-radius: 3px;
+    vertical-align: middle;
+    line-height: 1.3;
+    background: #7289da;
+    color: #ffffff;
+    font-size: 0.625em;
+    font-weight: 500;
+}
+
+/* Postamble */
+
+.postamble {
+    margin: 1.4em 0.3em 0.6em 0.3em;
+    padding: 1em;
+    border-top: 1px solid;
+}
+    </style>
+    <style>
+        /* General */
+
+body {
+    background-color: #36393e;
+    color: #dcddde;
+}
+
+a {
+    color: #0096cf;
+}
+
+.spoiler-text {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.spoiler--hidden .spoiler-text {
+    background-color: #202225;
+}
+
+.spoiler--hidden:hover .spoiler-text {
+    background-color: rgba(32, 34, 37, 0.8);
+}
+
+.quote {
+    border-color: #4f545c;
+}
+
+.pre {
+    background-color: #2f3136 !important;
+}
+
+.pre--multiline {
+    border-color: #282b30 !important;
+    color: #b9bbbe !important;
+}
+
+/* === Preamble === */
+
+.preamble__entry {
+    color: #ffffff;
+}
+
+/* Chatlog */
+
+.chatlog__message-group {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.chatlog__reference-symbol {
+    border-color: #4f545c;
+}
+
+.chatlog__reference {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link:hover {
+    color: #ffffff;
+}
+
+.chatlog__reference-edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__author-name {
+    color: #ffffff;
+}
+
+.chatlog__timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__message--highlighted {
+    background-color: rgba(114, 137, 218, 0.2) !important;
+}
+
+.chatlog__message--pinned {
+    background-color: rgba(249, 168, 37, 0.05);
+}
+
+.chatlog__attachment-container {
+    background-color: #2f3136;
+    border-color: #292b2f;
+}
+
+.chatlog__edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__embed-color-pill--default {
+    background-color: rgba(79, 84, 92, 1);
+}
+
+.chatlog__embed-content-container {
+    background-color: rgba(46, 48, 54, 0.3);
+    border-color: rgba(46, 48, 54, 0.6);
+}
+
+.chatlog__embed-author-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-author-name-link {
+    color: #ffffff;
+}
+
+.chatlog__embed-title {
+    color: #ffffff;
+}
+
+.chatlog__embed-description {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-field-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-field-value {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-footer {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__reaction {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.chatlog__reaction-count {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* Postamble */
+
+.postamble {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.postamble__entry {
+    color: #ffffff;
+}
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/solarized-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.pre--multiline').forEach(block => hljs.highlightBlock(block));
+        });
+    </script>
+
+    <script>
+        function scrollToMessage(event, id) {
+            var element = document.getElementById('message-' + id);
+
+            if (element) {
+                event.preventDefault();
+
+                element.classList.add('chatlog__message--highlighted');
+
+                window.scrollTo({
+                    top: element.getBoundingClientRect().top - document.body.getBoundingClientRect().top - (window.innerHeight / 2),
+                    behavior: 'smooth'
+                });
+
+                window.setTimeout(function() {
+                    element.classList.remove('chatlog__message--highlighted');
+                }, 2000);
+            }
+        }
+
+        function showSpoiler(event, element) {
+            if (element && element.classList.contains('spoiler--hidden')) {
+                event.preventDefault();
+                element.classList.remove('spoiler--hidden');
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="preamble">
+    <div class="preamble__guild-icon-container">
+        <img class="preamble__guild-icon" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/a_2feefaa4b9661f5afc56fdc0a2cb52a3-DDE8C.png" alt="Guild icon">
+    </div>
+    <div class="preamble__entries-container">
+        <div class="preamble__entry">Danganronpa: Prospective Despair</div>
+        <div class="preamble__entry">Jabberwock Island - First Island (KG) / hotel-old-building</div>
+
+
+    </div>
+</div>
+
+<div class="chatlog">
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/16621ef5d6c0752a007ce930a8104c18-5C715.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Sonic49 | ???</span>
+
+
+        <span class="chatlog__timestamp">10-Jul-21 07:48 PM</span>
+
+            <div class="chatlog__message chatlog__message--pinned" data-message-id="863567364763025428" id="message-863567364763025428">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">You can only really walk to the entrance of this place - it’s locked off, and you don’t exactly have the key to break it (and no, it won’t break from you punching it). The floorboards and steps, though, feel like they’re going to collapse at any minute - they barely hold a person, and seem to be sagging under the weight, regardless of how light you are.
+
+The place in general looks old and abandoned - you can see through some of the wood, revealing some rooms that you can’t quite make out. But even those rooms seem deteriorated, as far as you can tell. 
+It’s worse than DR2, BTW.
+
+Not much else to note. It’s impossible to get underneath the floorboards, before you ask.</span>
+
+                                <span class="chatlog__edited-timestamp" title="10-Jul-21 07:48 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/16621ef5d6c0752a007ce930a8104c18-5C715.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Sonic49 | ???</span>
+
+
+        <span class="chatlog__timestamp">12-Jul-21 02:18 PM</span>
+
+            <div class="chatlog__message " data-message-id="864209095069401118" id="message-864209095069401118">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>If someone comes here, they might here noises from inside the building.</em></span>
+
+                                <span class="chatlog__edited-timestamp" title="12-Jul-21 02:18 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/553040d99bf8b60bfa2294a588fa913e-1D743.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ame/Est55#7858" data-user-id="328149026266677248" style="color: rgb(253,253,150)">Asahi Hasegawa | Est</span>
+
+
+        <span class="chatlog__timestamp">12-Jul-21 02:18 PM</span>
+
+            <div class="chatlog__message " data-message-id="864209148728180816" id="message-864209148728180816">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(Aight bois we going here next)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/2a00365930d3fc2457ab1809b26814ac-EF562.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jack Enjo#0000" data-user-id="864219185898324008" style="">Jack Enjo</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jul-21 02:58 PM</span>
+
+            <div class="chatlog__message " data-message-id="864219187086229584" id="message-864219187086229584">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>We’re here now</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/68b29e077cf117c52ed72b4c9fddc1ac-575BA.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Asahi Hasegawa#0000" data-user-id="864219185898324008" style="">Asahi Hasegawa</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jul-21 02:58 PM</span>
+
+            <div class="chatlog__message " data-message-id="864219278525595669" id="message-864219278525595669">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“…? Noise…”
+<em>He walks into the old building.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/e49dd7f9d59e8dbfd9b823263cfea14f-60D1C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jacob Canon#0000" data-user-id="864219185898324008" style="">Jacob Canon</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jul-21 02:59 PM</span>
+
+            <div class="chatlog__message " data-message-id="864219315720552468" id="message-864219315720552468">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“...yeah what’s that noise?”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/2a00365930d3fc2457ab1809b26814ac-EF562.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jack Enjo#0000" data-user-id="864219185898324008" style="">Jack Enjo</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jul-21 02:59 PM</span>
+
+            <div class="chatlog__message " data-message-id="864219326046666752" id="message-864219326046666752">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“....Hmm.....”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/16621ef5d6c0752a007ce930a8104c18-5C715.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Sonic49 | ???</span>
+
+
+        <span class="chatlog__timestamp">12-Jul-21 02:59 PM</span>
+
+            <div class="chatlog__message " data-message-id="864219341507919902" id="message-864219341507919902">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Well, you can&#39;t quite walk into it—</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/553040d99bf8b60bfa2294a588fa913e-1D743.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ame/Est55#7858" data-user-id="328149026266677248" style="color: rgb(253,253,150)">Asahi Hasegawa | Est</span>
+
+
+        <span class="chatlog__timestamp">12-Jul-21 02:59 PM</span>
+
+            <div class="chatlog__message " data-message-id="864219367688503316" id="message-864219367688503316">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(Ah)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/16621ef5d6c0752a007ce930a8104c18-5C715.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Sonic49 | ???</span>
+
+
+        <span class="chatlog__timestamp">12-Jul-21 02:59 PM</span>
+
+            <div class="chatlog__message " data-message-id="864219374063058984" id="message-864219374063058984">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>The door is locked after all.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/d8ee9e29b4522fd9f6689538b4d31171-9125E.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Crepe#2518" data-user-id="269156561320935426" style="color: rgb(26,112,26)">Jack Enjo || The Crep</span>
+
+
+        <span class="chatlog__timestamp">12-Jul-21 02:59 PM</span>
+
+            <div class="chatlog__message " data-message-id="864219406439022632" id="message-864219406439022632">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(I’m dumb)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/553040d99bf8b60bfa2294a588fa913e-1D743.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ame/Est55#7858" data-user-id="328149026266677248" style="color: rgb(253,253,150)">Asahi Hasegawa | Est</span>
+
+
+        <span class="chatlog__timestamp">12-Jul-21 02:59 PM</span>
+
+            <div class="chatlog__message " data-message-id="864219415519952966" id="message-864219415519952966">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(Ignore walks into it then)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/16621ef5d6c0752a007ce930a8104c18-5C715.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Sonic49 | ???</span>
+
+
+        <span class="chatlog__timestamp">12-Jul-21 02:59 PM</span>
+
+            <div class="chatlog__message " data-message-id="864219431302201366" id="message-864219431302201366">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>But... the noises sound human? They sound to be in distress.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/d8ee9e29b4522fd9f6689538b4d31171-9125E.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Crepe#2518" data-user-id="269156561320935426" style="color: rgb(26,112,26)">Jack Enjo || The Crep</span>
+
+
+        <span class="chatlog__timestamp">12-Jul-21 02:59 PM</span>
+
+            <div class="chatlog__message " data-message-id="864219435782897724" id="message-864219435782897724">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(Lemme die for 5 then)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/68b29e077cf117c52ed72b4c9fddc1ac-575BA.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Asahi Hasegawa#0000" data-user-id="864219185898324008" style="">Asahi Hasegawa</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jul-21 02:59 PM</span>
+
+            <div class="chatlog__message " data-message-id="864219492888215572" id="message-864219492888215572">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“Huh? Blocked… ah! Someone there!”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/e49dd7f9d59e8dbfd9b823263cfea14f-60D1C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jacob Canon#0000" data-user-id="864219185898324008" style="">Jacob Canon</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jul-21 03:00 PM</span>
+
+            <div class="chatlog__message " data-message-id="864219571409387560" id="message-864219571409387560">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>he yells out</em> “Hey! Is someone in there?”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/2a00365930d3fc2457ab1809b26814ac-EF562.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jack Enjo#0000" data-user-id="864219185898324008" style="">Jack Enjo</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jul-21 03:00 PM</span>
+
+            <div class="chatlog__message " data-message-id="864219575712874546" id="message-864219575712874546">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“....That....doesn’t sound fun....”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/5ecd29841523ddbd4f25114507d9cef5-CA1BF.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="???#0000" data-user-id="864219185898324008" style="">???</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jul-21 03:00 PM</span>
+
+            <div class="chatlog__message " data-message-id="864219683933782029" id="message-864219683933782029">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;MmmmmmMmmmMmMPHHH.&quot; <em>Yeah, they had something around their mouths that prevented them from speaking.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/68b29e077cf117c52ed72b4c9fddc1ac-575BA.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Asahi Hasegawa#0000" data-user-id="864219185898324008" style="">Asahi Hasegawa</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jul-21 03:00 PM</span>
+
+            <div class="chatlog__message " data-message-id="864219770709999646" id="message-864219770709999646">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“Night crawler, open door, please!”
+<em>He seems slightly panicked.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/e49dd7f9d59e8dbfd9b823263cfea14f-60D1C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jacob Canon#0000" data-user-id="864219185898324008" style="">Jacob Canon</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jul-21 03:01 PM</span>
+
+            <div class="chatlog__message " data-message-id="864219853052837908" id="message-864219853052837908">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“I can’t it’s locked....does anyone have knives?”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/68b29e077cf117c52ed72b4c9fddc1ac-575BA.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Asahi Hasegawa#0000" data-user-id="864219185898324008" style="">Asahi Hasegawa</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jul-21 03:01 PM</span>
+
+            <div class="chatlog__message " data-message-id="864219908489084938" id="message-864219908489084938">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“Ah! Sharpy thing in shop!”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/a_dd4b6d2b8c6c50376cfac556950fcf91-290E1.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="EinTheMistake#2909" data-user-id="295713288585478147" style="color: rgb(99,69,133)">Jacob Canon &#128248; || Ein</span>
+
+
+        <span class="chatlog__timestamp">12-Jul-21 03:01 PM</span>
+
+            <div class="chatlog__message " data-message-id="864219919959457822" id="message-864219919959457822">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(Jacob technically knows how to pick a lock...</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/68b29e077cf117c52ed72b4c9fddc1ac-575BA.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Asahi Hasegawa#0000" data-user-id="864219185898324008" style="">Asahi Hasegawa</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jul-21 03:01 PM</span>
+
+            <div class="chatlog__message " data-message-id="864219941108318218" id="message-864219941108318218">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“I go, get?”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/2a00365930d3fc2457ab1809b26814ac-EF562.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jack Enjo#0000" data-user-id="864219185898324008" style="">Jack Enjo</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jul-21 03:01 PM</span>
+
+            <div class="chatlog__message " data-message-id="864219964680044555" id="message-864219964680044555">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“.......There’s knives everywhere honestly....”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/a_dd4b6d2b8c6c50376cfac556950fcf91-290E1.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="EinTheMistake#2909" data-user-id="295713288585478147" style="color: rgb(99,69,133)">Jacob Canon &#128248; || Ein</span>
+
+
+        <span class="chatlog__timestamp">12-Jul-21 03:01 PM</span>
+
+            <div class="chatlog__message " data-message-id="864220001228685383" id="message-864220001228685383">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(Is that allowed Sonic</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/16621ef5d6c0752a007ce930a8104c18-5C715.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Sonic49 | ???</span>
+
+
+        <span class="chatlog__timestamp">12-Jul-21 03:01 PM</span>
+
+            <div class="chatlog__message " data-message-id="864220020686979094" id="message-864220020686979094">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(yes</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/a_dd4b6d2b8c6c50376cfac556950fcf91-290E1.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="EinTheMistake#2909" data-user-id="295713288585478147" style="color: rgb(99,69,133)">Jacob Canon &#128248; || Ein</span>
+
+
+        <span class="chatlog__timestamp">12-Jul-21 03:01 PM</span>
+
+            <div class="chatlog__message " data-message-id="864220027322368000" id="message-864220027322368000">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(He knows how to pick locks</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="864220036499505162" id="message-864220036499505162">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(Sick</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/e49dd7f9d59e8dbfd9b823263cfea14f-60D1C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jacob Canon#0000" data-user-id="864219185898324008" style="">Jacob Canon</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jul-21 03:02 PM</span>
+
+            <div class="chatlog__message " data-message-id="864220073652912158" id="message-864220073652912158">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>he runs off to the cargo bay</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/553040d99bf8b60bfa2294a588fa913e-1D743.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ame/Est55#7858" data-user-id="328149026266677248" style="color: rgb(253,253,150)">Asahi Hasegawa | Est</span>
+
+
+        <span class="chatlog__timestamp">12-Jul-21 03:02 PM</span>
+
+            <div class="chatlog__message " data-message-id="864220081113792542" id="message-864220081113792542">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(How tf do you pick locks with a knife)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/a_dd4b6d2b8c6c50376cfac556950fcf91-290E1.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="EinTheMistake#2909" data-user-id="295713288585478147" style="color: rgb(99,69,133)">Jacob Canon &#128248; || Ein</span>
+
+
+        <span class="chatlog__timestamp">12-Jul-21 03:02 PM</span>
+
+            <div class="chatlog__message " data-message-id="864220110393835540" id="message-864220110393835540">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(You just need sharp things</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="864220173145079838" id="message-864220173145079838">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(Preferably not knives but you can make it work</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/16621ef5d6c0752a007ce930a8104c18-5C715.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Sonic49 | ???</span>
+
+
+        <span class="chatlog__timestamp">12-Jul-21 03:02 PM</span>
+
+            <div class="chatlog__message " data-message-id="864220190405296158" id="message-864220190405296158">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(&quot;I&#39;m the Nightcrawling Lawyer—&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="864220215729979403" id="message-864220215729979403">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(but yeah you can</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/553040d99bf8b60bfa2294a588fa913e-1D743.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ame/Est55#7858" data-user-id="328149026266677248" style="color: rgb(253,253,150)">Asahi Hasegawa | Est</span>
+
+
+        <span class="chatlog__timestamp">12-Jul-21 03:02 PM</span>
+
+            <div class="chatlog__message " data-message-id="864220230565756958" id="message-864220230565756958">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(OBJECTION!)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/e49dd7f9d59e8dbfd9b823263cfea14f-60D1C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jacob Canon#0000" data-user-id="864219185898324008" style="">Jacob Canon</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jul-21 03:03 PM</span>
+
+            <div class="chatlog__message " data-message-id="864220364695666728" id="message-864220364695666728">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>he returns not long after, with instead of knives, two Bobby pins</em> “these are a lot easier to do it with” <em>he gets down on a knee and begins pick the lock</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/16621ef5d6c0752a007ce930a8104c18-5C715.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Sonic49 | ???</span>
+
+
+        <span class="chatlog__timestamp">12-Jul-21 03:03 PM</span>
+
+            <div class="chatlog__message " data-message-id="864220456415264789" id="message-864220456415264789">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(nothing on 1, 2 is binding... /j</span>
+
+                                <span class="chatlog__edited-timestamp" title="12-Jul-21 03:03 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/68b29e077cf117c52ed72b4c9fddc1ac-575BA.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Asahi Hasegawa#0000" data-user-id="864219185898324008" style="">Asahi Hasegawa</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jul-21 03:03 PM</span>
+
+            <div class="chatlog__message " data-message-id="864220500514963536" id="message-864220500514963536">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>He stuffs his head into the plush, worried.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/e49dd7f9d59e8dbfd9b823263cfea14f-60D1C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jacob Canon#0000" data-user-id="864219185898324008" style="">Jacob Canon</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jul-21 03:03 PM</span>
+
+            <div class="chatlog__message " data-message-id="864220533339193356" id="message-864220533339193356">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“come on....”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/db0eae881257f1fef70011cf1e277397-F5317.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Smudge#0000" data-user-id="864219185898324008" style="">Smudge</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jul-21 03:03 PM</span>
+
+            <div class="chatlog__message " data-message-id="864220537500598282" id="message-864220537500598282">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Meow</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/16621ef5d6c0752a007ce930a8104c18-5C715.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Sonic49 | ???</span>
+
+
+        <span class="chatlog__timestamp">12-Jul-21 03:04 PM</span>
+
+            <div class="chatlog__message " data-message-id="864220583230046258" id="message-864220583230046258">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>...after some time, the lock opens.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/e49dd7f9d59e8dbfd9b823263cfea14f-60D1C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jacob Canon#0000" data-user-id="864219185898324008" style="">Jacob Canon</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jul-21 03:04 PM</span>
+
+            <div class="chatlog__message " data-message-id="864220584153317407" id="message-864220584153317407">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>he pops the lock open</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/16621ef5d6c0752a007ce930a8104c18-5C715.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Sonic49 | ???</span>
+
+
+        <span class="chatlog__timestamp">12-Jul-21 03:04 PM</span>
+
+            <div class="chatlog__message " data-message-id="864220645650858004" id="message-864220645650858004">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>The door is openable, believe it or not.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/e49dd7f9d59e8dbfd9b823263cfea14f-60D1C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jacob Canon#0000" data-user-id="864219185898324008" style="">Jacob Canon</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jul-21 03:04 PM</span>
+
+            <div class="chatlog__message " data-message-id="864220670896242698" id="message-864220670896242698">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>he takes the lock off the door and opens it</em> “...don’t step on the floor yet...”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/2a00365930d3fc2457ab1809b26814ac-EF562.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jack Enjo#0000" data-user-id="864219185898324008" style="">Jack Enjo</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jul-21 03:04 PM</span>
+
+            <div class="chatlog__message " data-message-id="864220753585897513" id="message-864220753585897513">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“.....Fuck....Mr everything does something again....”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/e49dd7f9d59e8dbfd9b823263cfea14f-60D1C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jacob Canon#0000" data-user-id="864219185898324008" style="">Jacob Canon</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jul-21 03:04 PM</span>
+
+            <div class="chatlog__message " data-message-id="864220765776117800" id="message-864220765776117800">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“...the floorboards aren’t strong...”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="864220834154676275" id="message-864220834154676275">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“alright fuck you too Jack, sorry I’m trying to help.”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/68b29e077cf117c52ed72b4c9fddc1ac-575BA.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Asahi Hasegawa#0000" data-user-id="864219185898324008" style="">Asahi Hasegawa</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jul-21 03:05 PM</span>
+
+            <div class="chatlog__message " data-message-id="864220842115989534" id="message-864220842115989534">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“Ah!”
+<em>He walks in with a careful step, almost completely silent and light.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/2a00365930d3fc2457ab1809b26814ac-EF562.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jack Enjo#0000" data-user-id="864219185898324008" style="">Jack Enjo</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jul-21 03:05 PM</span>
+
+            <div class="chatlog__message " data-message-id="864220885173796926" id="message-864220885173796926">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“....It was a compliment!”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/5ecd29841523ddbd4f25114507d9cef5-CA1BF.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="???#0000" data-user-id="864219185898324008" style="">???</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jul-21 03:05 PM</span>
+
+            <div class="chatlog__message " data-message-id="864220889091145758" id="message-864220889091145758">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Mmmmm!&quot;
+<em>It seemed to be... a feminine voice? Also seemed to be coming from the kitchen area of here. Though, looking around the place, you can see the rot and deterioration this place has faced.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/16621ef5d6c0752a007ce930a8104c18-5C715.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Sonic49 | ???</span>
+
+
+        <span class="chatlog__timestamp">12-Jul-21 03:05 PM</span>
+
+            <div class="chatlog__message " data-message-id="864220954100367360" id="message-864220954100367360">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(i hope you all remember the gist of the layout from dr2</span>
+
+                                <span class="chatlog__edited-timestamp" title="12-Jul-21 03:05 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/e49dd7f9d59e8dbfd9b823263cfea14f-60D1C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jacob Canon#0000" data-user-id="864219185898324008" style="">Jacob Canon</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jul-21 03:05 PM</span>
+
+            <div class="chatlog__message " data-message-id="864221008847175702" id="message-864221008847175702">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“...gross...” <em>he takes a slow step onto the ground and begins walking towards the sound of the voice</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/68b29e077cf117c52ed72b4c9fddc1ac-575BA.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Asahi Hasegawa#0000" data-user-id="864219185898324008" style="">Asahi Hasegawa</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jul-21 03:05 PM</span>
+
+            <div class="chatlog__message " data-message-id="864221038770257982" id="message-864221038770257982">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“Find person…!”
+<em>He speedwalks off to the kitchen.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/2a00365930d3fc2457ab1809b26814ac-EF562.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jack Enjo#0000" data-user-id="864219185898324008" style="">Jack Enjo</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jul-21 03:05 PM</span>
+
+            <div class="chatlog__message " data-message-id="864221060497145876" id="message-864221060497145876">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Jack takes the careful steps. </em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/553040d99bf8b60bfa2294a588fa913e-1D743.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ame/Est55#7858" data-user-id="328149026266677248" style="color: rgb(253,253,150)">Asahi Hasegawa | Est</span>
+
+
+        <span class="chatlog__timestamp">12-Jul-21 03:06 PM</span>
+
+            <div class="chatlog__message " data-message-id="864221104352657440" id="message-864221104352657440">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(Unfortunately for you I never played DR2 but I watched videos and lets plays)</span>
+
+                                <span class="chatlog__edited-timestamp" title="12-Jul-21 03:06 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="Fukt" title="Fukt" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/786629592814321685-315EF.png">
+                                <span class="chatlog__reaction-count">1</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/16621ef5d6c0752a007ce930a8104c18-5C715.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Sonic49 | ???</span>
+
+
+        <span class="chatlog__timestamp">12-Jul-21 03:06 PM</span>
+
+            <div class="chatlog__message " data-message-id="864221131702272071" id="message-864221131702272071">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(close enough</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="864221240582340628" id="message-864221240582340628">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>The floorboards seem dangerously close to giving away, but they hold. Walking into the kitchen reveals...</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/a_dd4b6d2b8c6c50376cfac556950fcf91-290E1.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="EinTheMistake#2909" data-user-id="295713288585478147" style="color: rgb(99,69,133)">Jacob Canon &#128248; || Ein</span>
+
+
+        <span class="chatlog__timestamp">12-Jul-21 03:07 PM</span>
+
+            <div class="chatlog__message " data-message-id="864221383557644308" id="message-864221383557644308">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(JUNKO ENO-</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/e6282b1775341b8cb3023f1aa3d67d17-39A7C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Mayumi Takimura#0000" data-user-id="864219185898324008" style="">Mayumi Takimura</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jul-21 03:07 PM</span>
+
+            <div class="chatlog__message " data-message-id="864221408565264434" id="message-864221408565264434">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Mmmmm!&quot;
+<em>THAT&#39;S RIGHT, IT&#39;S YOUR FAVORITE— she seemed to have some rope over her mouth. She also seems tied to one of the walls here.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="really" title="really" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/800559573563867136-02329.png">
+                                <span class="chatlog__reaction-count">2</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/553040d99bf8b60bfa2294a588fa913e-1D743.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ame/Est55#7858" data-user-id="328149026266677248" style="color: rgb(253,253,150)">Asahi Hasegawa | Est</span>
+
+
+        <span class="chatlog__timestamp">12-Jul-21 03:07 PM</span>
+
+            <div class="chatlog__message " data-message-id="864221409735213106" id="message-864221409735213106">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(MUKURO IKUS-)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="864221426722668584" id="message-864221426722668584">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(MAYUMI?!)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/a_dd4b6d2b8c6c50376cfac556950fcf91-290E1.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="EinTheMistake#2909" data-user-id="295713288585478147" style="color: rgb(99,69,133)">Jacob Canon &#128248; || Ein</span>
+
+
+        <span class="chatlog__timestamp">12-Jul-21 03:07 PM</span>
+
+            <div class="chatlog__message " data-message-id="864221451681792001" id="message-864221451681792001">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(MAYUMI?!</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/d8ee9e29b4522fd9f6689538b4d31171-9125E.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Crepe#2518" data-user-id="269156561320935426" style="color: rgb(26,112,26)">Jack Enjo || The Crep</span>
+
+
+        <span class="chatlog__timestamp">12-Jul-21 03:07 PM</span>
+
+            <div class="chatlog__message " data-message-id="864221481629122580" id="message-864221481629122580">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(THE FUCK)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/68b29e077cf117c52ed72b4c9fddc1ac-575BA.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Asahi Hasegawa#0000" data-user-id="864219185898324008" style="">Asahi Hasegawa</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jul-21 03:08 PM</span>
+
+            <div class="chatlog__message " data-message-id="864221575355957308" id="message-864221575355957308">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“Ah…! You okay?!”
+<em>He carefully walks to her, looking at all the ropes.</em>
+“Um… night crawler, sharp thingy! Can cut it!”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/e49dd7f9d59e8dbfd9b823263cfea14f-60D1C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jacob Canon#0000" data-user-id="864219185898324008" style="">Jacob Canon</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jul-21 03:08 PM</span>
+
+            <div class="chatlog__message " data-message-id="864221677226819594" id="message-864221677226819594">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“...Jesus Christ who the fuck are you.” <em>he walks up, flicks out his switch blade, and cuts the rope that goes around her mouth...but he leaves her tied to the wall just in case she tries something</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/2a00365930d3fc2457ab1809b26814ac-EF562.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jack Enjo#0000" data-user-id="864219185898324008" style="">Jack Enjo</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jul-21 03:08 PM</span>
+
+            <div class="chatlog__message " data-message-id="864221747674087486" id="message-864221747674087486">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“...More surprises....”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/16621ef5d6c0752a007ce930a8104c18-5C715.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Sonic49 | ???</span>
+
+
+        <span class="chatlog__timestamp">12-Jul-21 03:09 PM</span>
+
+            <div class="chatlog__message " data-message-id="864221858253897780" id="message-864221858253897780">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(note that shes like... older than 16. probably an adult by now. thanks, timeline</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/553040d99bf8b60bfa2294a588fa913e-1D743.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ame/Est55#7858" data-user-id="328149026266677248" style="color: rgb(253,253,150)">Asahi Hasegawa | Est</span>
+
+
+        <span class="chatlog__timestamp">12-Jul-21 03:09 PM</span>
+
+            <div class="chatlog__message " data-message-id="864221910547562496" id="message-864221910547562496">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(Thanks timeline)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/e6282b1775341b8cb3023f1aa3d67d17-39A7C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Mayumi Takimura#0000" data-user-id="864219185898324008" style="">Mayumi Takimura</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jul-21 03:10 PM</span>
+
+            <div class="chatlog__message " data-message-id="864222102949330965" id="message-864222102949330965">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Ahh!&quot;
+<em>God, she hadn&#39;t spoke for a long while.</em>
+&quot;W-Who are you? I&#39;m just someone who was vacationing here, and then... something happened and—&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="864222308074651648" id="message-864222308074651648">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;...right.&quot; <em>For once, she managed to calm herself down.</em> &quot;Mayumi Takimura. Ultimate Tennis Player. Or I was... anyways, yeah, who are you all?&quot;</span>
+
+                                <span class="chatlog__edited-timestamp" title="12-Jul-21 03:11 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/e49dd7f9d59e8dbfd9b823263cfea14f-60D1C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jacob Canon#0000" data-user-id="864219185898324008" style="">Jacob Canon</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jul-21 03:11 PM</span>
+
+            <div class="chatlog__message " data-message-id="864222353436180528" id="message-864222353436180528">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“...that’s not important.”</span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="Mastermindstrueidentity" title="Mastermindstrueidentity" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/786629561777258517-4F98D.png">
+                                <span class="chatlog__reaction-count">2</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/68b29e077cf117c52ed72b4c9fddc1ac-575BA.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Asahi Hasegawa#0000" data-user-id="864219185898324008" style="">Asahi Hasegawa</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jul-21 03:11 PM</span>
+
+            <div class="chatlog__message " data-message-id="864222378354409502" id="message-864222378354409502">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“Um… vacationing…? Drake bring us here, for hunting game thingy…”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/e49dd7f9d59e8dbfd9b823263cfea14f-60D1C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jacob Canon#0000" data-user-id="864219185898324008" style="">Jacob Canon</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jul-21 03:11 PM</span>
+
+            <div class="chatlog__message " data-message-id="864222406708690964" id="message-864222406708690964">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“...what the fuck is this place?”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/2a00365930d3fc2457ab1809b26814ac-EF562.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jack Enjo#0000" data-user-id="864219185898324008" style="">Jack Enjo</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jul-21 03:11 PM</span>
+
+            <div class="chatlog__message " data-message-id="864222473485811732" id="message-864222473485811732">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“....Ja....oh? Yeah....we’re in a killing game killing each other.....but answer that guys question first...”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/e6282b1775341b8cb3023f1aa3d67d17-39A7C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Mayumi Takimura#0000" data-user-id="864219185898324008" style="">Mayumi Takimura</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jul-21 03:13 PM</span>
+
+            <div class="chatlog__message " data-message-id="864222897945706536" id="message-864222897945706536">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Huh? What? Another Killing Game? I thought I was done with witnessing Killing Games!&quot; <em>S1 lore let&#39;s go—</em>
+&quot;But who&#39;s Drak— wait, you mean that YouTube guy? I thought I heard him over the news, but never bothered to check here...&quot; <em>She was out of the loop, in other words.</em> &quot;And, um, I&#39;m not sure either. Is this still part of Jabberwock? I was kinda knocked out when I was put here, heh...&quot;</span>
+
+                                <span class="chatlog__edited-timestamp" title="12-Jul-21 03:13 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/68b29e077cf117c52ed72b4c9fddc1ac-575BA.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Asahi Hasegawa#0000" data-user-id="864219185898324008" style="">Asahi Hasegawa</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jul-21 03:14 PM</span>
+
+            <div class="chatlog__message " data-message-id="864223097628131369" id="message-864223097628131369">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“Jabberwock…? Um… if place with sand and water, mhm! Um… night crawler, can say who I? And… what mean, another hunting game?!”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/e49dd7f9d59e8dbfd9b823263cfea14f-60D1C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jacob Canon#0000" data-user-id="864219185898324008" style="">Jacob Canon</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jul-21 03:14 PM</span>
+
+            <div class="chatlog__message " data-message-id="864223205732646932" id="message-864223205732646932">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“...yeah this is Jabberwock...how long have you been here?”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="864223278485864468" id="message-864223278485864468">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>he whispers to Asahi</em> “I don’t entirely trust her yet. Don’t reveal who you are.”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/68b29e077cf117c52ed72b4c9fddc1ac-575BA.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Asahi Hasegawa#0000" data-user-id="864219185898324008" style="">Asahi Hasegawa</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jul-21 03:14 PM</span>
+
+            <div class="chatlog__message " data-message-id="864223312607838228" id="message-864223312607838228">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>He gives a nod.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/e6282b1775341b8cb3023f1aa3d67d17-39A7C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Mayumi Takimura#0000" data-user-id="864219185898324008" style="">Mayumi Takimura</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jul-21 03:16 PM</span>
+
+            <div class="chatlog__message " data-message-id="864223694523859035" id="message-864223694523859035">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Um... sorry, little guy, I don&#39;t really understand you well...&quot; <em>F to Asahi.</em> &quot;But, uh... I dunno when I was put here, but I was here for like... I dunno, 2 months? Yeah, I was about to go back home, but... anyways, can ya&#39; untie me from these knots? I hate being trapped...&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/e49dd7f9d59e8dbfd9b823263cfea14f-60D1C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jacob Canon#0000" data-user-id="864219185898324008" style="">Jacob Canon</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jul-21 03:17 PM</span>
+
+            <div class="chatlog__message " data-message-id="864223862387376159" id="message-864223862387376159">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“...not yet...”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/68b29e077cf117c52ed72b4c9fddc1ac-575BA.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Asahi Hasegawa#0000" data-user-id="864219185898324008" style="">Asahi Hasegawa</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jul-21 03:17 PM</span>
+
+            <div class="chatlog__message " data-message-id="864223923788578817" id="message-864223923788578817">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“Sorry…”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/e49dd7f9d59e8dbfd9b823263cfea14f-60D1C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jacob Canon#0000" data-user-id="864219185898324008" style="">Jacob Canon</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jul-21 03:17 PM</span>
+
+            <div class="chatlog__message " data-message-id="864223971494199326" id="message-864223971494199326">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>he turns to Jack and whispers</em> “...should we ask about the year?”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="864224103661961256" id="message-864224103661961256">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“...the fact that everything is scratched out involving the year is suspicious.”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/16621ef5d6c0752a007ce930a8104c18-5C715.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Sonic49 | ???</span>
+
+
+        <span class="chatlog__timestamp">12-Jul-21 03:18 PM</span>
+
+            <div class="chatlog__message " data-message-id="864224148871708694" id="message-864224148871708694">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(jack <img class="emoji " alt="🦀" title="🦀" src="https://twemoji.maxcdn.com/2/72x72/1f980.png"> is <img class="emoji " alt="🦀" title="🦀" src="https://twemoji.maxcdn.com/2/72x72/1f980.png"> gone</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/a_dd4b6d2b8c6c50376cfac556950fcf91-290E1.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="EinTheMistake#2909" data-user-id="295713288585478147" style="color: rgb(99,69,133)">Jacob Canon &#128248; || Ein</span>
+
+
+        <span class="chatlog__timestamp">12-Jul-21 03:18 PM</span>
+
+            <div class="chatlog__message " data-message-id="864224178789416980" id="message-864224178789416980">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(Seems like it</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/16621ef5d6c0752a007ce930a8104c18-5C715.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Sonic49 | ???</span>
+
+
+        <span class="chatlog__timestamp">12-Jul-21 03:18 PM</span>
+
+            <div class="chatlog__message " data-message-id="864224184599052288" id="message-864224184599052288">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(or, well, crepe seems to have disappeared</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/553040d99bf8b60bfa2294a588fa913e-1D743.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ame/Est55#7858" data-user-id="328149026266677248" style="color: rgb(253,253,150)">Asahi Hasegawa | Est</span>
+
+
+        <span class="chatlog__timestamp">12-Jul-21 03:18 PM</span>
+
+            <div class="chatlog__message " data-message-id="864224225787117609" id="message-864224225787117609">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">( <span class="mention" title="Crepe#2518">@Jack Enjo || The Crep</span> Come back)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/e49dd7f9d59e8dbfd9b823263cfea14f-60D1C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jacob Canon#0000" data-user-id="864219185898324008" style="">Jacob Canon</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jul-21 03:18 PM</span>
+
+            <div class="chatlog__message " data-message-id="864224272540631100" id="message-864224272540631100">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>he just turns back to Mayumi</em> “what year did you get tied up?”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="864224335370518578" id="message-864224335370518578">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“...or what year do you remember getting put here...”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/e6282b1775341b8cb3023f1aa3d67d17-39A7C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Mayumi Takimura#0000" data-user-id="864219185898324008" style="">Mayumi Takimura</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jul-21 03:21 PM</span>
+
+            <div class="chatlog__message " data-message-id="864224865259225088" id="message-864224865259225088">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Huh? What do you mean? Like...&quot;
+<em>Suddenly, fog covers the place. You&#39;re unable to see her (or, really, anyone) anymore.</em>
+&quot;Huh? What&#39;s going on?&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/5ecd29841523ddbd4f25114507d9cef5-CA1BF.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="???#0000" data-user-id="864219185898324008" style="">???</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jul-21 03:21 PM</span>
+
+            <div class="chatlog__message " data-message-id="864224867690610738" id="message-864224867690610738">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Suddenly, a shadowy figure rushes through the fog...</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/e6282b1775341b8cb3023f1aa3d67d17-39A7C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Mayumi Takimura#0000" data-user-id="864219185898324008" style="">Mayumi Takimura</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jul-21 03:21 PM</span>
+
+            <div class="chatlog__message " data-message-id="864224870124093450" id="message-864224870124093450">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Ahhmmffffffff—&quot;
+<em>The figure (and presumably her) dash out of the room. The fog clears up, revealing nothing but the fact that the ropes tying her to this place disappearing.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/e49dd7f9d59e8dbfd9b823263cfea14f-60D1C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jacob Canon#0000" data-user-id="864219185898324008" style="">Jacob Canon</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jul-21 03:21 PM</span>
+
+            <div class="chatlog__message " data-message-id="864224983139876944" id="message-864224983139876944">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“....are you fucking kidding me”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/68b29e077cf117c52ed72b4c9fddc1ac-575BA.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Asahi Hasegawa#0000" data-user-id="864219185898324008" style="">Asahi Hasegawa</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jul-21 03:21 PM</span>
+
+            <div class="chatlog__message " data-message-id="864225023060738089" id="message-864225023060738089">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“Ah?!”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/e49dd7f9d59e8dbfd9b823263cfea14f-60D1C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jacob Canon#0000" data-user-id="864219185898324008" style="">Jacob Canon</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jul-21 03:21 PM</span>
+
+            <div class="chatlog__message " data-message-id="864225093210472448" id="message-864225093210472448">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“<s>right as I’m about to get lore</s> god damnit.”</span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="Fukt" title="Fukt" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/786629592814321685-315EF.png">
+                                <span class="chatlog__reaction-count">3</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/68b29e077cf117c52ed72b4c9fddc1ac-575BA.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Asahi Hasegawa#0000" data-user-id="864219185898324008" style="">Asahi Hasegawa</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jul-21 03:22 PM</span>
+
+            <div class="chatlog__message " data-message-id="864225201688412181" id="message-864225201688412181">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“Go find, go find!”
+<em>He runs out, worried.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/e49dd7f9d59e8dbfd9b823263cfea14f-60D1C.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jacob Canon#0000" data-user-id="864219185898324008" style="">Jacob Canon</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jul-21 03:22 PM</span>
+
+            <div class="chatlog__message " data-message-id="864225257413541924" id="message-864225257413541924">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“Asahi stay safe!”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="864225286274285599" id="message-864225286274285599">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“god that fucking kid...”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="864225336462934026" id="message-864225336462934026">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>he lifts up Jack and throws him over his shoulder and walks to the kitchen</em></span>
+
+                                <span class="chatlog__edited-timestamp" title="12-Jul-21 03:23 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/16621ef5d6c0752a007ce930a8104c18-5C715.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Sonic49 | ???</span>
+
+
+        <span class="chatlog__timestamp">12-Jul-21 03:23 PM</span>
+
+            <div class="chatlog__message " data-message-id="864225421125746689" id="message-864225421125746689">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>BTW, searching for Mayumi results in nothing.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/553040d99bf8b60bfa2294a588fa913e-1D743.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ame/Est55#7858" data-user-id="328149026266677248" style="color: rgb(253,253,150)">Asahi Hasegawa | Est</span>
+
+
+        <span class="chatlog__timestamp">12-Jul-21 03:23 PM</span>
+
+            <div class="chatlog__message " data-message-id="864225533796286475" id="message-864225533796286475">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(oh.)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="864225718632316970" id="message-864225718632316970">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(So if we cut her out would this have been any different)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/16621ef5d6c0752a007ce930a8104c18-5C715.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Sonic49 | ???</span>
+
+
+        <span class="chatlog__timestamp">12-Jul-21 03:24 PM</span>
+
+            <div class="chatlog__message " data-message-id="864225840912662549" id="message-864225840912662549">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(...hmmm...</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/a_dd4b6d2b8c6c50376cfac556950fcf91-290E1.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="EinTheMistake#2909" data-user-id="295713288585478147" style="color: rgb(99,69,133)">Jacob Canon &#128248; || Ein</span>
+
+
+        <span class="chatlog__timestamp">12-Jul-21 03:25 PM</span>
+
+            <div class="chatlog__message " data-message-id="864225917236150292" id="message-864225917236150292">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(Jacob wasn’t cutting her out</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="864225948684386304" id="message-864225948684386304">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(Once he got all the info he was just gonna leave her there</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/553040d99bf8b60bfa2294a588fa913e-1D743.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ame/Est55#7858" data-user-id="328149026266677248" style="color: rgb(253,253,150)">Asahi Hasegawa | Est</span>
+
+
+        <span class="chatlog__timestamp">12-Jul-21 03:25 PM</span>
+
+            <div class="chatlog__message " data-message-id="864225978258423808" id="message-864225978258423808">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(Oh you prick)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/a_dd4b6d2b8c6c50376cfac556950fcf91-290E1.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="EinTheMistake#2909" data-user-id="295713288585478147" style="color: rgb(99,69,133)">Jacob Canon &#128248; || Ein</span>
+
+
+        <span class="chatlog__timestamp">12-Jul-21 03:25 PM</span>
+
+            <div class="chatlog__message " data-message-id="864226031506161714" id="message-864226031506161714">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(He has trust issues</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="864226054234308649" id="message-864226054234308649">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(Man isn’t gonna let a random chick go</span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="&#127467;" title="&#127467;" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/1f1eb-E45E1.png">
+                                <span class="chatlog__reaction-count">2</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/553040d99bf8b60bfa2294a588fa913e-1D743.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ame/Est55#7858" data-user-id="328149026266677248" style="color: rgb(253,253,150)">Asahi Hasegawa | Est</span>
+
+
+        <span class="chatlog__timestamp">12-Jul-21 03:26 PM</span>
+
+            <div class="chatlog__message " data-message-id="864226155413241906" id="message-864226155413241906">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(Asahi probably would’ve done it eventually then)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/16621ef5d6c0752a007ce930a8104c18-5C715.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Sonic49 | ???</span>
+
+
+        <span class="chatlog__timestamp">12-Jul-21 03:26 PM</span>
+
+            <div class="chatlog__message " data-message-id="864226236113223680" id="message-864226236113223680">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(not like it matters</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="864227016257175553" id="message-864227016257175553">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(everyone is gone right</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/553040d99bf8b60bfa2294a588fa913e-1D743.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ame/Est55#7858" data-user-id="328149026266677248" style="color: rgb(253,253,150)">Asahi Hasegawa | Est</span>
+
+
+        <span class="chatlog__timestamp">12-Jul-21 03:29 PM</span>
+
+            <div class="chatlog__message " data-message-id="864227064429019166" id="message-864227064429019166">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(Yeah)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/e16288b3fd316284856151f899b4bee1-CD605.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Drake Aelius#0000" data-user-id="864219185898324008" style="">Drake Aelius</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jul-21 03:30 PM</span>
+
+            <div class="chatlog__message " data-message-id="864227331622567947" id="message-864227331622567947">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Drake eventually comes here.</em>
+&quot;Prick opened the place up... eh, it&#39;ll be funny watching the whole thing crash to the ground, literally. And it seems like our little hostage didn&#39;t reveal any major information, either... hehe, perfect.&quot;
+<em>He locks the door again. Or, well, he locks the door with a stronger lock.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/d8ee9e29b4522fd9f6689538b4d31171-9125E.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Crepe#2518" data-user-id="269156561320935426" style="color: rgb(26,112,26)">Jack Enjo || The Crep</span>
+
+
+        <span class="chatlog__timestamp">12-Jul-21 05:28 PM</span>
+
+            <div class="chatlog__message " data-message-id="864256860332752917" id="message-864256860332752917">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(I’m sorry about vanishing I literally passed out)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/3d71a89a8b2fa2b670122c940a7fdaa3-A2246.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Rita Sestina Toscani#0000" data-user-id="864219185898324008" style="">Rita Sestina Toscani</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">16-Jul-21 01:59 PM</span>
+
+            <div class="chatlog__message " data-message-id="865654002742329377" id="message-865654002742329377">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Rita looks around this old building</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/965f43e008eb91b4e208ecc74fd44139-6C208.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="FactGuy#0391" data-user-id="333099173677105153" style="color: rgb(135,50,96)">Fact || Rita Sestina Toscani</span>
+
+
+        <span class="chatlog__timestamp">16-Jul-21 02:00 PM</span>
+
+            <div class="chatlog__message " data-message-id="865654094205943828" id="message-865654094205943828">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>The hotel old building</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Jabberwock%20Island%20-%20First%20Island%20%28KG%29%20-%20hotel-old-building%20%5B863566842689486908%5D.html_Files/3d71a89a8b2fa2b670122c940a7fdaa3-A2246.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Rita Sestina Toscani#0000" data-user-id="864219185898324008" style="">Rita Sestina Toscani</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">16-Jul-21 02:00 PM</span>
+
+            <div class="chatlog__message " data-message-id="865654175153389609" id="message-865654175153389609">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Seems nothing is here, she leaves</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+</div>
+
+<div class="postamble">
+    <div class="postamble__entry">Exported 118 message(s)</div>
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,3400 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Danganronpa: Prospective Despair - noriko-nakai</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <style>
+        /* General */
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-300.woff);
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-400.woff);
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-500.woff);
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-600.woff);
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-700.woff);
+    font-weight: 700;
+}
+
+body {
+    font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 17px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+img {
+    object-fit: contain;
+}
+
+.markdown {
+    max-width: 100%;
+    line-height: 1.3;
+    overflow-wrap: break-word;
+}
+
+.preserve-whitespace {
+    white-space: pre-wrap;
+}
+
+.spoiler {
+    /* width: fit-content; */
+    display: inline-block;
+    /* This is more consistent across browsers, the old attribute worked well under Chrome but not FireFox. */
+}
+
+.spoiler--hidden {
+    cursor: pointer;
+}
+
+.spoiler-text {
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-text {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler--hidden .spoiler-text::selection {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-image {
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.spoiler--hidden .spoiler-image * {
+    filter: blur(44px);
+}
+
+.spoiler--hidden .spoiler-image:after {
+    content: "SPOILER";
+    color: #dcddde;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 600;
+    padding: 100%;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+    font-size: 0.9em;
+}
+
+.spoiler--hidden:hover .spoiler-image:after {
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.quote {
+    margin: 0.1em 0;
+    padding-left: 0.6em;
+    border-left: 4px solid;
+    border-radius: 3px;
+}
+
+.pre {
+    font-family: "Consolas", "Courier New", Courier, monospace;
+}
+
+.pre--multiline {
+    margin-top: 0.25em;
+    padding: 0.5em;
+    border: 2px solid;
+    border-radius: 5px;
+}
+
+.pre--inline {
+    padding: 2px;
+    border-radius: 3px;
+    font-size: 0.85em;
+}
+
+.mention {
+    border-radius: 3px;
+    padding: 0 2px;
+    color: #7289da;
+    background: rgba(114, 137, 218, .1);
+    font-weight: 500;
+}
+
+.emoji {
+    width: 1.25em;
+    height: 1.25em;
+    margin: 0 0.06em;
+    vertical-align: -0.4em;
+}
+
+.emoji--small {
+    width: 1em;
+    height: 1em;
+}
+
+.emoji--large {
+    width: 2.8em;
+    height: 2.8em;
+}
+
+/* Preamble */
+
+.preamble {
+    display: grid;
+    margin: 0 0.3em 0.6em 0.3em;
+    max-width: 100%;
+    grid-template-columns: auto 1fr;
+}
+
+.preamble__guild-icon-container {
+    grid-column: 1;
+}
+
+.preamble__guild-icon {
+    max-width: 88px;
+    max-height: 88px;
+}
+
+.preamble__entries-container {
+    grid-column: 2;
+    margin-left: 0.6em;
+}
+
+.preamble__entry {
+    font-size: 1.4em;
+}
+
+.preamble__entry--small {
+    font-size: 1em;
+}
+
+/* Chatlog */
+
+.chatlog {
+    max-width: 100%;
+}
+
+.chatlog__message-group {
+    display: grid;
+    margin: 0 0.6em;
+    padding: 0.9em 0;
+    border-top: 1px solid;
+    grid-template-columns: auto 1fr;
+}
+
+.chatlog__reference-symbol {
+    grid-column: 1;
+    border-style: solid;
+    border-width: 2px 0 0 2px;
+    border-radius: 8px 0 0 0;
+    margin-left: 16px;
+    margin-top: 8px;
+}
+
+.chatlog__reference {
+    display: flex;
+    grid-column: 2;
+    margin-left: 1.2em;
+    margin-bottom: 0.25em;
+    font-size: 0.875em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    align-items: center;
+}
+
+.chatlog__reference-avatar {
+    border-radius: 50%;
+    height: 16px;
+    width: 16px;
+    margin-right: 0.25em;
+}
+
+.chatlog__reference-name {
+    margin-right: 0.25em;
+    font-weight: 600;
+}
+
+.chatlog__reference-link {
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.chatlog__reference-link:hover {
+    text-decoration: none;
+}
+
+.chatlog__reference-content > * {
+    display: inline;
+}
+
+.chatlog__reference-edited-timestamp {
+    margin-left: 0.25em;
+    font-size: 0.8em;
+}
+
+.chatlog__author-avatar-container {
+    grid-column: 1;
+    width: 40px;
+    height: 40px;
+}
+
+.chatlog__author-avatar {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}
+
+.chatlog__messages {
+    grid-column: 2;
+    margin-left: 1.2em;
+    min-width: 50%;
+}
+
+.chatlog__author-name {
+    font-weight: 500;
+}
+
+.chatlog__timestamp {
+    margin-left: 0.3em;
+    font-size: 0.75em;
+}
+
+.chatlog__message {
+    padding: 0.1em 0.3em;
+    margin: 0 -0.3em;
+    background-color: transparent;
+    transition: background-color 1s ease;
+}
+
+.chatlog__content {
+    font-size: 0.95em;
+    word-wrap: break-word;
+}
+
+.chatlog__edited-timestamp {
+    margin-left: 0.15em;
+    font-size: 0.8em;
+}
+
+.chatlog__attachment {
+    margin-top: 0.3em;
+}
+
+.chatlog__attachment-thumbnail {
+    vertical-align: top;
+    max-width: 45vw;
+    max-height: 500px;
+    border-radius: 3px;
+}
+
+.chatlog__attachment-container {
+    height: 40px;
+    width: 100%;
+    max-width: 520px;
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.chatlog__attachment-icon {
+    float: left;
+    height: 100%;
+    margin-right: 10px;
+}
+
+.chatlog__attachment-icon > .a {
+    fill: #f4f5fb;
+    d: path("M50,935a25,25,0,0,1-25-25V50A25,25,0,0,1,50,25H519.6L695,201.32V910a25,25,0,0,1-25,25Z");
+}
+
+.chatlog__attachment-icon > .b {
+    fill: #7789c4;
+    d: path("M509.21,50,670,211.63V910H50V50H509.21M530,0H50A50,50,0,0,0,0,50V910a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50h0V191Z");
+}
+
+.chatlog__attachment-icon > .c {
+    fill: #f4f5fb;
+    d: path("M530,215a25,25,0,0,1-25-25V50a25,25,0,0,1,16.23-23.41L693.41,198.77A25,25,0,0,1,670,215Z");
+}
+
+.chatlog__attachment-icon > .d {
+    fill: #7789c4;
+    d: path("M530,70.71,649.29,190H530V70.71M530,0a50,50,0,0,0-50,50V190a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50Z");
+}
+
+.chatlog__attachment-filesize {
+    color: #72767d;
+    font-size: 12px;
+}
+
+.chatlog__attachment-filename {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.chatlog__embed {
+    display: flex;
+    margin-top: 0.3em;
+    max-width: 520px;
+}
+
+.chatlog__embed-color-pill {
+    flex-shrink: 0;
+    width: 0.25em;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.chatlog__embed-content-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em 0.6em;
+    border: 1px solid;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.chatlog__embed-content {
+    display: flex;
+    width: 100%;
+}
+
+.chatlog__embed-text {
+    flex: 1;
+}
+
+.chatlog__embed-author {
+    display: flex;
+    margin-bottom: 0.3em;
+    align-items: center;
+}
+
+.chatlog__embed-author-icon {
+    margin-right: 0.5em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.chatlog__embed-author-name {
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-title {
+    margin-bottom: 0.2em;
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-description {
+    font-weight: 500;
+    font-size: 0.85em;
+}
+
+.chatlog__embed-fields {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.chatlog__embed-field {
+    flex: 0;
+    min-width: 100%;
+    max-width: 506px;
+    padding-top: 0.6em;
+    font-size: 0.875em;
+}
+
+.chatlog__embed-field--inline {
+    flex: 1;
+    flex-basis: auto;
+    min-width: 150px;
+}
+
+.chatlog__embed-field-name {
+    margin-bottom: 0.2em;
+    font-weight: 600;
+}
+
+.chatlog__embed-field-value {
+    font-weight: 500;
+}
+
+.chatlog__embed-thumbnail {
+    flex: 0;
+    margin-left: 1.2em;
+    max-width: 80px;
+    max-height: 80px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-image-container {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-image {
+    max-width: 500px;
+    max-height: 400px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-footer {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-footer-icon {
+    margin-right: 0.2em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.chatlog__embed-footer-text {
+    font-size: 0.75em;
+    font-weight: 500;
+}
+
+.chatlog__reactions {
+    display: flex;
+}
+
+.chatlog__reaction {
+    display: flex;
+    align-items: center;
+    margin: 0.35em 0.1em 0.1em 0.1em;
+    padding: 0.2em 0.35em;
+    border-radius: 3px;
+}
+
+.chatlog__reaction-count {
+    min-width: 9px;
+    margin-left: 0.35em;
+    font-size: 0.875em;
+}
+
+.chatlog__bot-tag {
+    position: relative;
+    top: -.2em;
+    margin-left: 0.3em;
+    padding: 0.05em 0.3em;
+    border-radius: 3px;
+    vertical-align: middle;
+    line-height: 1.3;
+    background: #7289da;
+    color: #ffffff;
+    font-size: 0.625em;
+    font-weight: 500;
+}
+
+/* Postamble */
+
+.postamble {
+    margin: 1.4em 0.3em 0.6em 0.3em;
+    padding: 1em;
+    border-top: 1px solid;
+}
+    </style>
+    <style>
+        /* General */
+
+body {
+    background-color: #36393e;
+    color: #dcddde;
+}
+
+a {
+    color: #0096cf;
+}
+
+.spoiler-text {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.spoiler--hidden .spoiler-text {
+    background-color: #202225;
+}
+
+.spoiler--hidden:hover .spoiler-text {
+    background-color: rgba(32, 34, 37, 0.8);
+}
+
+.quote {
+    border-color: #4f545c;
+}
+
+.pre {
+    background-color: #2f3136 !important;
+}
+
+.pre--multiline {
+    border-color: #282b30 !important;
+    color: #b9bbbe !important;
+}
+
+/* === Preamble === */
+
+.preamble__entry {
+    color: #ffffff;
+}
+
+/* Chatlog */
+
+.chatlog__message-group {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.chatlog__reference-symbol {
+    border-color: #4f545c;
+}
+
+.chatlog__reference {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link:hover {
+    color: #ffffff;
+}
+
+.chatlog__reference-edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__author-name {
+    color: #ffffff;
+}
+
+.chatlog__timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__message--highlighted {
+    background-color: rgba(114, 137, 218, 0.2) !important;
+}
+
+.chatlog__message--pinned {
+    background-color: rgba(249, 168, 37, 0.05);
+}
+
+.chatlog__attachment-container {
+    background-color: #2f3136;
+    border-color: #292b2f;
+}
+
+.chatlog__edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__embed-color-pill--default {
+    background-color: rgba(79, 84, 92, 1);
+}
+
+.chatlog__embed-content-container {
+    background-color: rgba(46, 48, 54, 0.3);
+    border-color: rgba(46, 48, 54, 0.6);
+}
+
+.chatlog__embed-author-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-author-name-link {
+    color: #ffffff;
+}
+
+.chatlog__embed-title {
+    color: #ffffff;
+}
+
+.chatlog__embed-description {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-field-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-field-value {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-footer {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__reaction {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.chatlog__reaction-count {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* Postamble */
+
+.postamble {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.postamble__entry {
+    color: #ffffff;
+}
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/solarized-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.pre--multiline').forEach(block => hljs.highlightBlock(block));
+        });
+    </script>
+
+    <script>
+        function scrollToMessage(event, id) {
+            var element = document.getElementById('message-' + id);
+
+            if (element) {
+                event.preventDefault();
+
+                element.classList.add('chatlog__message--highlighted');
+
+                window.scrollTo({
+                    top: element.getBoundingClientRect().top - document.body.getBoundingClientRect().top - (window.innerHeight / 2),
+                    behavior: 'smooth'
+                });
+
+                window.setTimeout(function() {
+                    element.classList.remove('chatlog__message--highlighted');
+                }, 2000);
+            }
+        }
+
+        function showSpoiler(event, element) {
+            if (element && element.classList.contains('spoiler--hidden')) {
+                event.preventDefault();
+                element.classList.remove('spoiler--hidden');
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="preamble">
+    <div class="preamble__guild-icon-container">
+        <img class="preamble__guild-icon" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/a_2feefaa4b9661f5afc56fdc0a2cb52a3-DDE8C.png" alt="Guild icon">
+    </div>
+    <div class="preamble__entries-container">
+        <div class="preamble__entry">Danganronpa: Prospective Despair</div>
+        <div class="preamble__entry">The Airship, Section C (KG) / noriko-nakai</div>
+
+
+    </div>
+</div>
+
+<div class="chatlog">
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/16621ef5d6c0752a007ce930a8104c18-5C715.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Sonic49 | ???</span>
+
+
+        <span class="chatlog__timestamp">01-Jun-21 11:39 PM</span>
+
+            <div class="chatlog__message chatlog__message--pinned" data-message-id="849492408147116043" id="message-849492408147116043">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Noriko Nakai, the Ultimate Cup Stacker&#39;s room. Honestly, the room itself isn&#39;t that big - if you&#39;ve ever been on a cruise ship in the lowest class, it&#39;s about as big as the rooms there.</em>
+
+<em>But what is here is decently nice. The bed is nice and large, and feels rather nice to sleep in. There&#39;s a TV opposite of the bed, too, but there&#39;s not so much as a remote in the room - it seems like it won&#39;t turn on.</em>
+
+<em>Looking to the left while being on the bed reveals a window that shows off the outside in all of its glory. It doesn&#39;t seem like you can open the window, but there are curtains to block off the windows at the very least.</em>
+
+<em>Other than that, there&#39;s a small closet with duplicates of your OC&#39;s clothes as well as a notebook and a pencil for good measure. There&#39;s also trash can in the corner, useful for getting rid of evidence.</em>
+
+<em>Finally, the room also has a bathroom, which seems to be pretty typical. It&#39;s nice, and has everything you need, but... there&#39;s not much more to say.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/1df647cbf5b5cba3c5a031d8d7a5c17d-70A78.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Talia Aelius#0000" data-user-id="851250873287442432" style="">Talia Aelius</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">06-Jun-21 08:07 PM</span>
+
+            <div class="chatlog__message " data-message-id="851250873803210783" id="message-851250873803210783">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>She quickly drops a diary here before walking away.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">06-Jun-21 08:56 PM</span>
+
+            <div class="chatlog__message " data-message-id="851263273156476989" id="message-851263273156476989">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Noriko manages to stumble her way to her own personal dorm - and immediately, she&#39;s blown away by the contents of the room. A bed, a TV... a window! This was incredible. Who would have thunk she&#39;d be treated to such a lavish room in a scenario like this? Immediately, Noriko leaps right at her bed. She barely manages to land on it, though.</em>
+
+&quot;I wonder what kinda TV shows they&#39;ve got here...&quot; <em>Noriko muses aloud to herself, as she searches for the remote.</em> &quot;Eeh... but if this really is an escape room, then I can&#39;t laze around doing nothing... then we&#39;ll lose!&quot; <em>Noriko continued talking to herself, still under the impression that they were in an escape room with a dramatic backstory - instead of a bonafide killing game, as Drake had claimed.</em>
+
+<em>Perhaps she was deluding herself, but it was a delusion that brought Noriko comfort. She didn&#39;t want to believe that such a thing as a &#39;killing game&#39; could exist.</em>
+
+<em>But she&#39;ll have to face that reality someday.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">07-Jun-21 09:27 AM</span>
+
+            <div class="chatlog__message " data-message-id="851452295778271232" id="message-851452295778271232">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>We&#39;ll say that, during time span between that last post there and now, that Noriko fell asleep.</em>
+<em>The sudden announcement tears Noriko Nakai awake with a gasp! She&#39;d been having a strange dream indeed... a dream where she was up against twenty three other people in some sort of &#39;hunger game&#39;! Somehow, she managed to seize victory over her (much taller) opponents... but in order to claim such a victory, she had slaughtered some of her opponents - like mere cattle.</em>
+
+<em>At this, she can&#39;t help but shiver. Though it was a mere dream, images from it were still fresh in her mind.</em>
+&quot;Uuu...&quot; <em>She rubs her head uncertainly.</em> &quot;What kind of a horrible dream was that...?&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="Fukt" title="Fukt" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/786629592814321685-315EF.png">
+                                <span class="chatlog__reaction-count">3</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">07-Jun-21 10:57 AM</span>
+
+            <div class="chatlog__message " data-message-id="851474948823187456" id="message-851474948823187456">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>In the meantime since then... Noriko has simply managed to fall asleep again. Fortunately though, she wakes up once more, though... and now, she chooses to begin her search through the airship once more. She heads out of her room, arriving in the dorm hallway.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/3b7730e08bf56682814b639e1c7deeba-4247D.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="A Generic User#7302" data-user-id="248410976808992768" style="color: rgb(220,20,60)">Noriko Nakai ||| Generic</span>
+
+
+        <span class="chatlog__timestamp">07-Jun-21 09:14 PM</span>
+
+            <div class="chatlog__message " data-message-id="851630355211354154" id="message-851630355211354154">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Noriko is back here for now.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/3b7730e08bf56682814b639e1c7deeba-4247D.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="A Generic User#7302" data-user-id="248410976808992768" style="color: rgb(220,20,60)">Noriko Nakai ||| Generic</span>
+
+
+        <span class="chatlog__timestamp">08-Jun-21 09:30 AM</span>
+
+            <div class="chatlog__message " data-message-id="851815406430584852" id="message-851815406430584852">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Noriko awakens once more. I had an idea for a funny dream earlier today she&#39;d wake up from, but I forgot it. Instead, you, the viewer, can decide what Noriko&#39;s funny dream was! That&#39;s audience participation 101, folks.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/553040d99bf8b60bfa2294a588fa913e-1D743.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ame/Est55#7858" data-user-id="328149026266677248" style="color: rgb(253,253,150)">Asahi Hasegawa | Est</span>
+
+
+        <span class="chatlog__timestamp">08-Jun-21 09:30 AM</span>
+
+            <div class="chatlog__message " data-message-id="851815556247584768" id="message-851815556247584768">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(The overlordess of cups)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">08-Jun-21 09:43 AM</span>
+
+            <div class="chatlog__message " data-message-id="851818740835680317" id="message-851818740835680317">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Noriko briefly sits in her room, thinking about her escape method. Right now, the giant yarn cushion plan seemed like a good idea - with the aid of a certain Yarn Bomber, such a plan certainly seemed doable - at least, to Noriko. The only issue, though... was they they didn&#39;t have any yarn. And that was kind of important for giant yarn cushions.</em>
+
+<em>But before long, an epiphany comes to Noriko Nakai! She can practically feel a lightbulb appear over her head... maybe there wasn&#39;t any yarn to be found on this ship, but... yarn was kind of like string, wasn&#39;t it? And sometimes string was used for medical-y reasons, so... maybe there could be string in the medbay? Noriko sets off on a grand adventure to the medbay, to discover the truth...</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/3b7730e08bf56682814b639e1c7deeba-4247D.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="A Generic User#7302" data-user-id="248410976808992768" style="color: rgb(220,20,60)">Noriko Nakai ||| Generic</span>
+
+
+        <span class="chatlog__timestamp">08-Jun-21 07:12 PM</span>
+
+            <div class="chatlog__message " data-message-id="851961903286583296" id="message-851961903286583296">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Oh, forgot to note that Noriko is here now.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">08-Jun-21 07:12 PM</span>
+
+            <div class="chatlog__message " data-message-id="851961962207772673" id="message-851961962207772673">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Noriko is here now. Nifty.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">09-Jun-21 03:55 AM</span>
+
+            <div class="chatlog__message " data-message-id="852093632747274290" id="message-852093632747274290">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Noriko temporarily fades back into existence.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">09-Jun-21 04:29 AM</span>
+
+            <div class="chatlog__message " data-message-id="852101998245445632" id="message-852101998245445632">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Noriko then begins to draw in her diary...</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/6832d0940c60006e19b4c5b8d2e0a575-17053.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="augusty#1287" data-user-id="723768708433969243" style="color: rgb(244,127,255)">augusty</span>
+
+
+        <span class="chatlog__timestamp">09-Jun-21 04:30 AM</span>
+
+            <div class="chatlog__message " data-message-id="852102247978369074" id="message-852102247978369074">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">((you better draw for real in ms paint</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/3b7730e08bf56682814b639e1c7deeba-4247D.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="A Generic User#7302" data-user-id="248410976808992768" style="color: rgb(220,20,60)">Noriko Nakai ||| Generic</span>
+
+
+        <span class="chatlog__timestamp">09-Jun-21 04:30 AM</span>
+
+            <div class="chatlog__message " data-message-id="852102311525744650" id="message-852102311525744650">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(i have good news for you, then)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/965f43e008eb91b4e208ecc74fd44139-6C208.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="FactGuy#0391" data-user-id="333099173677105153" style="color: rgb(135,50,96)">Fact || Rita Sestina Toscani</span>
+
+
+        <span class="chatlog__timestamp">09-Jun-21 04:30 AM</span>
+
+            <div class="chatlog__message " data-message-id="852102369273053196" id="message-852102369273053196">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">//it’s one big middle finger</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/6832d0940c60006e19b4c5b8d2e0a575-17053.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="augusty#1287" data-user-id="723768708433969243" style="color: rgb(244,127,255)">augusty</span>
+
+
+        <span class="chatlog__timestamp">09-Jun-21 04:31 AM</span>
+
+            <div class="chatlog__message " data-message-id="852102473996697610" id="message-852102473996697610">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">((love that</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/553040d99bf8b60bfa2294a588fa913e-1D743.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ame/Est55#7858" data-user-id="328149026266677248" style="color: rgb(253,253,150)">Asahi Hasegawa | Est</span>
+
+
+        <span class="chatlog__timestamp">09-Jun-21 05:51 AM</span>
+
+            <div class="chatlog__message " data-message-id="852122643158663188" id="message-852122643158663188">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(LMAO)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">10-Jun-21 04:11 AM</span>
+
+            <div class="chatlog__message " data-message-id="852459875979362304" id="message-852459875979362304">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Noriko heads on out of the room all of a sudden - overtaken by an urge to explore.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">10-Jun-21 03:01 PM</span>
+
+            <div class="chatlog__message " data-message-id="852623493199429642" id="message-852623493199429642">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>I guess I forgot to move Noriko here properly after her last post. Well she&#39;s here now! And now she&#39;s not.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="852623518398414929" id="message-852623518398414929">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Off to the dorm hallways.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">11-Jun-21 03:23 AM</span>
+
+            <div class="chatlog__message " data-message-id="852810383898574870" id="message-852810383898574870">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Noriko finds herself back in her room, where she just idly lays around. She simply stares towards the unchanging black screen of the television while lazily twirling her pencil - not with much skill, mind you, for the pencil swiftly escapes his grip and is sent flying, audibly crashing into the room. Noriko looses a sigh as she eyes the pencil briefly, but does not so much as move.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">11-Jun-21 03:39 AM</span>
+
+            <div class="chatlog__message " data-message-id="852814191873097748" id="message-852814191873097748">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Bored, she reaches a small hand into her pocket - from which she carefully brandishes a knife and prepares to twirl it, at least before reason and common sense spoil her fun.</em> &quot;Wait, actually... probably shouldn&#39;t play around with this, huh.&quot; <em>She softly mumbles to herself, before pushing the knife off of the bed, where it crashes down onto the floor.</em> &quot;Yeh, that&#39;s a disaster waiting to happen...&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">11-Jun-21 03:54 AM</span>
+
+            <div class="chatlog__message " data-message-id="852818036867727370" id="message-852818036867727370">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Noriko rolls herself off of the bed to pursue the knife, however - since leaving knives around on the floor tends to be a bad thing - and fortunately manages to land onto the floor without being on the receiving end of a knife surprise. Slowly, she rises from the ground as she picks up the knife once more, which had nearly fallen under the bed... which is when an epiphany strikes Noriko!</em>
+
+&quot;Oho...? What if I... slept under the bed! Heh heh. I bet they wouldn&#39;t even think to check <em>there</em>...&quot; <em>Noriko crouches down, inspecting the bed&#39;s underside closely.</em> &quot;It&#39;d be... k-kinda dark, though, but... it&#39;s better than getting mauled by some weirdo in a fursuit...&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/3b7730e08bf56682814b639e1c7deeba-4247D.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="A Generic User#7302" data-user-id="248410976808992768" style="color: rgb(220,20,60)">Noriko Nakai ||| Generic</span>
+
+
+        <span class="chatlog__timestamp">11-Jun-21 08:59 AM</span>
+
+            <div class="chatlog__message " data-message-id="852894782094704681" id="message-852894782094704681">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Eventually, Noriko suddenly is hit by the urge to leave her room - to hopefully further explore the ship, and maybe even make progress on her escape plans. Maybe... just maybe she&#39;d come across something useful...? Okay, probably not, since this is just Chapter 1, but I gotta pretend that it&#39;s a possibility.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/3b7730e08bf56682814b639e1c7deeba-4247D.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="A Generic User#7302" data-user-id="248410976808992768" style="color: rgb(220,20,60)">Noriko Nakai ||| Generic</span>
+
+
+        <span class="chatlog__timestamp">11-Jun-21 07:06 PM</span>
+
+            <div class="chatlog__message " data-message-id="853047548201402378" id="message-853047548201402378">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>She&#39;s back here now. Cool. She whips out her diary...</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">11-Jun-21 07:49 PM</span>
+
+            <div class="chatlog__message " data-message-id="853058413221904385" id="message-853058413221904385">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>And then she puts it away.</em>
+&quot;Right, that&#39;s Episode 1 of Noriko Nakai&#39;s Metal Reviews done... nice.&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="853058813984505857" id="message-853058813984505857">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>She crashes down onto the bed.</em>
+&quot;Geez, why do I always end up talking to myself like this? I must be going loopy or something...&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jun-21 01:47 PM</span>
+
+            <div class="chatlog__message " data-message-id="853329640923987999" id="message-853329640923987999">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Noriko just continues lazing around here.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jun-21 02:12 PM</span>
+
+            <div class="chatlog__message " data-message-id="853335960413536257" id="message-853335960413536257">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>The announcement catches the young Cup Stacker&#39;s attention.</em>
+&quot;E-eh...? Getting a foreboding feeling in my soul...&quot; <em>She utters to herself while slowly scratching her head.</em> &quot;It&#39;s not gonna be a big deal, I&#39;m sure.&quot;
+
+&quot;... Geez, talking to myself again...&quot; <em>She muses to herself aloud, while exiting into the dorm hallway.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jun-21 06:45 PM</span>
+
+            <div class="chatlog__message " data-message-id="853404795090763796" id="message-853404795090763796">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>She plops down onto the bed. Riveting stuff.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">15-Jun-21 01:59 PM</span>
+
+            <div class="chatlog__message " data-message-id="854419816445509662" id="message-854419816445509662">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Would you look at that? Forgot to move Noriko back here after the bunker scene... for shame.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="854420422183485481" id="message-854420422183485481">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Anyways, Noriko wakes up after a strange dream in which her twintails become prehensile. Weird stuff.</em>
+<em>Now that the sun was up, it was time for Noriko to explore more of the area though. It certainly was a more appropriate time than the dead of night, at any rate.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">15-Jun-21 09:48 PM</span>
+
+            <div class="chatlog__message " data-message-id="854537963009343498" id="message-854537963009343498">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Noriko&#39;s back here for now.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">16-Jun-21 02:00 PM</span>
+
+            <div class="chatlog__message " data-message-id="854782554548863007" id="message-854782554548863007">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Noriko goes to the meeting room.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">17-Jun-21 10:08 AM</span>
+
+            <div class="chatlog__message " data-message-id="855086532137582622" id="message-855086532137582622">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>We&#39;ll say that Noriko returned here after the meeting room.</em>
+<em>Then we&#39;ll say she headed out of the room, through the dorms and the cargo bay, and ended up in the canteens.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">17-Jun-21 02:11 PM</span>
+
+            <div class="chatlog__message " data-message-id="855147562834853930" id="message-855147562834853930">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Noriko&#39;s here now, I&#39;ll write something in the diary later, but I&#39;m lazy.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">18-Jun-21 02:50 PM</span>
+
+            <div class="chatlog__message " data-message-id="855519750809059388" id="message-855519750809059388">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Noriko Nakai goes walking out of her room, through the dorm hallways and the cargo bay, and then ends up in the shooting range. Fancy stuff.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">19-Jun-21 06:52 PM</span>
+
+            <div class="chatlog__message " data-message-id="855943223695769600" id="message-855943223695769600">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Noriko Nakai has managed to obtain a weight that she can barely even lift. What&#39;ll she do with it? Hell if I know.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="855943658008084500" id="message-855943658008084500">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Anyways, Noriko Nakai continues her quest to pilfer everything she can from the military base. Adventure awaits - in the canteen!</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/965f43e008eb91b4e208ecc74fd44139-6C208.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="FactGuy#0391" data-user-id="333099173677105153" style="color: rgb(135,50,96)">Fact || Rita Sestina Toscani</span>
+
+
+        <span class="chatlog__timestamp">19-Jun-21 06:57 PM</span>
+
+            <div class="chatlog__message " data-message-id="855944500370735144" id="message-855944500370735144">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">//adventure time</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">19-Jun-21 07:05 PM</span>
+
+            <div class="chatlog__message " data-message-id="855946425036046348" id="message-855946425036046348">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Noriko stashes her newly acquired pot under her bed, right by the weight she&#39;d pilfered.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/16621ef5d6c0752a007ce930a8104c18-5C715.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Sonic49 | ???</span>
+
+
+        <span class="chatlog__timestamp">19-Jun-21 07:05 PM</span>
+
+            <div class="chatlog__message " data-message-id="855946510789246976" id="message-855946510789246976">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(i uh</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="855946543923724309" id="message-855946543923724309">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(didnt read that how i should the first time around</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/553040d99bf8b60bfa2294a588fa913e-1D743.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ame/Est55#7858" data-user-id="328149026266677248" style="color: rgb(253,253,150)">Asahi Hasegawa | Est</span>
+
+
+        <span class="chatlog__timestamp">19-Jun-21 07:06 PM</span>
+
+            <div class="chatlog__message " data-message-id="855946559697977344" id="message-855946559697977344">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(SAME)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="855946661166972939" id="message-855946661166972939">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(FUGIN I WAS ABOUT TO ASK WHEN DID SHE BECOME SEA-WEED GIRL)</span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="Fukt" title="Fukt" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/786629592814321685-315EF.png">
+                                <span class="chatlog__reaction-count">1</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">19-Jun-21 07:07 PM</span>
+
+            <div class="chatlog__message " data-message-id="855946823252049951" id="message-855946823252049951">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Hmm... so that leaves that freaky bunker place and the shooting range, right...? Guess I oughta check out the bunker before I lose the opportunity, huh...&quot;
+<em>And with that, it&#39;s time to tag out to the bunker. Wouldn&#39;t want to miss anything - there might be permanently missable content, right...?</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/3b7730e08bf56682814b639e1c7deeba-4247D.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="A Generic User#7302" data-user-id="248410976808992768" style="color: rgb(220,20,60)">Noriko Nakai ||| Generic</span>
+
+
+        <span class="chatlog__timestamp">19-Jun-21 07:07 PM</span>
+
+            <div class="chatlog__message " data-message-id="855946849415200808" id="message-855946849415200808">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(didn&#39;t even realize how that read lol)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">20-Jun-21 12:56 PM</span>
+
+            <div class="chatlog__message " data-message-id="856215927318249535" id="message-856215927318249535">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Walkin&#39; (to the trial stairs)</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">20-Jun-21 04:02 PM</span>
+
+            <div class="chatlog__message " data-message-id="856262747993931817" id="message-856262747993931817">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Noriko grabs her diary - which she&#39;s been slack with updating admittedly - and rips out a good six pages from the end with ease.</em>
+&quot;Paper!&quot; <em>She proclaims, before running out of the room once again.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/16621ef5d6c0752a007ce930a8104c18-5C715.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Sonic49 | ???</span>
+
+
+        <span class="chatlog__timestamp">20-Jun-21 04:10 PM</span>
+
+            <div class="chatlog__message " data-message-id="856264728937889832" id="message-856264728937889832">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Where we dropping bois.</em>
+<em>An UNO set was silently placed in Noriko&#39;s room.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/cf40ae9abdd445796fe3b76d5a822886-FCEE6.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="angie / ral#7700" data-user-id="543853525038530561" style="color: rgb(198,94,206)">&#128251;&#129302; angie</span>
+
+
+        <span class="chatlog__timestamp">20-Jun-21 04:10 PM</span>
+
+            <div class="chatlog__message " data-message-id="856264863586975814" id="message-856264863586975814">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(( we need it
+(( in medbay <img class="emoji " alt="umstare" title="umstare" src="https://cdn.discordapp.com/emojis/786719613823614986.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/16621ef5d6c0752a007ce930a8104c18-5C715.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Sonic49 | ???</span>
+
+
+        <span class="chatlog__timestamp">20-Jun-21 04:11 PM</span>
+
+            <div class="chatlog__message " data-message-id="856264954122207242" id="message-856264954122207242">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(then get it to medbay</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/cf40ae9abdd445796fe3b76d5a822886-FCEE6.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="angie / ral#7700" data-user-id="543853525038530561" style="color: rgb(198,94,206)">&#128251;&#129302; angie</span>
+
+
+        <span class="chatlog__timestamp">20-Jun-21 04:11 PM</span>
+
+            <div class="chatlog__message " data-message-id="856265074431623188" id="message-856265074431623188">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(( i hate everything</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">20-Jun-21 04:25 PM</span>
+
+            <div class="chatlog__message " data-message-id="856268485486575646" id="message-856268485486575646">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>As Noriko returns to fetch more paper... something catches her eye. Some ludicrous... a set of UNO cards, outta nowhere!</em>
+&quot;W-what.&quot; <em>She pinches her arm, afraid that she&#39;s dreaming. But this is reality - a reality with significantly more UNO than it had before.</em> &quot;How...? Did someone break in and give me UNO cards? Weird...&quot;
+
+<em>Back to medbay.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/16621ef5d6c0752a007ce930a8104c18-5C715.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Sonic49 | ???</span>
+
+
+        <span class="chatlog__timestamp">20-Jun-21 04:25 PM</span>
+
+            <div class="chatlog__message " data-message-id="856268569021120542" id="message-856268569021120542">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(this will never be explained</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="856268592240001096" id="message-856268592240001096">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(this will be a mystery</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="856268610929164354" id="message-856268610929164354">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(not even the admins know</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="856268652063227905" id="message-856268652063227905">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(there is <em>an</em> answer, though</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">20-Jun-21 07:51 PM</span>
+
+            <div class="chatlog__message " data-message-id="856320425516072970" id="message-856320425516072970">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Noriko!</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">21-Jun-21 01:49 PM</span>
+
+            <div class="chatlog__message " data-message-id="856591722855661578" id="message-856591722855661578">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Noriko is jolted awake by a sudden revelation.</em>
+&quot;A-ah! I just remembered... I left a cup in the military base...&quot; <em>Noriko mumbles.</em> &quot;I wonder if anyone&#39;ll come across that cup someday...&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="856591792929898497" id="message-856591792929898497">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Wanderin&#39; (off to the meeting room)</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/3b7730e08bf56682814b639e1c7deeba-4247D.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="A Generic User#7302" data-user-id="248410976808992768" style="color: rgb(220,20,60)">Noriko Nakai ||| Generic</span>
+
+
+        <span class="chatlog__timestamp">21-Jun-21 05:25 PM</span>
+
+            <div class="chatlog__message " data-message-id="856646052093100042" id="message-856646052093100042">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Noriko was here before, she&#39;s not anymore. To the instrument room.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">24-Jun-21 10:23 AM</span>
+
+            <div class="chatlog__message " data-message-id="857627033856245790" id="message-857627033856245790">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Noriko probably returned here at some point. However, she&#39;s about to set off on an investigation! To the lab room!</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">24-Jun-21 12:35 PM</span>
+
+            <div class="chatlog__message " data-message-id="857660143754936340" id="message-857660143754936340">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>She tears out a couple pages from her diary, and brings along some pencils and pens...</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="857660192736804874" id="message-857660192736804874">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>oh yeah she also heads back to the lab entrance</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">24-Jun-21 02:46 PM</span>
+
+            <div class="chatlog__message " data-message-id="857693217464909834" id="message-857693217464909834">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Back here.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="857693690449494086" id="message-857693690449494086">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Oh, right. Shower time.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">26-Jun-21 01:31 PM</span>
+
+            <div class="chatlog__message " data-message-id="858399179013095424" id="message-858399179013095424">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">nn<em>Noriko Nakai wakes up, and immediately gets the feeling that she&#39;s slept through something important, somehow...</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">26-Jun-21 01:41 PM</span>
+
+            <div class="chatlog__message " data-message-id="858401610811310121" id="message-858401610811310121">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Whipping out the handbook and firing it up, Noriko soon gets her answer on exactly what happened... though, she had a feeling as to what it was. She hoped she&#39;d be wrong, but another of their rank had fallen to this sick Killing Game... this time, Takuya - someone Noriko didn&#39;t really know very well. Even still though, it frustrated the girl to her very core. More and more people lost their lives by the day... would there ever be an end to this?</em>
+
+<em>She brings her fist down onto her bed in a fit of rage... though it hardly manages to do anything.</em> &quot;D-dammit... why&#39;s this crap gotta keep happening, over and <em>over</em>?!&quot; <em>She attacks her bed with another weak punch to little effect.</em> &quot;S-seriously... this isn&#39;t right, dammit! If this keeps going on, then...&quot;
+
+<em>A sigh is all she can muster, while she brings out her handbook and looks over information on the case...</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">26-Jun-21 01:56 PM</span>
+
+            <div class="chatlog__message " data-message-id="858405458356600832" id="message-858405458356600832">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>But then, it comes to Noriko! This was clearly just a prank... just another one of Drake&#39;s pranks, like the one at David&#39;s party! Takuya hadn&#39;t died, surely...! Relief comes surging through her veins, washing away the dread and the fear.</em>
+
+&quot;Y-yeah... it&#39;s just a stupid joke, isn&#39;t it...? Nobody&#39;d kill by this point, right...? We&#39;re friends here!&quot; <em>Noriko tells herself as she hops out of her bed, trying to stand tall as she gets herself ready to head out.</em> &quot;&quot;It&#39;s gotta... it&#39;s <em>gotta</em> be fake! I&#39;m sure of it.&quot; <em>Even still, she finds herself plagued with a shiver that just won&#39;t leave. No matter what she tells herself, these worries of hers won&#39;t be so easily staved off.</em>
+
+<em>She sets out to the entrance lab.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">27-Jun-21 02:53 PM</span>
+
+            <div class="chatlog__message " data-message-id="858782123242946620" id="message-858782123242946620">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Noriko was here after the medbay thing. Now she isn&#39;t here because trial stairs. Wow.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">27-Jun-21 04:17 PM</span>
+
+            <div class="chatlog__message " data-message-id="858803322462404638" id="message-858803322462404638">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Here for now, until she exists again.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">27-Jun-21 11:55 PM</span>
+
+            <div class="chatlog__message " data-message-id="858918560948944897" id="message-858918560948944897">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Noriko, after writing some trite in her diary, decides it&#39;s time to get a breath of (metaphorical) fresh air. And what better place is there for that than the viewing area? After all, it was the meeting place of Team WREN, so maybe heading on over there would be a good move.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Jun-21 02:55 PM</span>
+
+            <div class="chatlog__message " data-message-id="859144975426256896" id="message-859144975426256896">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Noriko returned here after her chat with David and Rita - and now she heads on over to the new area - more specifically, the space store.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Jun-21 09:07 PM</span>
+
+            <div class="chatlog__message " data-message-id="859600948275707935" id="message-859600948275707935">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Noriko returned here after that little galactic voyage, but I forgot to specify that. Well, she&#39;s here now, not that it matters because she&#39;s about to leave. Her plan to explore more of the abandoned mall - she boldly sets out for none other than... the pretzel shop. Hard to make a sentence about a pretzel shop sound dramatic, not that I really tried, mind you.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">01-Jul-21 06:26 AM</span>
+
+            <div class="chatlog__message " data-message-id="860104124589408256" id="message-860104124589408256">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Back here, I&#39;d write more but I&#39;m pretty tired and all.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">01-Jul-21 04:28 PM</span>
+
+            <div class="chatlog__message " data-message-id="860255451600781372" id="message-860255451600781372">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Though the almost-blind Noriko felt far, far safer in her room - she eventually bites the bullet and decides to head out once more. Her intention is to head to the cargo bay, but... thanks to the darkness obscuring her vision, she instead ends up bumbling into the viewing area.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">04-Jul-21 12:58 PM</span>
+
+            <div class="chatlog__message " data-message-id="861289833972236340" id="message-861289833972236340">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>I&#39;ve got internet now. Woohoo. Noriko&#39;s outta here in a flash.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="&#128079;" title="&#128079;" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/1f44f-8DFC5.png">
+                                <span class="chatlog__reaction-count">1</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">04-Jul-21 09:53 PM</span>
+
+            <div class="chatlog__message " data-message-id="861424572406562867" id="message-861424572406562867">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>I&#39;ve still got internet now. Hoowoo. Noriko&#39;s back here in a flash.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">04-Jul-21 10:03 PM</span>
+
+            <div class="chatlog__message " data-message-id="861427141644386344" id="message-861427141644386344">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Noriko whips out her diary, intent on writing, drawing, and not much else.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">04-Jul-21 11:05 PM</span>
+
+            <div class="chatlog__message " data-message-id="861442658709536798" id="message-861442658709536798">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Noriko overhears the standard daily announcement as she&#39;s messing about in her room, causing her to roll her eyes and mockingly repeat the announcement&#39;s contents.</em>
+
+&quot;ReMeMbEr: AlL yOu HaVe To Do To EsCaPe Is KiLl... aNd I hEaRd NiGhT tImE&#39;s ThE pErFeCt TiMe To KiLl.&quot; <em>Her imitation of Drake&#39;s voice is exceptionally poor, even for her.</em> &quot;Psht, freakin&#39; <em>idiot</em>... get new material. You&#39;ve had your <em>dumbass</em> announcements repeating the same crap over and over...&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="Fukt" title="Fukt" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/786629592814321685-315EF.png">
+                                <span class="chatlog__reaction-count">4</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/16621ef5d6c0752a007ce930a8104c18-5C715.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Sonic49 | ???</span>
+
+
+        <span class="chatlog__timestamp">04-Jul-21 11:36 PM</span>
+
+            <div class="chatlog__message " data-message-id="861450389371224074" id="message-861450389371224074">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(you know the original announcement i had in mind like 2 days before the game started was even more annoying</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/3b7730e08bf56682814b639e1c7deeba-4247D.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="A Generic User#7302" data-user-id="248410976808992768" style="color: rgb(220,20,60)">Noriko Nakai ||| Generic</span>
+
+
+        <span class="chatlog__timestamp">04-Jul-21 11:41 PM</span>
+
+            <div class="chatlog__message " data-message-id="861451630813380650" id="message-861451630813380650">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(and now i&#39;m curious)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/16621ef5d6c0752a007ce930a8104c18-5C715.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Sonic49 | ???</span>
+
+
+        <span class="chatlog__timestamp">04-Jul-21 11:42 PM</span>
+
+            <div class="chatlog__message " data-message-id="861451928533598219" id="message-861451928533598219">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(ill probably reuse parts of it in another season so you wont have to wait too long</span>
+
+                                <span class="chatlog__edited-timestamp" title="04-Jul-21 11:43 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">05-Jul-21 02:17 PM</span>
+
+            <div class="chatlog__message " data-message-id="861672082630770692" id="message-861672082630770692">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Upon arriving at this new area, Noriko briefly scampers off to investigate them... only to come running back to her room once again, and write in her diary.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">06-Jul-21 02:06 PM</span>
+
+            <div class="chatlog__message " data-message-id="862031730223611934" id="message-862031730223611934">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Noriko wakes up. Riveting stuff, eh? She heads on over to a little place they call... entrance-park.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="862032296702115840" id="message-862032296702115840">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Wait, no, not yet she doesn&#39;t. She decides to stay in her room for an hour - and when this hour finally passes, she&#39;ll immediately head over to the park. Coincidentally, an event is slated to happen at the park at that time. What a coincidence, huh?</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">06-Jul-21 03:02 PM</span>
+
+            <div class="chatlog__message " data-message-id="862045793551646750" id="message-862045793551646750">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>I wanted to clear this boss before the event started, but alas, it wasn&#39;t meant to be. This one&#39;s a real pain, too.</em>
+
+<em>Oh yeah, Noriko! I have to talk about her, right. She just heads on over to the park. The entrance-park, precisely.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">07-Jul-21 04:57 AM</span>
+
+            <div class="chatlog__message " data-message-id="862255911673659412" id="message-862255911673659412">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>There are significantly more Cup Stackers in this room than there previously were.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">07-Jul-21 04:52 PM</span>
+
+            <div class="chatlog__message " data-message-id="862435940966203422" id="message-862435940966203422">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Noriko Nakai awakens from her slumber once more, like a majestic phoenix arising from the ashes. Unfortunately, this &#39;majestic phoenix&#39; slept so long that she completely missed out on the details of this motive... rough.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="862436102798704640" id="message-862436102798704640">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Anyways, she ends up heading to the lounge, because... she just does. That&#39;s the best I&#39;ve got here.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">08-Jul-21 03:00 PM</span>
+
+            <div class="chatlog__message " data-message-id="862770035793592320" id="message-862770035793592320">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Just like any other day, Noriko wakes up... but it&#39;s not a pleasant awakening, for the first sensation she&#39;s greeted by is an incredible pain - one that primarily emanates from her dominant arm - her right. Panic and dread set in as she wonders - what was causing this pain? She could tell it was coming from her right arm, but she couldn&#39;t bring herself to look at precisely what was causing it... briefly, Noriko considers heading to the medbay, but she wonders if she&#39;ll even be able to do that in such a state... instead, she simply writhes in overwhelming pain, sick to the core.</em>
+
+<em>&#39;Ah... I&#39;m... crying...?&#39; She goes to say, but it&#39;s something she can only think - even talking in such a state feels like a challenge. &#39;Am I... am I gonna die...? Yeah... that&#39;s... that&#39;s probably it for me, huh...&#39;</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">08-Jul-21 03:08 PM</span>
+
+            <div class="chatlog__message " data-message-id="862772067404873728" id="message-862772067404873728">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>The motive... the organs... is this what we&#39;ve... gotta get the organs... for...? She wonders as she lay there in what feels like ceaseless agony... and with that, she tilts her head at glacial pace towards the door of her room - going slowly, in fear that anything more will bring her more pain. &#39;Can&#39;t... stay here... gotta...&#39;</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="862772803925442630" id="message-862772803925442630">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>She slowly crawls off of the bed, falling down onto the ground with an audible thud... which just makes the pain feel even worse... yet, she forces herself to stand in spite of it. She feels like she could crumble down to the floor at any time... but she tries her best for now. She knows she won&#39;t last very long in a state like this... so she&#39;s gotta be quick...</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">08-Jul-21 03:30 PM</span>
+
+            <div class="chatlog__message " data-message-id="862777737676849162" id="message-862777737676849162">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Much to her surprise, Noriko manages to get all the way back to her dorm room without passing out, but boy does she feel like she&#39;s right about to. In a panic, she pulls out the pot from under her bed and opens it up - then closes her eyes and grabs Luna&#39;s two severed eyes out of her pocket, before dropping them into the pot.</em>
+
+<em>Both audibly plop onto the metal with a sickening squelch - which is what finally does Noriko in. She abruptly falls to the ground, landing on her back - then finally falls unconscious.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">10-Jul-21 01:00 AM</span>
+
+            <div class="chatlog__message " data-message-id="863283515919695872" id="message-863283515919695872">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Noriko&#39;s been laid out on her floor, out like a light for the past day - thanks to a combination of the scorpion sting, and her general lack of sleep as of late... but finally, she&#39;s snatched back into consciousness by a sensation... the pain she suffered still lingered - and now? It was far, far worse. She lays there in agony, barely able to muster up even an ounce of strength... before long, the source of this pain becomes clear.</em>
+
+<em>She&#39;s drenched in what is undeniably her own blood. In terror, she goes to scream - but even something normally so simple as that feels like a herculean task. She knows - she knows that this is likely the end of Noriko Nakai.</em>
+
+<em>&#39;Knew it... of course...&#39;</em> <em>Noriko remains unmoving, as she watches a single droplet of blood fall down onto the floor stained by crimson.</em> <em>&#39;Of course I&#39;d die... heh, yeah, of course I would... it&#39;s just a fluke I&#39;ve lasted this long...&#39; Rage builds up within the girl&#39;s body, but all it accomplishes is bringing forth another wave of agonizing pain.</em>
+
+<em>She grunts as she notices her hand, covered with an assortment of small cuts.</em> <em>&#39;I wonder... I wonder who did this...? They must&#39;ve really wanted me to suffer... could&#39;ve ended it with one stab... but they&#39;ve left me alive. Heh, talk about cruel. I just gotta wait for the end now, is that right...?&#39;</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/6832d0940c60006e19b4c5b8d2e0a575-17053.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="augusty#1287" data-user-id="723768708433969243" style="color: rgb(244,127,255)">augusty</span>
+
+
+        <span class="chatlog__timestamp">10-Jul-21 01:12 AM</span>
+
+            <div class="chatlog__message " data-message-id="863286588288401418" id="message-863286588288401418">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">((dang thats crazy</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">10-Jul-21 01:17 AM</span>
+
+            <div class="chatlog__message " data-message-id="863287779852681256" id="message-863287779852681256">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Once more, she calls upon her strength to press on through the pain... and she finds success. Ever so slightly, she manages to move her hand. She tries to get her hand into her right pocket, in order to grab what&#39;s inside... but it takes no shortage of fumbling before she succeeds. Out of her pocket, she pulls out a familiar object to her - her knife. The very same that&#39;d given her a nasty cut on her first day here, presumably as one of Drake&#39;s traps.</em>
+
+<em>Her grip is weak and shaky, but to her shock, she manages to hold onto the knife... and then, after closing her eyes - she takes a deep breath and brings it plunging down below... right into the floor. With what strength she can muster, she slowly pulls herself towards the knife...</em>
+
+&quot;N-n... nah... no giving up... not <em>yet</em>... I still gotta get back... home... so I&#39;m gonna... fight &#39;till I can&#39;t fight anymore...!&quot; <em>&#39;You must fight until you can fight no more! Those words have long since engraved themselves into the Cup Stacker&#39;s memory. &quot;Not... dead... yet...! Still got... still got more fight...!&quot; *She barely manages to stammer out the words, before digging the knife into a further section of the floor - her intention to crawl to the door... which serves as another obstacle in her path. It stands tall and imposing over her - she knows she cannot open it from the ground.</em>
+
+<em>She gathers her courage and gets to her feet. She only manages to stay standing for a moment, but that moment&#39;s just enough time for her to push open the door... and then fall back onto the ground with a thud.</em>
+
+&quot;Got it...!&quot; <em>And with that, she remains still for a few moments - hoping to catch her breath before she heads for the medbay.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="&#128064;" title="&#128064;" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/1f440-51DEA.png">
+                                <span class="chatlog__reaction-count">3</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">13-Jul-21 05:46 PM</span>
+
+            <div class="chatlog__message " data-message-id="864623804303278090" id="message-864623804303278090">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>We&#39;ll say that Noriko finally ended up back here, after the engine room shenanigans. It&#39;d be a little weird if she remained in there for several days, you know?</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">13-Jul-21 06:59 PM</span>
+
+            <div class="chatlog__message " data-message-id="864642321667850250" id="message-864642321667850250">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Noriko&#39;s mostly been slacking off in her own room for the past day or two - in order to rest herself up further, hoping that such a thing would help her heal through her motive-inflicted wounds. And, lo and behold... she&#39;s feeling quite a bit better! Good enough to set out on an exploration of the new area, even.</em>
+
+<em>Onwards, to adventure! Through the cargo bay - to the hotel lobby!</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">16-Jul-21 12:21 AM</span>
+
+            <div class="chatlog__message " data-message-id="865448049190371349" id="message-865448049190371349">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Noriko&#39;s been in here for a bit... we&#39;ll just say she&#39;s been especially sleepy. Anyways, she&#39;s not sleepy anymore! Off to the kitchen on the resort island that Noriko doesn&#39;t know/remember the name of!</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">16-Jul-21 01:24 PM</span>
+
+            <div class="chatlog__message " data-message-id="865644955115978773" id="message-865644955115978773">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>For the sake of convenience, Noriko&#39;s here. I&#39;d write more but I&#39;m currently freezing to death... that&#39;s 3am for ye.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="✨" title="✨" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/2728-9BF59.png">
+                                <span class="chatlog__reaction-count">2</span>
+                            </div>
+                    </div>
+            </div>
+            <div class="chatlog__message " data-message-id="865646415114797096" id="message-865646415114797096">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Noriko suddenly has a strange, foreboding feeling. Wonder what that&#39;s about.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="865646963173097472" id="message-865646963173097472">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;E-eh. Weird... Of all people, Jacob is...&quot; <em>She paces back and forth, uncertain of what to do.</em> &quot;I-if I just follow, I might be walking into a trap... but by this point, maybe it&#39;s alright...? We c an trust each other... right?&quot;
+
+<em>Eventually, she relents - darting out the door and heading to the hotel entrance.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="865647063672815616" id="message-865647063672815616">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Off to the hotel entrance! Also it&#39;s really hard to type when you&#39;re shivering. Geez, man... this is painful.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">17-Jul-21 01:00 AM</span>
+
+            <div class="chatlog__message " data-message-id="865820192927383553" id="message-865820192927383553">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Noriko returns here. Time to do some diary shenanigans...</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">17-Jul-21 10:35 PM</span>
+
+            <div class="chatlog__message " data-message-id="866146196741685289" id="message-866146196741685289">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>&quot;... Maybe I should jot down stuff I&#39;ve found...? Writing stuff down makes it fresh in your mind, after all...!&quot; *Noriko muses to herself, twirling around her writing implement of choice in her fingers... before abruptly losing grip on it, causing it to be sent flying out of her hands.</em> &quot;... At least, I think that&#39;s how it works...&quot;
+
+<em>With that, she heads out of her room, intent on finding some clues! First stop - the medbay.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20noriko-nakai%20%5B849488448695304227%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-08C40.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="851250873287442432" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">18-Jul-21 12:59 PM</span>
+
+            <div class="chatlog__message " data-message-id="866363530827530240" id="message-866363530827530240">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>The Ultimate Cup Stacker waits here, rhythmically tapping her foot on the ground and playing around with her knife - if only out of sheer lack of things to do as she waited. The time was well and truly nigh now... freedom was so close, she could practically feel it... and it baffles her. She&#39;d never imagined that she&#39;d get this far - someone like her was an easy target, no doubt... but even now, she is alive... fate sure had a funny sense of humor, apparently.</em>
+
+<em>One final trial... one final trial, and that was it. All they had to do now was solve the mysteries of this game.</em>
+
+&quot;... I&#39;m gonna be home soon.&quot; <em>With quivering legs, she stands up from her bed and heads to her door, a determination burning within her soul.</em> &quot;So... just wait for me, everyone. I&#39;ll see you soon...&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+</div>
+
+<div class="postamble">
+    <div class="postamble__entry">Exported 109 message(s)</div>
+</div>
+
+</body>
+
+</html>

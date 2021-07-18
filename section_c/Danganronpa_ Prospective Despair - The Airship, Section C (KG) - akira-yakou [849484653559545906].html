@@ -1,0 +1,2022 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Danganronpa: Prospective Despair - akira-yakou</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <style>
+        /* General */
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-300.woff);
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-400.woff);
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-500.woff);
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-600.woff);
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-700.woff);
+    font-weight: 700;
+}
+
+body {
+    font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 17px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+img {
+    object-fit: contain;
+}
+
+.markdown {
+    max-width: 100%;
+    line-height: 1.3;
+    overflow-wrap: break-word;
+}
+
+.preserve-whitespace {
+    white-space: pre-wrap;
+}
+
+.spoiler {
+    /* width: fit-content; */
+    display: inline-block;
+    /* This is more consistent across browsers, the old attribute worked well under Chrome but not FireFox. */
+}
+
+.spoiler--hidden {
+    cursor: pointer;
+}
+
+.spoiler-text {
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-text {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler--hidden .spoiler-text::selection {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-image {
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.spoiler--hidden .spoiler-image * {
+    filter: blur(44px);
+}
+
+.spoiler--hidden .spoiler-image:after {
+    content: "SPOILER";
+    color: #dcddde;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 600;
+    padding: 100%;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+    font-size: 0.9em;
+}
+
+.spoiler--hidden:hover .spoiler-image:after {
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.quote {
+    margin: 0.1em 0;
+    padding-left: 0.6em;
+    border-left: 4px solid;
+    border-radius: 3px;
+}
+
+.pre {
+    font-family: "Consolas", "Courier New", Courier, monospace;
+}
+
+.pre--multiline {
+    margin-top: 0.25em;
+    padding: 0.5em;
+    border: 2px solid;
+    border-radius: 5px;
+}
+
+.pre--inline {
+    padding: 2px;
+    border-radius: 3px;
+    font-size: 0.85em;
+}
+
+.mention {
+    border-radius: 3px;
+    padding: 0 2px;
+    color: #7289da;
+    background: rgba(114, 137, 218, .1);
+    font-weight: 500;
+}
+
+.emoji {
+    width: 1.25em;
+    height: 1.25em;
+    margin: 0 0.06em;
+    vertical-align: -0.4em;
+}
+
+.emoji--small {
+    width: 1em;
+    height: 1em;
+}
+
+.emoji--large {
+    width: 2.8em;
+    height: 2.8em;
+}
+
+/* Preamble */
+
+.preamble {
+    display: grid;
+    margin: 0 0.3em 0.6em 0.3em;
+    max-width: 100%;
+    grid-template-columns: auto 1fr;
+}
+
+.preamble__guild-icon-container {
+    grid-column: 1;
+}
+
+.preamble__guild-icon {
+    max-width: 88px;
+    max-height: 88px;
+}
+
+.preamble__entries-container {
+    grid-column: 2;
+    margin-left: 0.6em;
+}
+
+.preamble__entry {
+    font-size: 1.4em;
+}
+
+.preamble__entry--small {
+    font-size: 1em;
+}
+
+/* Chatlog */
+
+.chatlog {
+    max-width: 100%;
+}
+
+.chatlog__message-group {
+    display: grid;
+    margin: 0 0.6em;
+    padding: 0.9em 0;
+    border-top: 1px solid;
+    grid-template-columns: auto 1fr;
+}
+
+.chatlog__reference-symbol {
+    grid-column: 1;
+    border-style: solid;
+    border-width: 2px 0 0 2px;
+    border-radius: 8px 0 0 0;
+    margin-left: 16px;
+    margin-top: 8px;
+}
+
+.chatlog__reference {
+    display: flex;
+    grid-column: 2;
+    margin-left: 1.2em;
+    margin-bottom: 0.25em;
+    font-size: 0.875em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    align-items: center;
+}
+
+.chatlog__reference-avatar {
+    border-radius: 50%;
+    height: 16px;
+    width: 16px;
+    margin-right: 0.25em;
+}
+
+.chatlog__reference-name {
+    margin-right: 0.25em;
+    font-weight: 600;
+}
+
+.chatlog__reference-link {
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.chatlog__reference-link:hover {
+    text-decoration: none;
+}
+
+.chatlog__reference-content > * {
+    display: inline;
+}
+
+.chatlog__reference-edited-timestamp {
+    margin-left: 0.25em;
+    font-size: 0.8em;
+}
+
+.chatlog__author-avatar-container {
+    grid-column: 1;
+    width: 40px;
+    height: 40px;
+}
+
+.chatlog__author-avatar {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}
+
+.chatlog__messages {
+    grid-column: 2;
+    margin-left: 1.2em;
+    min-width: 50%;
+}
+
+.chatlog__author-name {
+    font-weight: 500;
+}
+
+.chatlog__timestamp {
+    margin-left: 0.3em;
+    font-size: 0.75em;
+}
+
+.chatlog__message {
+    padding: 0.1em 0.3em;
+    margin: 0 -0.3em;
+    background-color: transparent;
+    transition: background-color 1s ease;
+}
+
+.chatlog__content {
+    font-size: 0.95em;
+    word-wrap: break-word;
+}
+
+.chatlog__edited-timestamp {
+    margin-left: 0.15em;
+    font-size: 0.8em;
+}
+
+.chatlog__attachment {
+    margin-top: 0.3em;
+}
+
+.chatlog__attachment-thumbnail {
+    vertical-align: top;
+    max-width: 45vw;
+    max-height: 500px;
+    border-radius: 3px;
+}
+
+.chatlog__attachment-container {
+    height: 40px;
+    width: 100%;
+    max-width: 520px;
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.chatlog__attachment-icon {
+    float: left;
+    height: 100%;
+    margin-right: 10px;
+}
+
+.chatlog__attachment-icon > .a {
+    fill: #f4f5fb;
+    d: path("M50,935a25,25,0,0,1-25-25V50A25,25,0,0,1,50,25H519.6L695,201.32V910a25,25,0,0,1-25,25Z");
+}
+
+.chatlog__attachment-icon > .b {
+    fill: #7789c4;
+    d: path("M509.21,50,670,211.63V910H50V50H509.21M530,0H50A50,50,0,0,0,0,50V910a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50h0V191Z");
+}
+
+.chatlog__attachment-icon > .c {
+    fill: #f4f5fb;
+    d: path("M530,215a25,25,0,0,1-25-25V50a25,25,0,0,1,16.23-23.41L693.41,198.77A25,25,0,0,1,670,215Z");
+}
+
+.chatlog__attachment-icon > .d {
+    fill: #7789c4;
+    d: path("M530,70.71,649.29,190H530V70.71M530,0a50,50,0,0,0-50,50V190a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50Z");
+}
+
+.chatlog__attachment-filesize {
+    color: #72767d;
+    font-size: 12px;
+}
+
+.chatlog__attachment-filename {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.chatlog__embed {
+    display: flex;
+    margin-top: 0.3em;
+    max-width: 520px;
+}
+
+.chatlog__embed-color-pill {
+    flex-shrink: 0;
+    width: 0.25em;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.chatlog__embed-content-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em 0.6em;
+    border: 1px solid;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.chatlog__embed-content {
+    display: flex;
+    width: 100%;
+}
+
+.chatlog__embed-text {
+    flex: 1;
+}
+
+.chatlog__embed-author {
+    display: flex;
+    margin-bottom: 0.3em;
+    align-items: center;
+}
+
+.chatlog__embed-author-icon {
+    margin-right: 0.5em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.chatlog__embed-author-name {
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-title {
+    margin-bottom: 0.2em;
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-description {
+    font-weight: 500;
+    font-size: 0.85em;
+}
+
+.chatlog__embed-fields {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.chatlog__embed-field {
+    flex: 0;
+    min-width: 100%;
+    max-width: 506px;
+    padding-top: 0.6em;
+    font-size: 0.875em;
+}
+
+.chatlog__embed-field--inline {
+    flex: 1;
+    flex-basis: auto;
+    min-width: 150px;
+}
+
+.chatlog__embed-field-name {
+    margin-bottom: 0.2em;
+    font-weight: 600;
+}
+
+.chatlog__embed-field-value {
+    font-weight: 500;
+}
+
+.chatlog__embed-thumbnail {
+    flex: 0;
+    margin-left: 1.2em;
+    max-width: 80px;
+    max-height: 80px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-image-container {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-image {
+    max-width: 500px;
+    max-height: 400px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-footer {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-footer-icon {
+    margin-right: 0.2em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.chatlog__embed-footer-text {
+    font-size: 0.75em;
+    font-weight: 500;
+}
+
+.chatlog__reactions {
+    display: flex;
+}
+
+.chatlog__reaction {
+    display: flex;
+    align-items: center;
+    margin: 0.35em 0.1em 0.1em 0.1em;
+    padding: 0.2em 0.35em;
+    border-radius: 3px;
+}
+
+.chatlog__reaction-count {
+    min-width: 9px;
+    margin-left: 0.35em;
+    font-size: 0.875em;
+}
+
+.chatlog__bot-tag {
+    position: relative;
+    top: -.2em;
+    margin-left: 0.3em;
+    padding: 0.05em 0.3em;
+    border-radius: 3px;
+    vertical-align: middle;
+    line-height: 1.3;
+    background: #7289da;
+    color: #ffffff;
+    font-size: 0.625em;
+    font-weight: 500;
+}
+
+/* Postamble */
+
+.postamble {
+    margin: 1.4em 0.3em 0.6em 0.3em;
+    padding: 1em;
+    border-top: 1px solid;
+}
+    </style>
+    <style>
+        /* General */
+
+body {
+    background-color: #36393e;
+    color: #dcddde;
+}
+
+a {
+    color: #0096cf;
+}
+
+.spoiler-text {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.spoiler--hidden .spoiler-text {
+    background-color: #202225;
+}
+
+.spoiler--hidden:hover .spoiler-text {
+    background-color: rgba(32, 34, 37, 0.8);
+}
+
+.quote {
+    border-color: #4f545c;
+}
+
+.pre {
+    background-color: #2f3136 !important;
+}
+
+.pre--multiline {
+    border-color: #282b30 !important;
+    color: #b9bbbe !important;
+}
+
+/* === Preamble === */
+
+.preamble__entry {
+    color: #ffffff;
+}
+
+/* Chatlog */
+
+.chatlog__message-group {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.chatlog__reference-symbol {
+    border-color: #4f545c;
+}
+
+.chatlog__reference {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link:hover {
+    color: #ffffff;
+}
+
+.chatlog__reference-edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__author-name {
+    color: #ffffff;
+}
+
+.chatlog__timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__message--highlighted {
+    background-color: rgba(114, 137, 218, 0.2) !important;
+}
+
+.chatlog__message--pinned {
+    background-color: rgba(249, 168, 37, 0.05);
+}
+
+.chatlog__attachment-container {
+    background-color: #2f3136;
+    border-color: #292b2f;
+}
+
+.chatlog__edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__embed-color-pill--default {
+    background-color: rgba(79, 84, 92, 1);
+}
+
+.chatlog__embed-content-container {
+    background-color: rgba(46, 48, 54, 0.3);
+    border-color: rgba(46, 48, 54, 0.6);
+}
+
+.chatlog__embed-author-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-author-name-link {
+    color: #ffffff;
+}
+
+.chatlog__embed-title {
+    color: #ffffff;
+}
+
+.chatlog__embed-description {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-field-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-field-value {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-footer {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__reaction {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.chatlog__reaction-count {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* Postamble */
+
+.postamble {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.postamble__entry {
+    color: #ffffff;
+}
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/solarized-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.pre--multiline').forEach(block => hljs.highlightBlock(block));
+        });
+    </script>
+
+    <script>
+        function scrollToMessage(event, id) {
+            var element = document.getElementById('message-' + id);
+
+            if (element) {
+                event.preventDefault();
+
+                element.classList.add('chatlog__message--highlighted');
+
+                window.scrollTo({
+                    top: element.getBoundingClientRect().top - document.body.getBoundingClientRect().top - (window.innerHeight / 2),
+                    behavior: 'smooth'
+                });
+
+                window.setTimeout(function() {
+                    element.classList.remove('chatlog__message--highlighted');
+                }, 2000);
+            }
+        }
+
+        function showSpoiler(event, element) {
+            if (element && element.classList.contains('spoiler--hidden')) {
+                event.preventDefault();
+                element.classList.remove('spoiler--hidden');
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="preamble">
+    <div class="preamble__guild-icon-container">
+        <img class="preamble__guild-icon" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20akira-yakou%20%5B849484653559545906%5D.html_Files/a_2feefaa4b9661f5afc56fdc0a2cb52a3-DDE8C.png" alt="Guild icon">
+    </div>
+    <div class="preamble__entries-container">
+        <div class="preamble__entry">Danganronpa: Prospective Despair</div>
+        <div class="preamble__entry">The Airship, Section C (KG) / akira-yakou</div>
+
+            <div class="preamble__entry preamble__entry--small">Do not reveal if killed.</div>
+
+    </div>
+</div>
+
+<div class="chatlog">
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20akira-yakou%20%5B849484653559545906%5D.html_Files/633ff6a6b4424dc32afe8afe6690a856-CEACD.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Mass#6343" data-user-id="217419998677696512" style="color: rgb(210,165,214)">Kojima Akihiro | Mass</span>
+
+
+        <span class="chatlog__timestamp">01-Jun-21 11:15 PM</span>
+
+            <div class="chatlog__message chatlog__message--pinned" data-message-id="849486294651371560" id="message-849486294651371560">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Akira Yakou, the Ultimate Yarn Bomber&#39;s room. Honestly, the room itself isn&#39;t that big - if you&#39;ve ever been on a cruise ship in the lowest class, it&#39;s about as big as the rooms there.
+
+But what is here is decently nice. The bed is nice and large, and feels rather nice to sleep in. There&#39;s a TV opposite of the bed, too, but there&#39;s not so much as a remote in the room - it seems like it won&#39;t turn on.
+
+Looking to the left while being on the bed reveals a window that shows off the outside in all of its glory. It doesn&#39;t seem like you can open the window, but there are curtains to block off the windows at the very least.
+
+Other than that, there&#39;s a small closet with duplicates of your OC&#39;s clothes as well as a notebook and a pencil for good measure. There&#39;s also trash can in the corner, useful for getting rid of evidence.
+
+Finally, the room also has a bathroom, which seems to be pretty typical. It&#39;s nice, and has everything you need, but... there&#39;s not much more to say.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20akira-yakou%20%5B849484653559545906%5D.html_Files/9c87b83581844ae0aa2bb960c396ee73-57F05.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Akira Yakou#0000" data-user-id="852479575098130442" style="">Akira Yakou</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">10-Jun-21 05:29 AM</span>
+
+            <div class="chatlog__message " data-message-id="852479576239636480" id="message-852479576239636480">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Akira sees a bed! It&#39;s a comfy bed, and it&#39;d be nice to just fall asleep for a good few hours.
+
+So he does.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20akira-yakou%20%5B849484653559545906%5D.html_Files/9c87b83581844ae0aa2bb960c396ee73-57F05.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Akira Yakou#0000" data-user-id="852479575098130442" style="">Akira Yakou</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">10-Jun-21 01:53 PM</span>
+
+            <div class="chatlog__message " data-message-id="852606467592159233" id="message-852606467592159233">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Haha! He leaves. What, did you expect him to stay in here and become a hermit?</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20akira-yakou%20%5B849484653559545906%5D.html_Files/9c87b83581844ae0aa2bb960c396ee73-57F05.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Akira Yakou#0000" data-user-id="852479575098130442" style="">Akira Yakou</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">11-Jun-21 02:28 AM</span>
+
+            <div class="chatlog__message " data-message-id="852796304492462111" id="message-852796304492462111">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Haha! <span class="pre pre--inline">nap.</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20akira-yakou%20%5B849484653559545906%5D.html_Files/9c87b83581844ae0aa2bb960c396ee73-57F05.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Akira Yakou#0000" data-user-id="852479575098130442" style="">Akira Yakou</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">11-Jun-21 03:03 PM</span>
+
+            <div class="chatlog__message " data-message-id="852986361430671371" id="message-852986361430671371">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Oh yeah, pretend he left at some point.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20akira-yakou%20%5B849484653559545906%5D.html_Files/16621ef5d6c0752a007ce930a8104c18-5C715.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Sonic49 | ???</span>
+
+
+        <span class="chatlog__timestamp">20-Jun-21 04:11 PM</span>
+
+            <div class="chatlog__message " data-message-id="856264919154688010" id="message-856264919154688010">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>A knitting set was quietly placed in Akira&#39;s room.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20akira-yakou%20%5B849484653559545906%5D.html_Files/b14526a72fc8e3280e38cc94e1f46c20-5C0F7.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Rita Sestina Toscani#0000" data-user-id="852479575098130442" style="">Rita Sestina Toscani</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">20-Jun-21 04:11 PM</span>
+
+            <div class="chatlog__message " data-message-id="856265108152909884" id="message-856265108152909884">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Steals</em></span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="Mastermindstrueidentity" title="Mastermindstrueidentity" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20akira-yakou%20%5B849484653559545906%5D.html_Files/786629561777258517-4F98D.png">
+                                <span class="chatlog__reaction-count">1</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20akira-yakou%20%5B849484653559545906%5D.html_Files/16621ef5d6c0752a007ce930a8104c18-5C715.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Sonic49 | ???</span>
+
+
+        <span class="chatlog__timestamp">20-Jun-21 04:12 PM</span>
+
+            <div class="chatlog__message " data-message-id="856265297421139988" id="message-856265297421139988">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>The door is locked you pineapple—</em>
+<em>Unless you&#39;re somehow Akira.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20akira-yakou%20%5B849484653559545906%5D.html_Files/1aac02b48696421b4f012b61b0ed0b24-EB432.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Luna#0000" data-user-id="852479575098130442" style="">Luna</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">20-Jun-21 04:19 PM</span>
+
+            <div class="chatlog__message " data-message-id="856267157151547422" id="message-856267157151547422">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(<em>I&#39;m now Akira. Let me take</em></span>
+
+                                <span class="chatlog__edited-timestamp" title="20-Jun-21 04:20 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="Fukt" title="Fukt" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20akira-yakou%20%5B849484653559545906%5D.html_Files/786629592814321685-315EF.png">
+                                <span class="chatlog__reaction-count">2</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20akira-yakou%20%5B849484653559545906%5D.html_Files/9c87b83581844ae0aa2bb960c396ee73-57F05.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Akira Yakou#0000" data-user-id="852479575098130442" style="">Akira Yakou</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">20-Jun-21 04:28 PM</span>
+
+            <div class="chatlog__message " data-message-id="856269338759659550" id="message-856269338759659550">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(( screams and screams</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20akira-yakou%20%5B849484653559545906%5D.html_Files/9c87b83581844ae0aa2bb960c396ee73-57F05.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Akira Yakou#0000" data-user-id="852479575098130442" style="">Akira Yakou</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">20-Jun-21 05:16 PM</span>
+
+            <div class="chatlog__message " data-message-id="856281278977409064" id="message-856281278977409064">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Anyone near the room can hear Akira yelling &quot;FUCK YEAH!&quot; upon seeing the knittng set.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20akira-yakou%20%5B849484653559545906%5D.html_Files/1cab4fb59ec05b8354fdf373d82fc30f-252EB.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="lunar eyes#4801" data-user-id="397994270226907136" style="color: rgb(76,169,206)">akira yakou〔&#129526;〕lunar</span>
+
+
+        <span class="chatlog__timestamp">29-Jun-21 03:17 PM</span>
+
+            <div class="chatlog__message " data-message-id="859513004096749618" id="message-859513004096749618">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(( <span class="mention" title="TOMOxWATER (king of crabs)#6118">@Tomo &#129683; North Olsen</span> hrngl I got sidetracked by lunch do you still wanna continue the int in here or nah</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20akira-yakou%20%5B849484653559545906%5D.html_Files/a_5f949a6de11d6776898f96a7249b53ac-77229.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TOMOxWATER (king of crabs)#6118" data-user-id="303254061644382219" style="color: rgb(231,76,60)">Tomo &#129683; North Olsen</span>
+
+
+        <span class="chatlog__timestamp">29-Jun-21 03:18 PM</span>
+
+            <div class="chatlog__message " data-message-id="859513058929410090" id="message-859513058929410090">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">((Yeah sure</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20akira-yakou%20%5B849484653559545906%5D.html_Files/9c87b83581844ae0aa2bb960c396ee73-57F05.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Akira Yakou#0000" data-user-id="852479575098130442" style="">Akira Yakou</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Jun-21 03:20 PM</span>
+
+            <div class="chatlog__message " data-message-id="859513566910087168" id="message-859513566910087168">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Surprise! Akira finally makes his way to his room after having gotten lost three times on the way. He dumps all the clothes on the floor. 
+
+Sonic please don&#39;t murk me this is a continuation of the clothes shop interaction-</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20akira-yakou%20%5B849484653559545906%5D.html_Files/845c55d14af83c763315538ecb08a577-13C67.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="North Olsen#0000" data-user-id="852479575098130442" style="">North Olsen</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Jun-21 03:22 PM</span>
+
+            <div class="chatlog__message " data-message-id="859514189831733270" id="message-859514189831733270">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>He had followed Akira the whole time. He still doesn’t fully know his way around the floating building, so he just put full trust in Akira’s sense of directions. He wood then dump the clothes he has on the floor next to Akira’s pile.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20akira-yakou%20%5B849484653559545906%5D.html_Files/9c87b83581844ae0aa2bb960c396ee73-57F05.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Akira Yakou#0000" data-user-id="852479575098130442" style="">Akira Yakou</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Jun-21 03:24 PM</span>
+
+            <div class="chatlog__message " data-message-id="859514567600373781" id="message-859514567600373781">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">He really shouldn&#39;t trust Akira&#39;s sense of direction, mainly because it&#39;s nonexistent. The yarn bomber claps his hands. &quot;Alright! Let&#39;s get tearing!&quot; Just what are you planning to do with these clothes?</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20akira-yakou%20%5B849484653559545906%5D.html_Files/845c55d14af83c763315538ecb08a577-13C67.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="North Olsen#0000" data-user-id="852479575098130442" style="">North Olsen</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Jun-21 03:25 PM</span>
+
+            <div class="chatlog__message " data-message-id="859514982928351242" id="message-859514982928351242">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“tearing? What? The clothes!”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20akira-yakou%20%5B849484653559545906%5D.html_Files/9c87b83581844ae0aa2bb960c396ee73-57F05.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Akira Yakou#0000" data-user-id="852479575098130442" style="">Akira Yakou</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Jun-21 03:28 PM</span>
+
+            <div class="chatlog__message " data-message-id="859515600563994624" id="message-859515600563994624">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Akira&#39;s already pulling at a shirt. &quot;Yeah, it&#39;s an easy way to make ribbons, and it&#39;s not like anyone&#39;s gonna wear these.&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20akira-yakou%20%5B849484653559545906%5D.html_Files/845c55d14af83c763315538ecb08a577-13C67.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="North Olsen#0000" data-user-id="852479575098130442" style="">North Olsen</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Jun-21 03:33 PM</span>
+
+            <div class="chatlog__message " data-message-id="859516881416355851" id="message-859516881416355851">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“Oh… Er… ok… that’s true…” <em>He then begins to help Akira tear the fabrics. He probably got the best guy to help. North just goes for it. He’s going beast mode. Tearing shirts left and right.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20akira-yakou%20%5B849484653559545906%5D.html_Files/9c87b83581844ae0aa2bb960c396ee73-57F05.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Akira Yakou#0000" data-user-id="852479575098130442" style="">Akira Yakou</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Jun-21 03:39 PM</span>
+
+            <div class="chatlog__message " data-message-id="859518497843445800" id="message-859518497843445800">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;It&#39;s also really, like, cathartic to do.&quot; Akira hums as he continues to destroy fabric. &quot;Which kinda leads into this next topic, since I have you right where I want you - are you okay? Like, really.&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20akira-yakou%20%5B849484653559545906%5D.html_Files/845c55d14af83c763315538ecb08a577-13C67.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="North Olsen#0000" data-user-id="852479575098130442" style="">North Olsen</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Jun-21 03:43 PM</span>
+
+            <div class="chatlog__message " data-message-id="859519586062696448" id="message-859519586062696448">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“Hmm? Cathartic? What’s that mean?” <em>he asked confusedly. He then  began to slow down with the tearing, as Akira asked that.</em> “I… I’m ok! Like I’ve said to many people, I’m fine…” <em>He would avoid looking in Akira’s direction, as he began to pick up speed with the tearing.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20akira-yakou%20%5B849484653559545906%5D.html_Files/9c87b83581844ae0aa2bb960c396ee73-57F05.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Akira Yakou#0000" data-user-id="852479575098130442" style="">Akira Yakou</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Jun-21 03:46 PM</span>
+
+            <div class="chatlog__message " data-message-id="859520209457774602" id="message-859520209457774602">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Akira raises an eyebrow as he looks at the clothes North is tearing. &quot;For someone that&#39;s &#39;fine&#39; you&#39;re really going to town on that, aren&#39;tcha? C&#39;mon, it&#39;s time for Discount Therapy.&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20akira-yakou%20%5B849484653559545906%5D.html_Files/845c55d14af83c763315538ecb08a577-13C67.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="North Olsen#0000" data-user-id="852479575098130442" style="">North Olsen</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Jun-21 03:48 PM</span>
+
+            <div class="chatlog__message " data-message-id="859520685469859870" id="message-859520685469859870">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“I’m really fine! I’m just someone who doesn’t like to be lazy about work. If I’m going to be tearing these, I’m going to do it with all my strength and effort! That’s my lumberjack code!” <em>not really a code, just a single ideal.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20akira-yakou%20%5B849484653559545906%5D.html_Files/9c87b83581844ae0aa2bb960c396ee73-57F05.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Akira Yakou#0000" data-user-id="852479575098130442" style="">Akira Yakou</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Jun-21 03:54 PM</span>
+
+            <div class="chatlog__message " data-message-id="859522241720746000" id="message-859522241720746000">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Well, if the lumberjack didn&#39;t want to speak, he wouldn&#39;t push. Much. &quot;So you&#39;re, like, one of those &#39;give it your all&#39; types, huh? Guess that makes sense for an Ultima- oh, hey we never introduced ourselves to each other! I&#39;m Akira, yarn bomber. You are?&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20akira-yakou%20%5B849484653559545906%5D.html_Files/845c55d14af83c763315538ecb08a577-13C67.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="North Olsen#0000" data-user-id="852479575098130442" style="">North Olsen</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Jun-21 03:57 PM</span>
+
+            <div class="chatlog__message " data-message-id="859523057864146985" id="message-859523057864146985">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“Yup! If I don’t give it my all, am I really giving anything? Oh and, Hej, dejligt at m&#248;de dig, Akira! Hi, nice to meet you, Akira! I’m North Olsen, Ultimate Lumberjack!”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20akira-yakou%20%5B849484653559545906%5D.html_Files/9c87b83581844ae0aa2bb960c396ee73-57F05.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Akira Yakou#0000" data-user-id="852479575098130442" style="">Akira Yakou</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Jun-21 03:59 PM</span>
+
+            <div class="chatlog__message " data-message-id="859523593256042526" id="message-859523593256042526">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;I have no idea what that first part means, but it&#39;s nice to meet you too.&quot; Akira chuckles and goes back to attempting to tear that shirt. &quot;North like the compass point, huh? That&#39;s pretty neat.&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20akira-yakou%20%5B849484653559545906%5D.html_Files/845c55d14af83c763315538ecb08a577-13C67.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="North Olsen#0000" data-user-id="852479575098130442" style="">North Olsen</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Jun-21 04:05 PM</span>
+
+            <div class="chatlog__message " data-message-id="859525081783599144" id="message-859525081783599144">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“Oh, sorry, I said the same thing in Danish, but after, translated it for you in English. Sorry for not making that clear.” <em>He was just ripping these shirts with ease.</em> “Hm? Compass point?” <em>he seemed confused.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20akira-yakou%20%5B849484653559545906%5D.html_Files/9c87b83581844ae0aa2bb960c396ee73-57F05.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Akira Yakou#0000" data-user-id="852479575098130442" style="">Akira Yakou</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Jun-21 04:26 PM</span>
+
+            <div class="chatlog__message " data-message-id="859530324899397702" id="message-859530324899397702">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Y&#39;know, like North, South, East, West?&quot; He points up, down, right, and left respectively. &quot;Those things.&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20akira-yakou%20%5B849484653559545906%5D.html_Files/845c55d14af83c763315538ecb08a577-13C67.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="North Olsen#0000" data-user-id="852479575098130442" style="">North Olsen</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Jun-21 04:27 PM</span>
+
+            <div class="chatlog__message " data-message-id="859530608782213120" id="message-859530608782213120">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“oh… Er… didn’t realize that’s what those names were for… just kinda thought they were regular names like, well, my own name.”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20akira-yakou%20%5B849484653559545906%5D.html_Files/9c87b83581844ae0aa2bb960c396ee73-57F05.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Akira Yakou#0000" data-user-id="852479575098130442" style="">Akira Yakou</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Jun-21 04:31 PM</span>
+
+            <div class="chatlog__message " data-message-id="859531500047695893" id="message-859531500047695893">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Yeah- hey, do you know people named, like, South or East or West?&quot; He seems invested in this line of thought.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20akira-yakou%20%5B849484653559545906%5D.html_Files/845c55d14af83c763315538ecb08a577-13C67.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="North Olsen#0000" data-user-id="852479575098130442" style="">North Olsen</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Jun-21 04:39 PM</span>
+
+            <div class="chatlog__message " data-message-id="859533516945096715" id="message-859533516945096715">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>he thought for a moment.</em> “Well, no, not really. I just assumed there were no one named South, East, or West in my small town.” <em>He shrugs lightly.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20akira-yakou%20%5B849484653559545906%5D.html_Files/9c87b83581844ae0aa2bb960c396ee73-57F05.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Akira Yakou#0000" data-user-id="852479575098130442" style="">Akira Yakou</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Jun-21 04:44 PM</span>
+
+            <div class="chatlog__message " data-message-id="859534785180991548" id="message-859534785180991548">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Yeah, I guess that makes sense. I know a few people that have, like, compass points in their names, but not one in English like yours.&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20akira-yakou%20%5B849484653559545906%5D.html_Files/845c55d14af83c763315538ecb08a577-13C67.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="North Olsen#0000" data-user-id="852479575098130442" style="">North Olsen</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Jun-21 04:47 PM</span>
+
+            <div class="chatlog__message " data-message-id="859535666890932225" id="message-859535666890932225">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“?” <em>He was a bit confused by the statement, but just nods, pretending to understand. He would eventually stop tearing… because he had finished his pile. All his pieces of clothing were torn into strips of ribbons.</em> “Ok done!”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20akira-yakou%20%5B849484653559545906%5D.html_Files/9c87b83581844ae0aa2bb960c396ee73-57F05.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Akira Yakou#0000" data-user-id="852479575098130442" style="">Akira Yakou</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Jun-21 04:52 PM</span>
+
+            <div class="chatlog__message " data-message-id="859536859683356682" id="message-859536859683356682">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Congrats! You&#39;re really good at this.&quot; Akira&#39;s pile, meanwhile, is only half-done. &quot;I think I might make some octopus thingies out of these. Those always look cute.&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20akira-yakou%20%5B849484653559545906%5D.html_Files/845c55d14af83c763315538ecb08a577-13C67.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="North Olsen#0000" data-user-id="852479575098130442" style="">North Olsen</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Jun-21 04:56 PM</span>
+
+            <div class="chatlog__message " data-message-id="859537761991786516" id="message-859537761991786516">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>He chuckled lightly, then had a look of confusion.</em> “ Octopus things? What do you mean by that?”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20akira-yakou%20%5B849484653559545906%5D.html_Files/9c87b83581844ae0aa2bb960c396ee73-57F05.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Akira Yakou#0000" data-user-id="852479575098130442" style="">Akira Yakou</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Jun-21 05:27 PM</span>
+
+            <div class="chatlog__message " data-message-id="859545689604620320" id="message-859545689604620320">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Akira bunches up a few cloth ribbons, making the trailing end look like the tentacles of an octopus. &quot;Like this! It kinda looks like a jellyfish too, really...&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20akira-yakou%20%5B849484653559545906%5D.html_Files/845c55d14af83c763315538ecb08a577-13C67.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="North Olsen#0000" data-user-id="852479575098130442" style="">North Olsen</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Jun-21 06:33 PM</span>
+
+            <div class="chatlog__message " data-message-id="859562126107475988" id="message-859562126107475988">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>He looked amazed.</em> “Oh wow! That’s so cool!!!” <em>He said with an excitable smile on his face.</em> “Either way it’s cool! I’ll be honest, I’ve never seen a jellyfish or octopus before. I’ve lived in, or by, a forest my whole life. No where near a beach.”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20akira-yakou%20%5B849484653559545906%5D.html_Files/9c87b83581844ae0aa2bb960c396ee73-57F05.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Akira Yakou#0000" data-user-id="852479575098130442" style="">Akira Yakou</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Jun-21 08:46 PM</span>
+
+            <div class="chatlog__message " data-message-id="859595705634390027" id="message-859595705634390027">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Really? I guess that makes sense... If it helps, I&#39;ve only ever seen them in, like, documentaries and books and stuff too. You don&#39;t get that many sea creatures out in suburbia.&quot; He chuckles. &quot;Say, what&#39;s your favorite animal?&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20akira-yakou%20%5B849484653559545906%5D.html_Files/845c55d14af83c763315538ecb08a577-13C67.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="North Olsen#0000" data-user-id="852479575098130442" style="">North Olsen</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Jun-21 09:02 PM</span>
+
+            <div class="chatlog__message " data-message-id="859599810075426856" id="message-859599810075426856">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“Ah, well at least I’m not the only who hasn’t seen the up close…” <em>He said with a warm smile.</em> “My favorite animal…? Er… hmmm… Bears. Mostly cause I sleep with a big teddy bear every night!”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20akira-yakou%20%5B849484653559545906%5D.html_Files/9c87b83581844ae0aa2bb960c396ee73-57F05.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Akira Yakou#0000" data-user-id="852479575098130442" style="">Akira Yakou</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Jun-21 09:19 PM</span>
+
+            <div class="chatlog__message " data-message-id="859604110038663168" id="message-859604110038663168">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Huh... Maybe if I work hard at it I can make a teddy bear or something. Might have to ask Rita for pointers...&quot; he mutters to himself. &quot;Hey, North, just out of curiosity how big was this teddy bear?&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20akira-yakou%20%5B849484653559545906%5D.html_Files/845c55d14af83c763315538ecb08a577-13C67.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="North Olsen#0000" data-user-id="852479575098130442" style="">North Olsen</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Jun-21 09:23 PM</span>
+
+            <div class="chatlog__message " data-message-id="859604975968321556" id="message-859604975968321556">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>He thinks for a moment. He then puts one of his hands at his shoulder, and then other to his knees.</em> “Like about that big!”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20akira-yakou%20%5B849484653559545906%5D.html_Files/9c87b83581844ae0aa2bb960c396ee73-57F05.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Akira Yakou#0000" data-user-id="852479575098130442" style="">Akira Yakou</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Jun-21 09:38 PM</span>
+
+            <div class="chatlog__message " data-message-id="859608772746149898" id="message-859608772746149898">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;God that&#39;s large. Noted.&quot; Akira makes a mental note of the size of the bear and considers life. &quot;Might be a bit difficult, but... Yeah. Yeah that might work out!&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20akira-yakou%20%5B849484653559545906%5D.html_Files/845c55d14af83c763315538ecb08a577-13C67.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="North Olsen#0000" data-user-id="852479575098130442" style="">North Olsen</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Jun-21 09:45 PM</span>
+
+            <div class="chatlog__message " data-message-id="859610616016142356" id="message-859610616016142356">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“Yeah, I’m a large guy, so I like to have a large sleeping buddy! But, uh, you don’t have to try and make one! I don’t want to over work you or anything! I know it’s very large and difficult!”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20akira-yakou%20%5B849484653559545906%5D.html_Files/9c87b83581844ae0aa2bb960c396ee73-57F05.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Akira Yakou#0000" data-user-id="852479575098130442" style="">Akira Yakou</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Jun-21 10:18 PM</span>
+
+            <div class="chatlog__message " data-message-id="859618878802886666" id="message-859618878802886666">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Are ya kiddin&#39;?&quot; He laughs. &quot;I&#39;ve been meaning to do <em>something</em> this entire trip! Maybe I can finally put these hands to good use!&quot; Akira stands up, a fire of determination in his eyes. &quot;Out, out! I gotta get plannin&#39;.&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20akira-yakou%20%5B849484653559545906%5D.html_Files/845c55d14af83c763315538ecb08a577-13C67.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="North Olsen#0000" data-user-id="852479575098130442" style="">North Olsen</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Jun-21 10:26 PM</span>
+
+            <div class="chatlog__message " data-message-id="859620787987546113" id="message-859620787987546113">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>He chuckled lightly.</em> “Well, only if you’re up for it!” <em>He then nods before scurrying off.</em> “Ok ok, thank you for the distraction, good luck with that, and see ya around Akira!” <em>he says as he leaves</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20akira-yakou%20%5B849484653559545906%5D.html_Files/9c87b83581844ae0aa2bb960c396ee73-57F05.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Akira Yakou#0000" data-user-id="852479575098130442" style="">Akira Yakou</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">04-Jul-21 12:59 PM</span>
+
+            <div class="chatlog__message " data-message-id="861290135316725760" id="message-861290135316725760">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Goods depositing.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20akira-yakou%20%5B849484653559545906%5D.html_Files/16621ef5d6c0752a007ce930a8104c18-5C715.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Sonic49 | ???</span>
+
+
+        <span class="chatlog__timestamp">11-Jul-21 04:16 PM</span>
+
+            <div class="chatlog__message " data-message-id="863876507625979904" id="message-863876507625979904">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>This room is locked forever, oddly enough. It won&#39;t even open.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20akira-yakou%20%5B849484653559545906%5D.html_Files/965f43e008eb91b4e208ecc74fd44139-6C208.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="FactGuy#0391" data-user-id="333099173677105153" style="color: rgb(135,50,96)">Fact || Rita Sestina Toscani</span>
+
+
+        <span class="chatlog__timestamp">11-Jul-21 04:17 PM</span>
+
+            <div class="chatlog__message " data-message-id="863876629306146826" id="message-863876629306146826">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">//sadge no Akira lore</span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="&#128532;" title="&#128532;" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20akira-yakou%20%5B849484653559545906%5D.html_Files/1f614-D4BEE.png">
+                                <span class="chatlog__reaction-count">5</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+</div>
+
+<div class="postamble">
+    <div class="postamble__entry">Exported 48 message(s)</div>
+</div>
+
+</body>
+
+</html>

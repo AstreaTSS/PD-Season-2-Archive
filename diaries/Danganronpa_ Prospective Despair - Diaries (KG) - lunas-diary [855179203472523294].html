@@ -1,0 +1,1656 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Danganronpa: Prospective Despair - lunas-diary</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <style>
+        /* General */
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-300.woff);
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-400.woff);
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-500.woff);
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-600.woff);
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-700.woff);
+    font-weight: 700;
+}
+
+body {
+    font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 17px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+img {
+    object-fit: contain;
+}
+
+.markdown {
+    max-width: 100%;
+    line-height: 1.3;
+    overflow-wrap: break-word;
+}
+
+.preserve-whitespace {
+    white-space: pre-wrap;
+}
+
+.spoiler {
+    /* width: fit-content; */
+    display: inline-block;
+    /* This is more consistent across browsers, the old attribute worked well under Chrome but not FireFox. */
+}
+
+.spoiler--hidden {
+    cursor: pointer;
+}
+
+.spoiler-text {
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-text {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler--hidden .spoiler-text::selection {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-image {
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.spoiler--hidden .spoiler-image * {
+    filter: blur(44px);
+}
+
+.spoiler--hidden .spoiler-image:after {
+    content: "SPOILER";
+    color: #dcddde;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 600;
+    padding: 100%;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+    font-size: 0.9em;
+}
+
+.spoiler--hidden:hover .spoiler-image:after {
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.quote {
+    margin: 0.1em 0;
+    padding-left: 0.6em;
+    border-left: 4px solid;
+    border-radius: 3px;
+}
+
+.pre {
+    font-family: "Consolas", "Courier New", Courier, monospace;
+}
+
+.pre--multiline {
+    margin-top: 0.25em;
+    padding: 0.5em;
+    border: 2px solid;
+    border-radius: 5px;
+}
+
+.pre--inline {
+    padding: 2px;
+    border-radius: 3px;
+    font-size: 0.85em;
+}
+
+.mention {
+    border-radius: 3px;
+    padding: 0 2px;
+    color: #7289da;
+    background: rgba(114, 137, 218, .1);
+    font-weight: 500;
+}
+
+.emoji {
+    width: 1.25em;
+    height: 1.25em;
+    margin: 0 0.06em;
+    vertical-align: -0.4em;
+}
+
+.emoji--small {
+    width: 1em;
+    height: 1em;
+}
+
+.emoji--large {
+    width: 2.8em;
+    height: 2.8em;
+}
+
+/* Preamble */
+
+.preamble {
+    display: grid;
+    margin: 0 0.3em 0.6em 0.3em;
+    max-width: 100%;
+    grid-template-columns: auto 1fr;
+}
+
+.preamble__guild-icon-container {
+    grid-column: 1;
+}
+
+.preamble__guild-icon {
+    max-width: 88px;
+    max-height: 88px;
+}
+
+.preamble__entries-container {
+    grid-column: 2;
+    margin-left: 0.6em;
+}
+
+.preamble__entry {
+    font-size: 1.4em;
+}
+
+.preamble__entry--small {
+    font-size: 1em;
+}
+
+/* Chatlog */
+
+.chatlog {
+    max-width: 100%;
+}
+
+.chatlog__message-group {
+    display: grid;
+    margin: 0 0.6em;
+    padding: 0.9em 0;
+    border-top: 1px solid;
+    grid-template-columns: auto 1fr;
+}
+
+.chatlog__reference-symbol {
+    grid-column: 1;
+    border-style: solid;
+    border-width: 2px 0 0 2px;
+    border-radius: 8px 0 0 0;
+    margin-left: 16px;
+    margin-top: 8px;
+}
+
+.chatlog__reference {
+    display: flex;
+    grid-column: 2;
+    margin-left: 1.2em;
+    margin-bottom: 0.25em;
+    font-size: 0.875em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    align-items: center;
+}
+
+.chatlog__reference-avatar {
+    border-radius: 50%;
+    height: 16px;
+    width: 16px;
+    margin-right: 0.25em;
+}
+
+.chatlog__reference-name {
+    margin-right: 0.25em;
+    font-weight: 600;
+}
+
+.chatlog__reference-link {
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.chatlog__reference-link:hover {
+    text-decoration: none;
+}
+
+.chatlog__reference-content > * {
+    display: inline;
+}
+
+.chatlog__reference-edited-timestamp {
+    margin-left: 0.25em;
+    font-size: 0.8em;
+}
+
+.chatlog__author-avatar-container {
+    grid-column: 1;
+    width: 40px;
+    height: 40px;
+}
+
+.chatlog__author-avatar {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}
+
+.chatlog__messages {
+    grid-column: 2;
+    margin-left: 1.2em;
+    min-width: 50%;
+}
+
+.chatlog__author-name {
+    font-weight: 500;
+}
+
+.chatlog__timestamp {
+    margin-left: 0.3em;
+    font-size: 0.75em;
+}
+
+.chatlog__message {
+    padding: 0.1em 0.3em;
+    margin: 0 -0.3em;
+    background-color: transparent;
+    transition: background-color 1s ease;
+}
+
+.chatlog__content {
+    font-size: 0.95em;
+    word-wrap: break-word;
+}
+
+.chatlog__edited-timestamp {
+    margin-left: 0.15em;
+    font-size: 0.8em;
+}
+
+.chatlog__attachment {
+    margin-top: 0.3em;
+}
+
+.chatlog__attachment-thumbnail {
+    vertical-align: top;
+    max-width: 45vw;
+    max-height: 500px;
+    border-radius: 3px;
+}
+
+.chatlog__attachment-container {
+    height: 40px;
+    width: 100%;
+    max-width: 520px;
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.chatlog__attachment-icon {
+    float: left;
+    height: 100%;
+    margin-right: 10px;
+}
+
+.chatlog__attachment-icon > .a {
+    fill: #f4f5fb;
+    d: path("M50,935a25,25,0,0,1-25-25V50A25,25,0,0,1,50,25H519.6L695,201.32V910a25,25,0,0,1-25,25Z");
+}
+
+.chatlog__attachment-icon > .b {
+    fill: #7789c4;
+    d: path("M509.21,50,670,211.63V910H50V50H509.21M530,0H50A50,50,0,0,0,0,50V910a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50h0V191Z");
+}
+
+.chatlog__attachment-icon > .c {
+    fill: #f4f5fb;
+    d: path("M530,215a25,25,0,0,1-25-25V50a25,25,0,0,1,16.23-23.41L693.41,198.77A25,25,0,0,1,670,215Z");
+}
+
+.chatlog__attachment-icon > .d {
+    fill: #7789c4;
+    d: path("M530,70.71,649.29,190H530V70.71M530,0a50,50,0,0,0-50,50V190a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50Z");
+}
+
+.chatlog__attachment-filesize {
+    color: #72767d;
+    font-size: 12px;
+}
+
+.chatlog__attachment-filename {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.chatlog__embed {
+    display: flex;
+    margin-top: 0.3em;
+    max-width: 520px;
+}
+
+.chatlog__embed-color-pill {
+    flex-shrink: 0;
+    width: 0.25em;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.chatlog__embed-content-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em 0.6em;
+    border: 1px solid;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.chatlog__embed-content {
+    display: flex;
+    width: 100%;
+}
+
+.chatlog__embed-text {
+    flex: 1;
+}
+
+.chatlog__embed-author {
+    display: flex;
+    margin-bottom: 0.3em;
+    align-items: center;
+}
+
+.chatlog__embed-author-icon {
+    margin-right: 0.5em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.chatlog__embed-author-name {
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-title {
+    margin-bottom: 0.2em;
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-description {
+    font-weight: 500;
+    font-size: 0.85em;
+}
+
+.chatlog__embed-fields {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.chatlog__embed-field {
+    flex: 0;
+    min-width: 100%;
+    max-width: 506px;
+    padding-top: 0.6em;
+    font-size: 0.875em;
+}
+
+.chatlog__embed-field--inline {
+    flex: 1;
+    flex-basis: auto;
+    min-width: 150px;
+}
+
+.chatlog__embed-field-name {
+    margin-bottom: 0.2em;
+    font-weight: 600;
+}
+
+.chatlog__embed-field-value {
+    font-weight: 500;
+}
+
+.chatlog__embed-thumbnail {
+    flex: 0;
+    margin-left: 1.2em;
+    max-width: 80px;
+    max-height: 80px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-image-container {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-image {
+    max-width: 500px;
+    max-height: 400px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-footer {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-footer-icon {
+    margin-right: 0.2em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.chatlog__embed-footer-text {
+    font-size: 0.75em;
+    font-weight: 500;
+}
+
+.chatlog__reactions {
+    display: flex;
+}
+
+.chatlog__reaction {
+    display: flex;
+    align-items: center;
+    margin: 0.35em 0.1em 0.1em 0.1em;
+    padding: 0.2em 0.35em;
+    border-radius: 3px;
+}
+
+.chatlog__reaction-count {
+    min-width: 9px;
+    margin-left: 0.35em;
+    font-size: 0.875em;
+}
+
+.chatlog__bot-tag {
+    position: relative;
+    top: -.2em;
+    margin-left: 0.3em;
+    padding: 0.05em 0.3em;
+    border-radius: 3px;
+    vertical-align: middle;
+    line-height: 1.3;
+    background: #7289da;
+    color: #ffffff;
+    font-size: 0.625em;
+    font-weight: 500;
+}
+
+/* Postamble */
+
+.postamble {
+    margin: 1.4em 0.3em 0.6em 0.3em;
+    padding: 1em;
+    border-top: 1px solid;
+}
+    </style>
+    <style>
+        /* General */
+
+body {
+    background-color: #36393e;
+    color: #dcddde;
+}
+
+a {
+    color: #0096cf;
+}
+
+.spoiler-text {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.spoiler--hidden .spoiler-text {
+    background-color: #202225;
+}
+
+.spoiler--hidden:hover .spoiler-text {
+    background-color: rgba(32, 34, 37, 0.8);
+}
+
+.quote {
+    border-color: #4f545c;
+}
+
+.pre {
+    background-color: #2f3136 !important;
+}
+
+.pre--multiline {
+    border-color: #282b30 !important;
+    color: #b9bbbe !important;
+}
+
+/* === Preamble === */
+
+.preamble__entry {
+    color: #ffffff;
+}
+
+/* Chatlog */
+
+.chatlog__message-group {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.chatlog__reference-symbol {
+    border-color: #4f545c;
+}
+
+.chatlog__reference {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link:hover {
+    color: #ffffff;
+}
+
+.chatlog__reference-edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__author-name {
+    color: #ffffff;
+}
+
+.chatlog__timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__message--highlighted {
+    background-color: rgba(114, 137, 218, 0.2) !important;
+}
+
+.chatlog__message--pinned {
+    background-color: rgba(249, 168, 37, 0.05);
+}
+
+.chatlog__attachment-container {
+    background-color: #2f3136;
+    border-color: #292b2f;
+}
+
+.chatlog__edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__embed-color-pill--default {
+    background-color: rgba(79, 84, 92, 1);
+}
+
+.chatlog__embed-content-container {
+    background-color: rgba(46, 48, 54, 0.3);
+    border-color: rgba(46, 48, 54, 0.6);
+}
+
+.chatlog__embed-author-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-author-name-link {
+    color: #ffffff;
+}
+
+.chatlog__embed-title {
+    color: #ffffff;
+}
+
+.chatlog__embed-description {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-field-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-field-value {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-footer {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__reaction {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.chatlog__reaction-count {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* Postamble */
+
+.postamble {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.postamble__entry {
+    color: #ffffff;
+}
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/solarized-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.pre--multiline').forEach(block => hljs.highlightBlock(block));
+        });
+    </script>
+
+    <script>
+        function scrollToMessage(event, id) {
+            var element = document.getElementById('message-' + id);
+
+            if (element) {
+                event.preventDefault();
+
+                element.classList.add('chatlog__message--highlighted');
+
+                window.scrollTo({
+                    top: element.getBoundingClientRect().top - document.body.getBoundingClientRect().top - (window.innerHeight / 2),
+                    behavior: 'smooth'
+                });
+
+                window.setTimeout(function() {
+                    element.classList.remove('chatlog__message--highlighted');
+                }, 2000);
+            }
+        }
+
+        function showSpoiler(event, element) {
+            if (element && element.classList.contains('spoiler--hidden')) {
+                event.preventDefault();
+                element.classList.remove('spoiler--hidden');
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="preamble">
+    <div class="preamble__guild-icon-container">
+        <img class="preamble__guild-icon" src="Danganronpa_%20Prospective%20Despair%20-%20Diaries%20%28KG%29%20-%20lunas-diary%20%5B855179203472523294%5D.html_Files/a_2feefaa4b9661f5afc56fdc0a2cb52a3-DDE8C.png" alt="Guild icon">
+    </div>
+    <div class="preamble__entries-container">
+        <div class="preamble__entry">Danganronpa: Prospective Despair</div>
+        <div class="preamble__entry">Diaries (KG) / lunas-diary</div>
+
+
+    </div>
+</div>
+
+<div class="chatlog">
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Diaries%20%28KG%29%20-%20lunas-diary%20%5B855179203472523294%5D.html_Files/16621ef5d6c0752a007ce930a8104c18-5C715.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Sonic49 | ???</span>
+
+
+        <span class="chatlog__timestamp">17-Jun-21 04:17 PM</span>
+
+            <div class="chatlog__message " data-message-id="855179349791604796" id="message-855179349791604796">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">( <span class="mention" title="4MushroomSoap#1474">@Soap | No.343539(23)</span> &#229;
+(welcome to luna&#39;s diary - you can do anything here, although note most people still treat this as an rp channel and use ooc marks and the like
+
+(by default, the diary will be revealed upon death or once the game ends. if you dont wish for that, just say so</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Diaries%20%28KG%29%20-%20lunas-diary%20%5B855179203472523294%5D.html_Files/c5b5070ed3847e865c89156a9cc0cdb5-360CF.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="4MushroomSoap#1474" data-user-id="673944515417079847" style="color: rgb(131,205,235)">Soap | No.343539(23)</span>
+
+
+        <span class="chatlog__timestamp">17-Jun-21 04:19 PM</span>
+
+            <div class="chatlog__message " data-message-id="855179875962847232" id="message-855179875962847232">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(POGGERZ</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="855179938508177408" id="message-855179938508177408">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(I CANT WAIT TO DO DHIT IN HERE FUCK YES</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="855180022910550047" id="message-855180022910550047">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(Ok I&#39;m actually gonna start something soon :D</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Diaries%20%28KG%29%20-%20lunas-diary%20%5B855179203472523294%5D.html_Files/c5b5070ed3847e865c89156a9cc0cdb5-360CF.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="4MushroomSoap#1474" data-user-id="673944515417079847" style="color: rgb(131,205,235)">Soap | No.343539(23)</span>
+
+
+        <span class="chatlog__timestamp">17-Jun-21 05:23 PM</span>
+
+            <div class="chatlog__message " data-message-id="855195880386199563" id="message-855195880386199563">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(I&#39;m gonna make up some dates for this</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Diaries%20%28KG%29%20-%20lunas-diary%20%5B855179203472523294%5D.html_Files/c5b5070ed3847e865c89156a9cc0cdb5-360CF.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="4MushroomSoap#1474" data-user-id="673944515417079847" style="color: rgb(131,205,235)">Soap | No.343539(23)</span>
+
+
+        <span class="chatlog__timestamp">18-Jun-21 12:25 PM</span>
+
+            <div class="chatlog__message " data-message-id="855483252675182623" id="message-855483252675182623">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em><strong>13/08/20XX</strong></em>
+
+<em>Hey dear Diary~</em>
+<em>I finally managed to get one of these from my beloved Drake. This means I can note down my discoveries of others so I can use them against them at some point</em>
+<em>Isn&#39;t that great dear?</em>
+
+<em>So far I have met some interesting people as I will list below my personal opinions:</em>
+<em>First person was Tokumei: Ultimate War Stratagist</em>
+<em>I found him amusing to say the least. He took my lie about my twin sister very easily. However I don&#39;t think he actually took it. For that I find him suspicious. I want to speak to him about that if I&#39;m being honest. It&#39;s bothering me that he might have caught on. If he ends up being that, I might have to put him in place ^^</em>
+
+<em>Next up, Jack: Ultimate Pyrotechnic</em>
+<em>He&#39;s annoying. Only thing I have to say.</em>
+<em>That&#39;s a lie</em>
+<em>He thinks that I like the attention for lying. Trust me that bitch doesn&#39;t know shit. If I speak with him again, I hope it isn&#39;t anything to do with my talent. He&#39;s a great example of these Hope bitches who think they&#39;re better than everyone else... Somewhat.</em>
+<em>I hope he dies the same way he uses that flame thrower ^^</em>
+
+<em>Maigo: Ultimate Hunter</em>
+<em>He&#39;s lived a life away from others. I do admit asking a lot of questions to him, but I did it in order to understand if he&#39;s been living the &#39;Hope Dream&#39;.</em>
+<em>I don&#39;t think he has. He lived in a forest for most of his life and still hates the city. I think he should stay to where he&#39;s used to.</em>
+<em>I don&#39;t think. I&#39;ll hate him. He knows hardship and I decently respect him for that.</em>
+<em>... Doesn&#39;t mean he&#39;s exempt from any games I try though ^^</em></span>
+
+                                <span class="chatlog__edited-timestamp" title="18-Jun-21 12:26 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Diaries%20%28KG%29%20-%20lunas-diary%20%5B855179203472523294%5D.html_Files/c5b5070ed3847e865c89156a9cc0cdb5-360CF.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="4MushroomSoap#1474" data-user-id="673944515417079847" style="color: rgb(131,205,235)">Soap | No.343539(23)</span>
+
+
+        <span class="chatlog__timestamp">18-Jun-21 12:38 PM</span>
+
+            <div class="chatlog__message " data-message-id="855486550867050496" id="message-855486550867050496">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Rita: Ultimate Fashion Designer</em>
+<em>I have a lot to note against her. She definitely spoke too much for her own good. That&#39;s why it&#39;s good to let people rant because you learn a lot more than when someone isn&#39;t.</em>
+<em>She has lived a privileged life. I don&#39;t like those people. They don&#39;t know what true despair is. I should note that Rita has a deep caring for her late Grandmother who died in her sleep. I think this is great for the future to use against her if needed.</em>
+<em>Also, she uses cake as comfort food, she likes fruit cakes. She specifically mentioned <u>mango cream cake with bits of chopped mango in the cake.</u> She also said something about Jaffa Cakes which mildly annoyed me. Just made me more aware of how posh she is.</em>
+<em>I mean, <strong>who dips jaffa cakes in tea?*</strong>
+*Anyhow, She&#39;ll definitely be someone to try and use later ^^</em>
+
+<em>Kojima: Ultimate Vlogger</em>
+<em><strong>He&#39;s a stuck up bitch.</strong></em>
+<em>He&#39;s very self absorbed and it just makes him a shit character. Doesn&#39;t mean that he&#39;s not fun to piss off~</em>
+<em>He tends to use &#39;retard&#39; as an insult. Wonder if he knows who he&#39;s talking to. He has very interesting ideals about getting rid of all ultimates, but doesn&#39;t that also mean getting rid of himself too?</em>
+<em>I don&#39;t know if he thought that through... Unless he didn&#39;t get his talent by choice?</em>
+<em>Up to speculation. I want to piss him off more he&#39;s fun ^^</em>
+
+<em>So far, that is who I have had conversation with, there was a unique occurance of some army people trying to save us, however I didn&#39;t get to see it myself. What I can gather from that is that <u>they know we are here.</u> It just won&#39;t be easy getting us out like that. I still want to stay with Drake after all~</em>
+<em>I hope I can talk with Drake soon ^^</em>
+
+<em>I love you dear diary~ You lie and deceive with me</em>
+-&gt; Isle</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Diaries%20%28KG%29%20-%20lunas-diary%20%5B855179203472523294%5D.html_Files/c5b5070ed3847e865c89156a9cc0cdb5-360CF.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="4MushroomSoap#1474" data-user-id="673944515417079847" style="color: rgb(131,205,235)">Soap | No.343539(23)</span>
+
+
+        <span class="chatlog__timestamp">26-Jun-21 03:52 PM</span>
+
+            <div class="chatlog__message " data-message-id="858434516065583124" id="message-858434516065583124">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em><strong>15/08/20XX</strong></em>
+
+<em>Hey dear diary~</em>
+<em>Much has happened over the past few days, meeting some new people, a motive and a murder. Much to tell and note.</em>
+<em>First however, let&#39;s talk about the new people I&#39;ve met and any developments</em>
+
+<em>Goro: Drake&#39;s &#39;friend&#39;</em>
+<em>Of course I need to talk about him, he&#39;s someone who is watching us like Drake is. But I&#39;d much rather Drake watch me only &lt;3</em>
+<em>He has a god complex. A bit amusing to watch but also a bit annoying. He&#39;s lived a high life the dirty way. Corruption still spreads across this Hope filled country and he&#39;s a good example of it.</em>
+<em>I hope he meets his actual maker soon ^^</em>
+
+<em>David: Ultimate Social Engineer</em>
+<em>I like him. He likes causing some chaos just like me ^^</em>
+<em>We became allies the day we first met during the motive. I&#39;m surprised he didn&#39;t judge me for my almost manic state. Not that I care. With Jack (I&#39;ll mention developments soon) I think we can cause some true despair. Make those people learn their place</em>
+<em>.... I just need to ensure that I know his roots. I will make sure he falls down too if he doesn&#39;t understand what it means to give someone <u>pure despair</u></em>
+<em>P.s. He also has spoken to Drake. Useful to keep him close for now. <strong>Avoid Jealousy*</strong>
+
+*Jacob</em>
+<em>He&#39;s actually a lot more fun than when I first met him. He&#39;ll be useful as today we became allies. I met with him after the trial. I almost fought him however we settled our differences. We can cause some arson together, we agree that this place is <u>very</u> boring and needs some... lighting up. That needs to be done at the perfect time. He will be useful to the start of my dream</em>
+<em>... Another one who I need to know his roots. He definitely doesn&#39;t care, he&#39;s even burnt people alive, but I need him to know what <u>pure despair</u> feels like. I don&#39;t think he&#39;s very capable though. Something to consider, especially with his stuck up act when I first met him.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="858434561503526932" id="message-858434561503526932">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Maigo</em>
+<em>I think I&#39;ll keep him on my good side for now. I do feel like I baby him a bit however I guess he&#39;s someone that I truly know he&#39;s not associated with this country of hope. He knows survival of the fittest. That is why I have chosen to not involve him in my scheme</em>
+
+<em>Having said this, let&#39;s move onto the events of the previous days</em>
+<em>Motive involved heightened personalities. This meant that I was a bit more on the manic/manipulative side. Being more genuine of myself I guess… I met David then and he was definitely all for it so I’m glad I wasn’t in the ability to hold back. Once again, I do need to understand his roots. Sometimes he does some peculiar things, but at least he’s utmost calm about it.</em> 
+<em>The murder scene was amazing~</em> <em>Someone really put some cruelty into it and it was amazing. Of course I’ve figured it was that wood carver girl already.. I think she’s into cults or something it was quite curious but some things have given me that assumption.</em> <em>It was quite unsettling seeing Maigo getting upset over the death of the Scientist. I don’t know why.</em>
+<em>It’s also as if he has forgotten the circle of life, just like animals;</em> <em>We are born, we survive, we get hunted, <strong>we die.*</strong>
+*Everything comes to an end eventually, and I told him that myself. Sad reality, but it’s the truth and I think because he was close to the victim, <u>Maigo forgot that this circle isn’t only for animals in the wild.</u></em>
+<em>Anyhow, the trial is over and I do have to say that I absolutely LOVED the way she elaborately created that crime scene and I do have to applaud her for that. She did well and her death isn’t in vain.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="858434596524916806" id="message-858434596524916806">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>I do find it particularly annoying when my fellow participants keep going on about what a murderer did was such a heinous act and shit. <strong>It’s annoying and particularly a bit rigid.*</strong>
+*They neglect the influences of the motive, They neglect the idea that everything won’t be ok, They neglect the idea that there’s so much more to someone killing another human being.</em>
+<em>Sure, I will never justify their actions, it’s not my problem and I particularly don’t care; the methods and the ways they try to get away with it are amusing, however it pisses me off when these annoying people make it seem as if it’s very simple and that they will always be wrong no matter what manner in which they killed</em> <em><strong><u>They’re wrong.</u></strong></em>
+<em>These humans of hope don’t see the bigger picture. Maybe they’re too stuck in their streak of hope to even care about it. I won’t even care to give it to them because all the same they won’t see it. At the end of the  day, <u>They all need to see true depsair</u>.</em>
+<em>I hope Drake gives it to them.</em> <em>Don’t water wash the truth of despair Drake, give them all you can.</em>
+
+<em>I love you dear diary~ You lie and deceive with me</em>
+
+-&gt; Isle</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Diaries%20%28KG%29%20-%20lunas-diary%20%5B855179203472523294%5D.html_Files/c5b5070ed3847e865c89156a9cc0cdb5-360CF.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="4MushroomSoap#1474" data-user-id="673944515417079847" style="color: rgb(131,205,235)">Soap | No.343539(23)</span>
+
+
+        <span class="chatlog__timestamp">03-Jul-21 06:12 PM</span>
+
+            <div class="chatlog__message " data-message-id="861006390973562880" id="message-861006390973562880">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em><strong>17/08/20XX</strong></em>
+
+<em>Hey dear diary~</em>
+<em>Recently we landed at an abandoned lab. I wonder why because I was assuming that last stop going to be the only one, but I guess Drake is taking us on a field trip. I can’t wait to explore the world with him~</em>
+
+<em>There hasn’t been much development, but today I did explore the new area. There’s this face camera with a label of ‘BF’. It’s curious and I couldn’t think of anything that fit that initials well other than BoyFriend or Best Friend and a few other irrelevant companies. I was wondering if Drake was stalking me, I would’ve let him do that any day~</em>
+
+<em>Today I also met David in the instrument room whilst I speculated that. He named a few random companies that were also irrelevant but were understandable guesses. We’ll see if those initials will become significant soon. Anyhow, we talked a bit on our alliance and Jack entered just the time he was needed. Together I believe we can cause some chaos ^^</em>
+
+<em>Developments on David</em>
+<em><u>I think he’s a bit of a hopeful.</u> He might require betrayal on this journey. He believes too much in the good of people. He talks bullshit. It’s a shame you know, I really thought he could be of a great use…<strong>and would be able to stay alive after that.*</strong>
+
+*Developments on Tokumei</em>
+<em>I still have no idea what he’s doing at all. The other day he literally said to my face that he was going to kill me. I was not amused.</em>
+<em>But I think he’s using this to analyse me and I don’t like it. I find it annoying</em>
+
+<em>I believe that’s all I need to report, I hope to report more developments as soon as I can as there’s much to explore.</em>
+<em>I love you diary, You lie and deceive with me</em>
+
+-&gt; Isle
+
+
+
+
+<em>Hey Drake</em></span>
+
+                                <span class="chatlog__edited-timestamp" title="04-Jul-21 07:49 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="861006502532743209" id="message-861006502532743209">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>I really like you</em>
+<em>Like, I <u>really</u> like you</em>
+<em>Why don’t you notice me?</em>
+<em>You know so much more than anyone else will about me, yet you haven’t spoken much of a word to me</em>
+<em>We could plan so much. I could teach you about despair from my home, I could teach you so much.</em>
+<em>And you could teach me how to love again.</em>
+<em>You could teach not to fear anything.</em>
+<em>You could teach me so much</em>
+<em>But why have you said not a word to me?</em>
+<em>I want to talk to you, yet your so far away. Why are you so far?</em>
+<em>When will you see how much I like you? Don’t you know how much I like you?</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="861006513857364008" id="message-861006513857364008">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>D̸̉̕o̷̊͝n̵͕̆&#39;̷̔̓t̷̀̐ ̴͐̈y̵͐̊ơ̴͂ủ̸͆ ̷̑̑s̴͐̀ȇ̵̚e̸͗͆ ̶̒̀i̵͋͗t̸͑̈?̶͐̀</em>
+
+<em>I actually love that you brought me here. Whatever that reason might be, I love it. I have the ability to achieve a life long dream of mine. So long that you might kill me for it. I would willingly die by the hands of you. As long as I’ve achieved and watch my dream come to life.</em>
+<em>They’ll learn. You and I could teach them.</em>
+
+W̶͛̏h̷́̕ÿ̷́̀ ̵̽͝h̵̛̽a̷͆̓v̴͂͋ë̵́̀ ̸͒̄y̵̿͐o̴͒̊u̴̍̕ ̴̛̿s̵͌͆p̶̗͆ô̵̑k̶̍̂e̶̓̊n̷̓̅ ̵̛̛t̵̃̍ô̷̎ ̶͌͘D̶́̐a̶̽̾v̸̀̚i̸͐͑d̷́͠ ̵̓͗a̸͐͌n̶͛̀d̴̈́̅ ̴̋not me? I couldn’t help but feel jealous.
+
+<strong>Jealousy is a mean emotion.</strong>
+
+<em>Drake, know that I really like you.</em>
+*I hope to say that from my own mouth but I <strong>rēคllฯ, rēคllฯ, likē ฯ໐น*</strong>
+
+
+<strong>uoʏ ɘvo| I</strong>
+<img class="emoji " alt="🅿" title="🅿" src="https://twemoji.maxcdn.com/2/72x72/1f17f.png"><img class="emoji " alt="🅻" title="🅻" src="https://twemoji.maxcdn.com/2/72x72/1f17b.png"><img class="emoji " alt="🅴" title="🅴" src="https://twemoji.maxcdn.com/2/72x72/1f174.png"><img class="emoji " alt="🅰" title="🅰" src="https://twemoji.maxcdn.com/2/72x72/1f170.png"><img class="emoji " alt="🆂" title="🆂" src="https://twemoji.maxcdn.com/2/72x72/1f182.png"><img class="emoji " alt="🅴" title="🅴" src="https://twemoji.maxcdn.com/2/72x72/1f174.png"> <img class="emoji " alt="🅽" title="🅽" src="https://twemoji.maxcdn.com/2/72x72/1f17d.png"><img class="emoji " alt="🅾" title="🅾" src="https://twemoji.maxcdn.com/2/72x72/1f17e.png"><img class="emoji " alt="🆃" title="🆃" src="https://twemoji.maxcdn.com/2/72x72/1f183.png"><img class="emoji " alt="🅸" title="🅸" src="https://twemoji.maxcdn.com/2/72x72/1f178.png"><img class="emoji " alt="🅲" title="🅲" src="https://twemoji.maxcdn.com/2/72x72/1f172.png"><img class="emoji " alt="🅴" title="🅴" src="https://twemoji.maxcdn.com/2/72x72/1f174.png"> <img class="emoji " alt="🅼" title="🅼" src="https://twemoji.maxcdn.com/2/72x72/1f17c.png"><img class="emoji " alt="🅴" title="🅴" src="https://twemoji.maxcdn.com/2/72x72/1f174.png"></span>
+
+                                <span class="chatlog__edited-timestamp" title="04-Jul-21 07:50 AM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Diaries%20%28KG%29%20-%20lunas-diary%20%5B855179203472523294%5D.html_Files/c5b5070ed3847e865c89156a9cc0cdb5-360CF.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="4MushroomSoap#1474" data-user-id="673944515417079847" style="color: rgb(131,205,235)">Soap | No.343539(23)</span>
+
+
+        <span class="chatlog__timestamp">03-Jul-21 06:54 PM</span>
+
+            <div class="chatlog__message " data-message-id="861017129280733206" id="message-861017129280733206">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em><strong>19/08/20XX</strong></em>
+
+<em>Hello my dear diary~</em>
+
+<em>Such development has taken place over recent days that I must report to you.</em>
+
+<em>Developments on ‘BF’</em>
+<em>BF seems to be this guy named ‘Blake Flemming’. He seemed to be a security system for the place, however it didn’t work. He seemed to know who we were and why we were here when we didn’t actually tell him. I find that curious.</em>
+<em>I believe he was the guy who previously hosted the game. Proves how fucked up the government is.</em>
+<em>As you won’t know, he ended up dying along with his family and almost with the participants, however an escapee managed to get them out before mass execution. It&#39;s a shame I couldn&#39;t get involved then, I could&#39;ve ensured they won.</em>
+<em>... But I will never work with the government of hopefuls. Even if I let could achieve my dream.</em>
+<em>Aside from the point, it was quite interesting how he just became a security system. He must have felt guilty from what he had to put his group through. I do wonder how that happened seeing as he&#39;s dead</em>
+<em>... Unless there&#39;s more to the picture.</em>
+
+<em>Ema Isaru: Ultimate Confectioner</em>
+<em>She&#39;s a child. A literal 5 year old. But she caught on decently quickly. It was annoying</em>
+<em>Since no one knew my old name, I decided to alter it a bit and lie. I don&#39;t think she understood why I would enjoy such a talent which was brought upon me. Funnily enough, I told her the untold truth. She got annoyingly suspicious and though I managed to lie a small bit, I was pretty honest.</em>
+<em>I&#39;m sorry dear diary, I told some truth</em>
+<em>.... Other than she doesn&#39;t know that~</em>
+
+<em>I believe that&#39;s all. Once again diary, I am sorry for telling done truth. I shall update you again soon</em>
+
+<em>I love you dear diary~</em>
+<em><strong>You lie and deceive with me.</strong></em>
+
+-&gt;Isle
+
+<em><strong>Ema you piece of shit</strong></em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="861017315298770954" id="message-861017315298770954">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>Ema you learnt the truth why did you have to bring that out of me?</strong>
+<em>You should think more better of this, She doesn’t know everything?</em>
+<em><strong>But it doesn’t take back the idea that she brought <u>him</u></strong></em>
+<strong>Dear diary, I am no weak person but you know how much I fear him. You know what he did. You know are well aware that it’s something I ensure I don’t let affect me, <em>but it’s only so much when it does.</em></strong>
+<strong>That 5 year old, that <em>fucking</em> 5 year old managed to bring him back and back in that cage I left a long time ago. Do you ever wonder why we were given mercy? I think he really wanted me to have his face ingrained in my memory so that I would suffer the consequences.</strong></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="861017464527257620" id="message-861017464527257620">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><img class="emoji " alt="🅳" title="🅳" src="https://twemoji.maxcdn.com/2/72x72/1f173.png"><img class="emoji " alt="🅴" title="🅴" src="https://twemoji.maxcdn.com/2/72x72/1f174.png"><img class="emoji " alt="🅰" title="🅰" src="https://twemoji.maxcdn.com/2/72x72/1f170.png"><img class="emoji " alt="🆁" title="🆁" src="https://twemoji.maxcdn.com/2/72x72/1f181.png"> <img class="emoji " alt="🅳" title="🅳" src="https://twemoji.maxcdn.com/2/72x72/1f173.png"><img class="emoji " alt="🅸" title="🅸" src="https://twemoji.maxcdn.com/2/72x72/1f178.png"><img class="emoji " alt="🅰" title="🅰" src="https://twemoji.maxcdn.com/2/72x72/1f170.png"><img class="emoji " alt="🆁" title="🆁" src="https://twemoji.maxcdn.com/2/72x72/1f181.png"><img class="emoji " alt="🆈" title="🆈" src="https://twemoji.maxcdn.com/2/72x72/1f188.png">, <img class="emoji " alt="🅸" title="🅸" src="https://twemoji.maxcdn.com/2/72x72/1f178.png">’<img class="emoji " alt="🅼" title="🅼" src="https://twemoji.maxcdn.com/2/72x72/1f17c.png"> <img class="emoji " alt="🅽" title="🅽" src="https://twemoji.maxcdn.com/2/72x72/1f17d.png"><img class="emoji " alt="🅾" title="🅾" src="https://twemoji.maxcdn.com/2/72x72/1f17e.png"><img class="emoji " alt="🆃" title="🆃" src="https://twemoji.maxcdn.com/2/72x72/1f183.png"> <img class="emoji " alt="🅶" title="🅶" src="https://twemoji.maxcdn.com/2/72x72/1f176.png"><img class="emoji " alt="🅾" title="🅾" src="https://twemoji.maxcdn.com/2/72x72/1f17e.png"><img class="emoji " alt="🅸" title="🅸" src="https://twemoji.maxcdn.com/2/72x72/1f178.png"><img class="emoji " alt="🅽" title="🅽" src="https://twemoji.maxcdn.com/2/72x72/1f17d.png"><img class="emoji " alt="🅶" title="🅶" src="https://twemoji.maxcdn.com/2/72x72/1f176.png"> <img class="emoji " alt="🆃" title="🆃" src="https://twemoji.maxcdn.com/2/72x72/1f183.png"><img class="emoji " alt="🅾" title="🅾" src="https://twemoji.maxcdn.com/2/72x72/1f17e.png"> <img class="emoji " alt="🅻" title="🅻" src="https://twemoji.maxcdn.com/2/72x72/1f17b.png"><img class="emoji " alt="🅴" title="🅴" src="https://twemoji.maxcdn.com/2/72x72/1f174.png"><img class="emoji " alt="🆃" title="🆃" src="https://twemoji.maxcdn.com/2/72x72/1f183.png"> <img class="emoji " alt="🅷" title="🅷" src="https://twemoji.maxcdn.com/2/72x72/1f177.png"><img class="emoji " alt="🅸" title="🅸" src="https://twemoji.maxcdn.com/2/72x72/1f178.png"><img class="emoji " alt="🅼" title="🅼" src="https://twemoji.maxcdn.com/2/72x72/1f17c.png"> <img class="emoji " alt="🆆" title="🆆" src="https://twemoji.maxcdn.com/2/72x72/1f186.png"><img class="emoji " alt="🅸" title="🅸" src="https://twemoji.maxcdn.com/2/72x72/1f178.png"><img class="emoji " alt="🅽" title="🅽" src="https://twemoji.maxcdn.com/2/72x72/1f17d.png">. <img class="emoji " alt="🅾" title="🅾" src="https://twemoji.maxcdn.com/2/72x72/1f17e.png"><img class="emoji " alt="🅽" title="🅽" src="https://twemoji.maxcdn.com/2/72x72/1f17d.png"><img class="emoji " alt="🅲" title="🅲" src="https://twemoji.maxcdn.com/2/72x72/1f172.png"><img class="emoji " alt="🅴" title="🅴" src="https://twemoji.maxcdn.com/2/72x72/1f174.png"> <img class="emoji " alt="🅸" title="🅸" src="https://twemoji.maxcdn.com/2/72x72/1f178.png"> <img class="emoji " alt="🅰" title="🅰" src="https://twemoji.maxcdn.com/2/72x72/1f170.png"><img class="emoji " alt="🅲" title="🅲" src="https://twemoji.maxcdn.com/2/72x72/1f172.png"><img class="emoji " alt="🅷" title="🅷" src="https://twemoji.maxcdn.com/2/72x72/1f177.png"><img class="emoji " alt="🅸" title="🅸" src="https://twemoji.maxcdn.com/2/72x72/1f178.png"><img class="emoji " alt="🅴" title="🅴" src="https://twemoji.maxcdn.com/2/72x72/1f174.png"><img class="emoji " alt="🆅" title="🆅" src="https://twemoji.maxcdn.com/2/72x72/1f185.png"><img class="emoji " alt="🅴" title="🅴" src="https://twemoji.maxcdn.com/2/72x72/1f174.png"> <img class="emoji " alt="🅼" title="🅼" src="https://twemoji.maxcdn.com/2/72x72/1f17c.png"><img class="emoji " alt="🆈" title="🆈" src="https://twemoji.maxcdn.com/2/72x72/1f188.png"> <img class="emoji " alt="🅳" title="🅳" src="https://twemoji.maxcdn.com/2/72x72/1f173.png"><img class="emoji " alt="🆁" title="🆁" src="https://twemoji.maxcdn.com/2/72x72/1f181.png"><img class="emoji " alt="🅴" title="🅴" src="https://twemoji.maxcdn.com/2/72x72/1f174.png"><img class="emoji " alt="🅰" title="🅰" src="https://twemoji.maxcdn.com/2/72x72/1f170.png"><img class="emoji " alt="🅼" title="🅼" src="https://twemoji.maxcdn.com/2/72x72/1f17c.png"> <img class="emoji " alt="🅸" title="🅸" src="https://twemoji.maxcdn.com/2/72x72/1f178.png">’<img class="emoji " alt="🅼" title="🅼" src="https://twemoji.maxcdn.com/2/72x72/1f17c.png"> <img class="emoji " alt="🅶" title="🅶" src="https://twemoji.maxcdn.com/2/72x72/1f176.png"><img class="emoji " alt="🅾" title="🅾" src="https://twemoji.maxcdn.com/2/72x72/1f17e.png"><img class="emoji " alt="🅸" title="🅸" src="https://twemoji.maxcdn.com/2/72x72/1f178.png"><img class="emoji " alt="🅽" title="🅽" src="https://twemoji.maxcdn.com/2/72x72/1f17d.png"><img class="emoji " alt="🅶" title="🅶" src="https://twemoji.maxcdn.com/2/72x72/1f176.png"> <img class="emoji " alt="🆃" title="🆃" src="https://twemoji.maxcdn.com/2/72x72/1f183.png"><img class="emoji " alt="🅾" title="🅾" src="https://twemoji.maxcdn.com/2/72x72/1f17e.png"> <img class="emoji " alt="🅺" title="🅺" src="https://twemoji.maxcdn.com/2/72x72/1f17a.png"><img class="emoji " alt="🅸" title="🅸" src="https://twemoji.maxcdn.com/2/72x72/1f178.png"><img class="emoji " alt="🅻" title="🅻" src="https://twemoji.maxcdn.com/2/72x72/1f17b.png"><img class="emoji " alt="🅻" title="🅻" src="https://twemoji.maxcdn.com/2/72x72/1f17b.png"> <img class="emoji " alt="🅷" title="🅷" src="https://twemoji.maxcdn.com/2/72x72/1f177.png"><img class="emoji " alt="🅸" title="🅸" src="https://twemoji.maxcdn.com/2/72x72/1f178.png"><img class="emoji " alt="🅼" title="🅼" src="https://twemoji.maxcdn.com/2/72x72/1f17c.png">. <img class="emoji " alt="🅰" title="🅰" src="https://twemoji.maxcdn.com/2/72x72/1f170.png"><img class="emoji " alt="🅽" title="🅽" src="https://twemoji.maxcdn.com/2/72x72/1f17d.png"><img class="emoji " alt="🅳" title="🅳" src="https://twemoji.maxcdn.com/2/72x72/1f173.png"> <img class="emoji " alt="🅸" title="🅸" src="https://twemoji.maxcdn.com/2/72x72/1f178.png"><img class="emoji " alt="🅵" title="🅵" src="https://twemoji.maxcdn.com/2/72x72/1f175.png"> <img class="emoji " alt="🅸" title="🅸" src="https://twemoji.maxcdn.com/2/72x72/1f178.png"> <img class="emoji " alt="🅳" title="🅳" src="https://twemoji.maxcdn.com/2/72x72/1f173.png"><img class="emoji " alt="🅾" title="🅾" src="https://twemoji.maxcdn.com/2/72x72/1f17e.png"><img class="emoji " alt="🅽" title="🅽" src="https://twemoji.maxcdn.com/2/72x72/1f17d.png">’<img class="emoji " alt="🆃" title="🆃" src="https://twemoji.maxcdn.com/2/72x72/1f183.png"> <img class="emoji " alt="🅺" title="🅺" src="https://twemoji.maxcdn.com/2/72x72/1f17a.png"><img class="emoji " alt="🅸" title="🅸" src="https://twemoji.maxcdn.com/2/72x72/1f178.png"><img class="emoji " alt="🅻" title="🅻" src="https://twemoji.maxcdn.com/2/72x72/1f17b.png"><img class="emoji " alt="🅻" title="🅻" src="https://twemoji.maxcdn.com/2/72x72/1f17b.png"> <img class="emoji " alt="🅷" title="🅷" src="https://twemoji.maxcdn.com/2/72x72/1f177.png"><img class="emoji " alt="🅸" title="🅸" src="https://twemoji.maxcdn.com/2/72x72/1f178.png"><img class="emoji " alt="🅼" title="🅼" src="https://twemoji.maxcdn.com/2/72x72/1f17c.png">? Í̶̕&#39;̷̽͝v̴͛̈e̶͊̒ ̸̊̂ǵ̵̑o̴͂́t̵̓͝ ̶̍̓p̷̏̌l̶̻̈a̶̽̉n̶͒̄s̷̃͝ ̶̒̑t̷̏̐ȯ̸͠ ̸͋̌t̵̍͝a̴̒̂k̸̍̎e̶̜͒ ̶͇̃h̴͋̇i̸͋̓m̴̾̓ ̵̓ͅd̸̏̈o̸̎̇w̷̆͆n̴̉͒ ̸͗̃ẁ̶͚í̶̒t̵͆͌h̷̑͠ ̶̛̊m̷̄̽e̷̛͝ ̷̒̓t̴͋͒o̶͗͝ ̵̋͘h̶̋̊e̶̒͗l̵̆̃ĺ̶̌.̴̛̌</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="861017515705237504" id="message-861017515705237504">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">D̷̀̈è̶͠a̸͙̔r̶̆̕ ̵̀̈d̴̈́͜i̴̿̍a̵͒̆r̵̊͝y̴̾̍ ̸̛͘I̶͒͗ ̸̛͋w̶̆͐i̵̛͝l̴͚̔ĺ̶̾ ̷́̔m̸͊̿a̵̤̋k̷̀̅è̴͘ ̴̦͠š̵̈û̴̋ṙ̴̼e̴̔̑ ̶͋̎t̵͒̓o̷̽̐ ̸͊̒g̵͂͠ë̴́͑ẗ̴͘ ̴̽̿m̸͆͑y̵͐͌ ̵̑͗r̷̉͊ē̵͂v̸͋̄e̴̝̓n̶͂͠g̷͠͠e̸̔̈́.̶̺̆</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="861017558647046144" id="message-861017558647046144">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">̴̃̿w̸̍͂ḯ̴̕l̸̐͝ľ̵̅ ̷̀̕ǧ̷̹e̸͚̽t̶̽̋ ̶̛͠m̴͆̾y̴̿̎ ̶̾͗r̶͗͊ȅ̵͝v̸̉̂e̵͂͝n̸̔͝g̵͐͆è̷͑.̵͂͝
+
+<em>Strange.</em>
+ <em>At the bottom of the paper, you can notice a few damp patches dotted around. They&#39;re more faded and less noticeable now, but they plague that part of the page. The only time you actually see them.</em>
+<em>Wonder what they are?</em></span>
+
+                                <span class="chatlog__edited-timestamp" title="03-Jul-21 07:50 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Diaries%20%28KG%29%20-%20lunas-diary%20%5B855179203472523294%5D.html_Files/c5b5070ed3847e865c89156a9cc0cdb5-360CF.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="4MushroomSoap#1474" data-user-id="673944515417079847" style="color: rgb(131,205,235)">Soap | No.343539(23)</span>
+
+
+        <span class="chatlog__timestamp">04-Jul-21 01:25 PM</span>
+
+            <div class="chatlog__message " data-message-id="861296725691334686" id="message-861296725691334686">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em><strong>21/08/20XX</strong></em>
+
+<em>Hey Dear diary~</em>
+
+<em>What an interesting previous days it’s been. We didn’t even have a motive this chapter and someone was killed. Not as precise as the last case, but it was still quite fun to see the scene. It felt like the crucifixion but more cruel ^^</em>
+<em>I didn&#39;t really properly meet the guy who died but I&#39;ve seen him around. I would really love to know who killed him without any motivation. But I already have a feeling that I know.</em>
+<em>The person I&#39;ve been voting for all this time.</em>
+<em>Trial is going to be later today and I&#39;m just going to observe. I don&#39;t involve myself much in these trials anyways because it&#39;s fun to watch them squirm around.</em>
+
+<em>Hasn&#39;t been much development recently as I&#39;ve stayed on the down low. I&#39;m just getting used to updating this every 2 days.</em>
+
+<em>Anyhow, I love you dear diary~</em>
+<em>You lie and deceive with me</em>
+
+-&gt;Isle
+
+
+<em>Drake, did you hear me before?</em></span>
+
+                                <span class="chatlog__edited-timestamp" title="04-Jul-21 01:34 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="861296920864751646" id="message-861296920864751646">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>I said I ⱤɆ₳ⱠⱠɎ ⱤɆ₳ⱠⱠɎ Ⱡł₭ɆĐ Ɏ&#216;Ʉ. Đ&#216;₦&#39;₮ ₣&#216;Ɽ₲Ɇ₮ ₮Ⱨ₳₮ ł&#39;₥ ₳ⱠⱠ Ɏ&#216;Ʉ&#39;ⱠⱠ ɆVɆⱤ ₦ɆɆĐ ₳₦Đ Ɏ&#216;Ʉ&#39;ⱤɆ ₳ⱠⱠ ł&#39;ⱠⱠ ɆVɆⱤ ₦ɆɆĐ</em>
+<em>Please just notice me. You know I can make sure you get your fun out of this. <strong>I&#39;ll ensure it.*</strong>
+*You know where I came from. You know my story. So why do you not ask for my aid?</em>
+<img class="emoji " alt="🆈" title="🆈" src="https://twemoji.maxcdn.com/2/72x72/1f188.png"><img class="emoji " alt="🅾" title="🅾" src="https://twemoji.maxcdn.com/2/72x72/1f17e.png"><img class="emoji " alt="🆄" title="🆄" src="https://twemoji.maxcdn.com/2/72x72/1f184.png"> <img class="emoji " alt="🅺" title="🅺" src="https://twemoji.maxcdn.com/2/72x72/1f17a.png"><img class="emoji " alt="🅽" title="🅽" src="https://twemoji.maxcdn.com/2/72x72/1f17d.png"><img class="emoji " alt="🅾" title="🅾" src="https://twemoji.maxcdn.com/2/72x72/1f17e.png"><img class="emoji " alt="🆆" title="🆆" src="https://twemoji.maxcdn.com/2/72x72/1f186.png"> <img class="emoji " alt="🅸" title="🅸" src="https://twemoji.maxcdn.com/2/72x72/1f178.png"> <img class="emoji " alt="🅻" title="🅻" src="https://twemoji.maxcdn.com/2/72x72/1f17b.png"><img class="emoji " alt="🅾" title="🅾" src="https://twemoji.maxcdn.com/2/72x72/1f17e.png"><img class="emoji " alt="🆅" title="🆅" src="https://twemoji.maxcdn.com/2/72x72/1f185.png"><img class="emoji " alt="🅴" title="🅴" src="https://twemoji.maxcdn.com/2/72x72/1f174.png"> <img class="emoji " alt="🅱" title="🅱" src="https://twemoji.maxcdn.com/2/72x72/1f171.png"><img class="emoji " alt="🅴" title="🅴" src="https://twemoji.maxcdn.com/2/72x72/1f174.png"><img class="emoji " alt="🅸" title="🅸" src="https://twemoji.maxcdn.com/2/72x72/1f178.png"><img class="emoji " alt="🅽" title="🅽" src="https://twemoji.maxcdn.com/2/72x72/1f17d.png"><img class="emoji " alt="🅶" title="🅶" src="https://twemoji.maxcdn.com/2/72x72/1f176.png"> <img class="emoji " alt="🅷" title="🅷" src="https://twemoji.maxcdn.com/2/72x72/1f177.png"><img class="emoji " alt="🅴" title="🅴" src="https://twemoji.maxcdn.com/2/72x72/1f174.png"><img class="emoji " alt="🆁" title="🆁" src="https://twemoji.maxcdn.com/2/72x72/1f181.png"><img class="emoji " alt="🅴" title="🅴" src="https://twemoji.maxcdn.com/2/72x72/1f174.png"> <img class="emoji " alt="🆂" title="🆂" src="https://twemoji.maxcdn.com/2/72x72/1f182.png"><img class="emoji " alt="🅾" title="🅾" src="https://twemoji.maxcdn.com/2/72x72/1f17e.png"> <img class="emoji " alt="🅼" title="🅼" src="https://twemoji.maxcdn.com/2/72x72/1f17c.png"><img class="emoji " alt="🆄" title="🆄" src="https://twemoji.maxcdn.com/2/72x72/1f184.png"><img class="emoji " alt="🅲" title="🅲" src="https://twemoji.maxcdn.com/2/72x72/1f172.png"><img class="emoji " alt="🅷" title="🅷" src="https://twemoji.maxcdn.com/2/72x72/1f177.png">.
+<em>₩ⱧɎ Ⱨ₳VɆ₦&#39;₮ Ɏ&#216;Ʉ ₴ɆɆ₦ ₥Ɇ? ł ⱤɆ₳ⱠⱠɎ ₩₳₦₮ ₮&#216; ₮₳Ⱡ₭ ₮&#216; Ɏ&#216;Ʉ. ł Đ&#216;₦&#39;₮ ₩₳₦₮ ₮&#216; ₳Đ₥łⱤɆ Ɏ&#216;Ʉ ₣Ɽ&#216;₥ ₳ Đł₴₮₳₦₵Ɇ.</em>
+<strong><img class="emoji " alt="𝕀" title="𝕀" src="https://twemoji.maxcdn.com/2/72x72/1d540.png"> <img class="emoji " alt="𝕨" title="𝕨" src="https://twemoji.maxcdn.com/2/72x72/1d568.png"><img class="emoji " alt="𝕒" title="𝕒" src="https://twemoji.maxcdn.com/2/72x72/1d552.png"><img class="emoji " alt="𝕟" title="𝕟" src="https://twemoji.maxcdn.com/2/72x72/1d55f.png"><img class="emoji " alt="𝕥" title="𝕥" src="https://twemoji.maxcdn.com/2/72x72/1d565.png"> <img class="emoji " alt="𝕥" title="𝕥" src="https://twemoji.maxcdn.com/2/72x72/1d565.png"><img class="emoji " alt="𝕠" title="𝕠" src="https://twemoji.maxcdn.com/2/72x72/1d560.png"> <img class="emoji " alt="𝕥" title="𝕥" src="https://twemoji.maxcdn.com/2/72x72/1d565.png"><img class="emoji " alt="𝕒" title="𝕒" src="https://twemoji.maxcdn.com/2/72x72/1d552.png"><img class="emoji " alt="𝕝" title="𝕝" src="https://twemoji.maxcdn.com/2/72x72/1d55d.png"><img class="emoji " alt="𝕜" title="𝕜" src="https://twemoji.maxcdn.com/2/72x72/1d55c.png"> <img class="emoji " alt="𝕥" title="𝕥" src="https://twemoji.maxcdn.com/2/72x72/1d565.png"><img class="emoji " alt="𝕠" title="𝕠" src="https://twemoji.maxcdn.com/2/72x72/1d560.png"> <img class="emoji " alt="𝕪" title="𝕪" src="https://twemoji.maxcdn.com/2/72x72/1d56a.png"><img class="emoji " alt="𝕠" title="𝕠" src="https://twemoji.maxcdn.com/2/72x72/1d560.png"><img class="emoji " alt="𝕦" title="𝕦" src="https://twemoji.maxcdn.com/2/72x72/1d566.png"></strong>
+<em>I&#39;m not going to become like those yanderes who will kill others to get their way,</em>
+<strong>b̵̀̐û̸̓t̴͑̊ ̸̙͆I̷͂̃ ̵̹̿w̴̐̊i̷̓͂l̸͒̓ĺ̵̈ ̶̂͗ĩ̶̭f̷̾̐ ̷̇͗t̵͌͠h̸̓̎é̸̉r̵͊̐e̶̅͝&#39;̵̆͝s̴̔͗ ̸̐̕s̶̽̃ȯ̵̓m̸̅̌ȇ̵̒ỏ̴̕n̶̓͠e̴͒̕ ̸̓̚e̵͌͠l̴̍̋s̶̩̒ë̶́̊</strong>
+
+<em>Drake I hope that you don&#39;t forget me. Don&#39;t forget me like everyone else has. I know I&#39;m easily forgotten, Kaeru got a girlfriend and I&#39;ve just been left in the shadows. Not that I care</em>
+<strong>ƧΉЦƬ ЦP YӨЦ DӨ ᄃΛЯΣ. YӨЦ&#39;ЯΣ FΣD ЦP ӨF PΣӨPᄂΣ FӨЯGΣƬƬIПG YӨЦ.
+I DӨП&#39;Ƭ ᄂIKΣ BΣIПG IП ƬΉΣ ƧΉΛDӨЩƧ IƬ&#39;Ƨ ƧᄃΛЯY</strong>
+
+
+<em>Remember me as your loyal participant. That&#39;s what I&#39;d like to be remembered by. As long as you remember me after we all go, I&#39;ll be happy</em>
+<em>Please look at me Drake</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Diaries%20%28KG%29%20-%20lunas-diary%20%5B855179203472523294%5D.html_Files/c5b5070ed3847e865c89156a9cc0cdb5-360CF.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="4MushroomSoap#1474" data-user-id="673944515417079847" style="color: rgb(131,205,235)">Soap | No.343539(23)</span>
+
+
+        <span class="chatlog__timestamp">04-Jul-21 01:36 PM</span>
+
+            <div class="chatlog__message " data-message-id="861299472688480286" id="message-861299472688480286">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em><strong>25/08/20XX</strong></em>
+
+<em>Dear diary,</em>
+
+<em>Yesterday was another day, another punishment. Master made our fears a reality. What would you expect? Master likes doing that and I have no choice but to oblige.</em>
+
+<em>I met a girl who was scared of the dark. I really wanted to <span class="spoiler spoiler--hidden" onclick="showSpoiler(event, this)"><span class="spoiler-text">slit her throat</span></span> or simply cause some damage. I don’t know what came into me. <strong>I&#39;m so bad</strong>.</em>
+<em>I told her my name, she kept talking about this girl called Luna. For some reason I lied and said I knew her, but it felt too real to say that I didn&#39;t know this Luna. Who is this Luna? I know Master said he wanted to name me that once he thought I was up to his standard but I like my name. What&#39;s wrong with it? It&#39;s the name in front of the room my feet led me to. I don&#39;t understand why my feet took me here when my name is Isle. Has Master already sealed my fate? Am I going to live?</em>
+
+<em>But I think I&#39;d rather die here.</em>
+<em>Master has done his damage and entertainment. H҉e҉&#39;҉s҉ ҉t҉a҉k҉e҉n҉ ҉o҉u҉t҉ ҉w҉h҉a҉t҉e҉v҉e҉r҉ ҉&#39;҉h҉o҉p҉e҉&#39;҉ ҉o҉r҉ ҉w҉h҉a҉t҉e҉v҉e҉r҉ ҉h҉e҉ ҉s҉a҉i҉d҉ ҉o҉u҉t҉ ҉o҉f҉ ҉m҉e҉.҉**I feel nothing.</em>
+<em>Even when I spoke to that girl, it felt like a blur.</em>
+
+<em>I went to the medbay later. Somehow I knew the girl I met there. I knew her, Rita. I don&#39;t know how I did, but she looked like a prisoner of Master too. She was having a panic attack, so I put a smile on my face and went to try and calm her down. I don&#39;t know what I was talking about with the cake, there isn&#39;t any here, but my mouth said so.</em>
+<em>I did the wrong thing, she passed out.</em>
+
+<em>For some reason I just left the room. No, I left the room because Master&#39;s been staring at me. I don&#39;t know why he was staring at me. I left the room hoping the Rita would be calm when she woke up, and that Master would stop following me.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="861299492158832720" id="message-861299492158832720">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Master has been following me all day. Maybe it&#39;s because seeing as I can finally roam more freely, he&#39;s making sure I stay &#39;in form&#39;. He shouldn&#39;t have let me roam freely in the first place.</em>
+
+<em>Master is still watching me as I write. He&#39;s going to punish me for saying such things.</em>
+<em>I don&#39;t know why I keep saying such things when I don&#39;t like the consequences.</em>
+
+<em>Please someone help me</em>
+
+-&gt; No. 243617(23)
+
+<em><u>You turn the page and it has the same date</u></em>
+
+<em><strong>25/08/20XX</strong></em>
+
+<em>Hey Dear diary...</em>
+
+<em>Let me lie to you</em></span>
+
+                                <span class="chatlog__edited-timestamp" title="04-Jul-21 01:38 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="861299895155818507" id="message-861299895155818507">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Or should I tell you the truth? I only tell the truth to you anyways.</em>
+
+<em>I think Drake hates me.</em>
+<em>He brought him back. And you know that I don&#39;t like him. He keeps following me and I don&#39;t know what he&#39;s going to do.</em>
+
+<em>I&#39;m scared, dear diary.</em>
+
+<em>When I&#39;m in a better state, I&#39;ll write down the developments of who I have met recently. To jog my memory I&#39;ll write some notes:</em>
+
+<em>Cup stacker</em>
+<em>Fears darkness</em>
+<em>Lied to her</em>
+<em>Engine room</em>
+<em>Tried to have some fun</em>
+
+<em>Rita</em>
+<em>Panic attack</em>
+<em>Medbay</em>
+<em>Cake</em>
+<em>Passed out</em>
+
+<em>That&#39;s a good summary for now.</em>
+<em>I&#39;m sorry dear diary, I&#39;m in a terrible state to which I can&#39;t write much.</em>  
+
+<em><strong>I can&#39;t fucking stand this he keeps following me dear diary he&#39;s Always behind me he won&#39;t go. He just won&#39;t leave he just won&#39;t leave he just won&#39;t leave</strong></em>
+<em><strong>He&#39;s going to start punishing me again, I don&#39;t want to go back there dear diary, I didn&#39;t do anything wrong.</strong></em>
+
+<em><strong>D̶̓͝r̸̐̿a̶̾͒ḱ̶̇e̴͌͝ ̶̅͘w̴̖̏ḣ̷̈́ỹ̷͋ ̷̉̀h̷̃͆å̴̛v̵̒̚e̷͊̒ ̵͌̋y̷̑̆o̸͊͘u̴̒͝ ̶̊̒l̷̾͝ë̵̕t̷́̍ ̶́̔h̴̾͝i̶̛̛m̶͋͊ ̶̎̑s̸̽̀l̶̅͌i̴͂̚ṗ̶̔ ̵̄̃ỉ̷͒n̴̆͊ ̵͆̃h̸͒̈́ê̷͝r̸̐͘ẻ̵̊?̴̊̈</strong></em>
+<em><strong>Y̶͗̕ò̵͂u̴͆͝&#39;̸͛͐ŕ̵̿ê̴͑ ̵͂̚ḿ̶͘ẽ̶͛a̵͌nt to protect me</strong></em>
+
+<em>Dear diary, please help me.</em>
+<em>I need to hide.</em>
+
+-&gt; Isle</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Diaries%20%28KG%29%20-%20lunas-diary%20%5B855179203472523294%5D.html_Files/c5b5070ed3847e865c89156a9cc0cdb5-360CF.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="4MushroomSoap#1474" data-user-id="673944515417079847" style="color: rgb(131,205,235)">Soap | No.343539(23)</span>
+
+
+        <span class="chatlog__timestamp">04-Jul-21 01:56 PM</span>
+
+            <div class="chatlog__message " data-message-id="861304434432016435" id="message-861304434432016435">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em><strong>27/08/20XX</strong></em>
+
+<em>Hello dear diary</em>
+
+<em>I vowed to update you every 2 days, so I will. I haven&#39;t really spoken to many people since. I&#39;ve just stayed in my room. Catching up on sleep, but the sleep I&#39;m getting is full of nightmares.</em>
+
+<em>Nightmares were always tolerable until he started watching me. I wish Drake would come and help me take him away. He keeps following my every move, and if I hide….</em>
+
+<em>W̷h̷e̷n̷ ̷I̷ ̷h̷i̷d̷e̷ ̷h̷e̷ ̷k̷e̷e̷p̷s̷ ̷t̷a̷l̷k̷i̷n̷g̷ ̷i̷n̷ ̷m̷y̷ ̷e̷a̷r̷.̷ ̷C̷a̷l̷l̷i̷n̷g̷ ̷m̷</em>
+
+
+<em>Dear diary,</em>
+
+<em>I decided to stay in my cage to satisfy Master. He&#39;s still here. Master has been having fun torturing me for the past few days.</em>
+
+<em>It hasn&#39;t stopped.</em>
+
+<em>This is my short time where I feel like he&#39;s gone for me to update you. I don&#39;t want to neglect you, I want Master to go away. I think he knows that I’m too scared to do anything.. So why does he do it?</em>
+
+<em>Oh no</em>
+<em>He never left</em>
+
+
+<em>Oh for fucks sake.</em>
+<em>Can you stop talking about it? <strong>That&#39;s in the past</strong>. We&#39;re not there, we&#39;re in the nice hands of Drake. He will make sure no harm is done</em>
+
+<em>Anyhow dear diary, seeing as there has been no developments. I want someone to die, I want someone to die soon. Not for my benefit, it&#39;s so I can laugh finally when he goes. That&#39;ll mean I have a temporary win. I&#39;ll be happy again</em>
+
+<em>I won&#39;t have to fear him again for a while.</em>
+
+<em>It&#39;ll be over soon. We can lie and deceive together again soon.</em>
+<em>Love you dear diary</em>
+<em><strong>Ⱡ&#216;VɆ Ɏ&#216;Ʉ ĐⱤ₳₭Ɇ</strong></em>
+
+-&gt;Isle</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="861306079891554344" id="message-861306079891554344">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em><strong>28/08/20XX</strong></em>
+
+<em>Good night dear diary</em>
+<em>I&#39;m going to explore the place. I hope you wish me luck. I just had a sudden urge to go and find Stella. I know they aren&#39;t here, but something is drawing me down that way</em>
+
+<em>Wish me luck, will you?</em>
+
+<em><u>She never finished it. This is where she left the pen closed on. You&#39;d probably read this first</u></em>
+
+
+<em><u>If you dare venture to the back of the book, it has some pretty interesting content:</u></em>
+
+<em>At the very back</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Diaries%20%28KG%29%20-%20lunas-diary%20%5B855179203472523294%5D.html_Files/c5b5070ed3847e865c89156a9cc0cdb5-360CF.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="4MushroomSoap#1474" data-user-id="673944515417079847" style="color: rgb(131,205,235)">Soap | No.343539(23)</span>
+
+
+        <span class="chatlog__timestamp">04-Jul-21 02:15 PM</span>
+
+            <div class="chatlog__message " data-message-id="861309363218284575" id="message-861309363218284575">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>๔єคг ๔เคгץ, ђєгє&#39;ร Շђє קɭคภ:</em>
+<em><strong>๓เรรเ๏ภ ภค๓є: ๓๏๏ภ</strong></em>
+
+<em>เ ภєє๔ Շ๏ Շєคςђ Շђєรє קє๏קɭє ค ɭєรร๏ภ ๔єคг ๔เคгץ. ฬє คɭɭ кภ๏ฬ ฬђץ. ยภŦ๏гՇยภคՇєɭץ, เ ςคภ&#39;Շ ๔๏ Շђเภﻮร ђ๏ฬ เ&#39;๔ ๔гєค๓ Ŧ๏г เՇ Շ๏ ๒є, ๒ยՇ ภ๏ ๓คՇՇєг ฬђคՇ, <strong>Շђเร ฬเɭɭ ๒є ๓ครร ๓ยг๔єг.*</strong>
+
+*เ ђคשє ร๏๓є ๏קՇเ๏ภร:</em>
+<em>เ ςคภ Շคкє Շђє๓ ๏ภє ๒ץ ๏ภє คภ๔ кเɭɭ Շђє๓ คɭɭ. Շђєภ ๒ץ ՇђคՇ เ ςคภ ɭєคשє ๏ภє คɭเשє Շ๏ Շ๏гՇยгє.</em>
+<em>ภєฬ ภ๏Շє: เ ฬคภՇ Շ๏ ɭєՇ ๓คเﻮ๏ ɭเשє. เ ς๏ยɭ๔ ןยรՇ кєєק คร ค ђ๏รՇคﻮє, ๒ยՇ คՇ ร๏๓є ק๏เภՇ ђє’ɭɭ ﻮєՇ ๒๏Շђєгร๏๓є คภ๔ เ ๔๏ภ’Շ ฬคภՇ Շ๏ кเɭɭ ђเ๓. Շђเร ๏קՇเ๏ภ ๓เﻮђՇ ๒є ๔เŦŦเςยɭՇ</em>
+
+<em>เ ς๏ยɭ๔ คɭร๏ ןยรՇ Շคкє ๓คเﻮ๏ Շ๏ ค Շєค קคгՇץ คภ๔ ๔єՇ๏ภคՇє Շђє ฬђ๏ɭє ɭ๏ςคՇเ๏ภ ฬє คгє ﻮเשєภ ฬђเɭรՇ เ’๓ ฬเՇђ ђเ๓. เ ςคภ Շคкє ๓คเﻮ๏ ฬเՇђ ๓є คภ๔ ฬє гเ๔є. เ ๓คץ ๒є ค ๒เՇ ๔ย๓๒ ๒ץ ครรย๓เภﻮ ՇђคՇ Շђєץ ๓เﻮђՇ ภ๏Շเςє, ๒ยՇ Շђєץ’ɭɭ ภ๏Շเςє Շ๏๏ ɭคՇє.</em>
+<em>ฬє ςคภ ฬคՇςђ Շђє ร๓๏кє Ŧɭ๏ฬ ๏ยՇ Շђє ๔๏๏гร, เ’ɭɭ ๒гเภﻮ ๓คгรђ๓คɭɭ๏ฬร คภ๔ ฬє’ɭɭ ๓คкє ร๓๏гєร ɭคՇєг!</em>
+<em>Շђєภ ๔гคкє ςคภ ɭєՇ ยร ﻮ๏~</em>
+
+<em>เŦ ՇђคՇ ﻮ๏єร ๔๏ฬภ Շђє ๔гคเภ (เ ςคภ Շђเภк ๏Ŧ ђ๏ฬ ՇђคՇ ς๏ยɭ๔ ฬเՇђ ๓คเﻮ๏ คภ๔ ןคς๏๒ ๒єเภﻮ ςɭ๏รє), เ’ɭɭ ђคשє Շ๏ ยรє ๓ץ คɭɭเєร, Շђєภ ๒єՇгคץ Շђє๓ ɭคՇєг. ՇђคՇ ฬ๏ยɭ๔ ๒є קгєՇՇץ รคՇเรŦץเภﻮ Շ๏ รคץ Շђє ɭєครՇ</em>
+<em>ﻮ๏เภﻮ ๔๏ฬภ Շђเร г๏ยՇє ฬ๏ยɭ๔ ๓๏รՇ ɭเкєɭץ ๓єคภ <strong>คгร๏ภ</strong>.</em>
+
+<em>เ’ɭɭ ɭเรՇ คภץ ๓๏гє คɭՇєгภคՇเשєร ๒єɭ๏ฬ เŦ คภץՇђเภﻮ. เ ฬคภՇ Շ๏ ﻮ๏ ฬเՇђ ๏קՇเ๏ภ 2 <u>Ŧ๏г ภ๏ฬ</u></em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Diaries%20%28KG%29%20-%20lunas-diary%20%5B855179203472523294%5D.html_Files/c5b5070ed3847e865c89156a9cc0cdb5-360CF.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="4MushroomSoap#1474" data-user-id="673944515417079847" style="color: rgb(131,205,235)">Soap | No.343539(23)</span>
+
+
+        <span class="chatlog__timestamp">04-Jul-21 05:35 PM</span>
+
+            <div class="chatlog__message " data-message-id="861359699864846357" id="message-861359699864846357">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em><u>The page finishes there, if you turn the page, it’s a sight.</u></em>
+
+
+<em>I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you DrakeI like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you DrakeI like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you DrakeI like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you DrakeI like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you DrakeI like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you Drake I like you</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="861359814847496204" id="message-861359814847496204">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Drake I really like you I really really like you I really like you I really like you I really like you I really like you Drake I really like you I really really like you I really like you I really like you I really like you I really like you Drake I really like you I really really like you I really like you I really like you I really like you I really like you Drake I really like you I really really like you I really like you I really like you I really like you I really like you Drake I really like you I really really like you I really like you I really like you I really like you I really like you Drake I really like you I really really like you I really like you I really like you I really like you I really like you ๔гคкє เ гєคɭɭץ ɭเкє ץ๏ย เ гєคɭɭץ гєคɭɭץ ɭเкє ץ๏ย เ гєคɭɭץ ɭเкє ץ๏ย เ гєคɭɭץ ɭเкє ץ๏ย เ гєคɭɭץ ɭเкє ץ๏ย เ гєคɭɭץ ɭเкє ץ๏ย ๔гคкє เ гєคɭɭץ ɭเкє ץ๏ย เ гєคɭɭץ гєคɭɭץ ɭเкє ץ๏ย เ гєคɭɭץ ɭเкє ץ๏ย เ гєคɭɭץ ɭเкє ץ๏ย เ гєคɭɭץ ɭเкє ץ๏ย เ гєคɭɭץ ɭเкє ץ๏ย ๔гคкє เ гєคɭɭץ ɭเкє ץ๏ย เ гєคɭɭץ гєคɭɭץ ɭเкє ץ๏ย เ гєคɭɭץ ɭเкє ץ๏ย เ гєคɭɭץ ɭเкє ץ๏ย เ гєคɭɭץ ɭเкє ץ๏ย เ гєคɭɭץ ɭเкє ץ๏ย ๔гคкє เ гєคɭɭץ ɭเкє ץ๏ย เ гєคɭɭץ гєคɭɭץ ɭเкє ץ๏ย เ гєคɭɭץ ɭเкє ץ๏ย เ гєคɭɭץ ɭเкє ץ๏ย เ гєคɭɭץ ɭเкє ץ๏ย เ гєคɭɭץ ɭเкє ץ๏ย ๔гคкє เ гєคɭɭץ ɭเкє ץ๏ย เ гєคɭɭץ гєคɭɭץ ɭเкє ץ๏ย เ гєคɭɭץ ɭเкє ץ๏ย เ гєคɭɭץ ɭเкє ץ๏ย เ гєคɭɭץ ɭเкє ץ๏ย เ гєคɭɭץ ɭเкє ץ๏ย ๔гคкє เ гєคɭɭץ ɭเкє ץ๏ย เ гєคɭɭץ гєคɭɭץ ɭเкє ץ๏ย เ гєคɭɭץ ɭเкє ץ๏ย เ гєคɭɭץ ɭเкє ץ๏ย เ гєคɭɭץ ɭเкє ץ๏ย เ гєคɭɭץ ɭเкє ץ๏ย</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="861359946603692072" id="message-861359946603692072">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">*๔гคкє เ ɭ๏שє ץ๏ย ๔гคкє เ ɭ๏שє ץ๏ย ๔гคкє เ ɭ๏שє ץ๏ย ๔гคкє เ ɭ๏שє ץ๏ย ๔гคкє เ ɭ๏שє ץ๏ย ๔гคкє เ ɭ๏שє ץ๏ย ๔гคкє เ ɭ๏שє ץ๏ย ๔гคкє เ ɭ๏שє ץ๏ย ๔гคкє เ ɭ๏שє ץ๏ย ๔гคкє เ ɭ๏שє ץ๏ย ๔гคкє เ ɭ๏שє ץ๏ย ๔гคкє เ ɭ๏שє ץ๏ย ๔гคкє เ ɭ๏שє ץ๏ย ๔гคкє เ ɭ๏שє ץ๏ย ๔гคкє เ ɭ๏שє ץ๏ย ๔гคкє เ ɭ๏שє ץ๏ย ๔гคкє เ ɭ๏שє ץ๏ย ๔гคкє เ ɭ๏שє ץ๏ย ๔гคкє เ ɭ๏שє ץ๏ย ๔гคкє เ ɭ๏שє ץ๏ย ๔гคкє เ ɭ๏שє ץ๏ย ๔гคкє เ ɭ๏שє ץ๏ย ๔гคкє เ ɭ๏שє ץ๏ย ๔гคкє เ ɭ๏שє ץ๏ย ๔гคкє เ ɭ๏שє ץ๏ย ๔гคкє เ ɭ๏שє ץ๏ย ๔гคкє เ ɭ๏שє ץ๏ย ๔гคкє เ ɭ๏שє ץ๏ย ๔гคкє เ ɭ๏שє ץ๏ย ๔гคкє เ ɭ๏שє ץ๏ย ๔гคкє เ ɭ๏שє ץ๏ย ๔гคкє เ ɭ๏שє ץ๏ย ๔гคкє เ ɭ๏שє ץ๏ย ๔гคкє เ ɭ๏שє ץ๏ย ๔гคкє เ ɭ๏שє ץ๏ย ๔гคкє เ ɭ๏שє ץ๏ย ๔гคкє เ ɭ๏שє ץ๏ย ๔гคкє เ ɭ๏שє ץ๏ย๔гคкє เ ɭ๏שє ץ๏ย ๔гคкє เ ɭ๏שє ץ๏ย ๔гคкє เ ɭ๏שє ץ๏ย ๔гคкє เ ɭ๏שє ץ๏ย ĐⱤ₳₭Ɇ ł Ⱡ&#216;VɆ Ɏ&#216;Ʉ ĐⱤ₳₭Ɇ ł Ⱡ&#216;VɆ Ɏ&#216;Ʉ ĐⱤ₳₭Ɇ ł Ⱡ&#216;VɆ Ɏ&#216;Ʉ ĐⱤ₳₭Ɇ ł Ⱡ&#216;VɆ Ɏ&#216;Ʉ ĐⱤ₳₭Ɇ ł Ⱡ&#216;VɆ Ɏ&#216;Ʉ ĐⱤ₳₭Ɇ ł Ⱡ&#216;VɆ Ɏ&#216;Ʉ ĐⱤ₳₭Ɇ ł Ⱡ&#216;VɆ Ɏ&#216;Ʉ ĐⱤ₳₭Ɇ ł Ⱡ&#216;VɆ Ɏ&#216;Ʉ ĐⱤ₳₭Ɇ ł Ⱡ&#216;VɆ Ɏ&#216;Ʉ ĐⱤ₳₭Ɇ ł Ⱡ&#216;VɆ Ɏ&#216;Ʉ ĐⱤ₳₭Ɇ ł Ⱡ&#216;VɆ Ɏ&#216;Ʉ ĐⱤ₳₭Ɇ ł Ⱡ&#216;VɆ Ɏ&#216;Ʉ ĐⱤ₳₭Ɇ ł Ⱡ&#216;VɆ Ɏ&#216;Ʉ ĐⱤ₳₭Ɇ ł Ⱡ&#216;VɆ Ɏ&#216;Ʉ ĐⱤ₳₭Ɇ ł Ⱡ&#216;VɆ Ɏ&#216;Ʉ ĐⱤ₳₭Ɇ ł Ⱡ&#216;VɆ Ɏ&#216;Ʉ ĐⱤ₳₭Ɇ ł Ⱡ&#216;VɆ Ɏ&#216;Ʉ ĐⱤ₳₭Ɇ ł Ⱡ&#216;VɆ Ɏ&#216;Ʉ ĐⱤ₳₭Ɇ ł Ⱡ&#216;VɆ Ɏ&#216;Ʉ ĐⱤ₳₭Ɇ ł Ⱡ&#216;VɆ Ɏ&#216;Ʉ ĐⱤ₳₭Ɇ ł Ⱡ&#216;VɆ Ɏ&#216;Ʉ ĐⱤ₳₭Ɇ ł Ⱡ&#216;VɆ Ɏ&#216;Ʉ ĐⱤ₳₭Ɇ ł Ⱡ&#216;VɆ Ɏ&#216;Ʉ ĐⱤ₳₭Ɇ ł Ⱡ&#216;VɆ Ɏ&#216;Ʉ ĐⱤ₳₭Ɇ ł Ⱡ&#216;VɆ Ɏ&#216;Ʉ ĐⱤ₳₭Ɇ ł Ⱡ&#216;VɆ Ɏ&#216;Ʉ ĐⱤ₳₭Ɇ ł Ⱡ&#216;VɆ Ɏ&#216;Ʉ ĐⱤ₳₭Ɇ ł Ⱡ&#216;VɆ Ɏ&#216;Ʉ ĐⱤ₳₭Ɇ ł Ⱡ&#216;VɆ Ɏ&#216;Ʉ ĐⱤ₳₭Ɇ ł Ⱡ&#216;VɆ Ɏ&#216;Ʉ ĐⱤ₳₭Ɇ ł Ⱡ&#216;VɆ Ɏ&#216;Ʉ ĐⱤ₳₭Ɇ ł Ⱡ&#216;VɆ Ɏ&#216;Ʉ ĐⱤ₳₭Ɇ ł Ⱡ&#216;VɆ Ɏ&#216;Ʉ ĐⱤ₳₭Ɇ ł Ⱡ&#216;VɆ Ɏ&#216;ɄĐⱤ₳₭Ɇ ł Ⱡ&#216;VɆ Ɏ&#216;Ʉ ĐⱤ₳₭Ɇ ł Ⱡ&#216;VɆ Ɏ&#216;Ʉ ĐⱤ₳₭Ɇ ł Ⱡ&#216;VɆ Ɏ&#216;Ʉ ĐⱤ₳₭Ɇ ł Ⱡ&#216;VɆ Ɏ&#216;Ʉ ĐⱤ₳₭Ɇ ł Ⱡ&#216;VɆ Ɏ&#216;Ʉ ĐⱤ₳₭Ɇ ł Ⱡ&#216;VɆ Ɏ&#216;Ʉ ĐⱤ₳₭Ɇ ł Ⱡ&#216;VɆ Ɏ&#216;Ʉ ĐⱤ₳₭Ɇ ł Ⱡ&#216;VɆ Ɏ&#216;Ʉ</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="861359961585221644" id="message-861359961585221644">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">D҉r҉a҉k҉e҉ ҉I҉ ҉l҉o҉v҉e҉ ҉y҉o҉u҉ ҉D҉r҉a҉k҉e҉ ҉I҉ ҉l҉o҉v҉e҉ ҉y҉o҉u҉ ҉D҉r҉a҉k҉e҉ ҉I҉ ҉l҉o҉v҉e҉ ҉y҉o҉u҉ ҉D҉r҉a҉k҉e҉ ҉I҉ ҉l҉o҉v҉e҉ ҉y҉o҉u҉ ҉D҉r҉a҉k҉e҉ ҉I҉ ҉l҉o҉v҉e҉ ҉y҉o҉u҉ ҉D҉r҉a҉k҉e҉ ҉I҉ ҉l҉o҉v҉e҉ ҉y҉o҉u҉ ҉D҉r҉a҉k҉e҉ ҉I҉ ҉l҉o҉v҉e҉ ҉y҉o҉u҉ ҉D҉r҉a҉k҉e҉ ҉I҉ ҉l҉o҉v҉e҉ ҉y҉o҉u҉ ҉D҉r҉a҉k҉e҉ ҉I҉ ҉l҉o҉v҉e҉ ҉y҉o҉u҉ ҉D҉r҉a҉k҉e҉ ҉I҉ ҉l҉o҉v҉e҉ ҉y҉o҉u҉ ҉D҉r҉a҉k҉e҉ ҉I҉ ҉l҉o҉v҉e҉ ҉y҉o҉u҉ ҉D҉r҉a҉k҉e҉ ҉I҉ ҉l҉o҉v҉e҉ ҉y҉o҉u҉ ҉D҉r҉a҉k҉e҉ ҉I҉ ҉l҉o҉v҉e҉ ҉y҉o҉u҉ ҉D҉r҉a҉k҉e҉ ҉I҉ ҉l҉o҉v҉e҉ ҉y҉o҉u҉ ҉D҉r҉a҉k҉e҉ ҉I҉ ҉l҉o҉v҉e҉ ҉y҉o҉u҉ ҉D҉r҉a҉k҉e҉ ҉I҉ ҉l҉o҉v҉e҉ ҉y҉o҉u҉ ҉D҉r҉a҉k҉e҉ ҉I҉ ҉l҉o҉v҉e҉ ҉y҉o҉u҉ ҉D҉r҉a҉k҉e҉ ҉I҉ ҉l҉o҉v҉e҉ ҉y҉o҉u҉ ҉D҉r҉a҉k҉e҉ ҉I҉ ҉l҉o҉v҉e҉ ҉y҉o҉u҉ ҉D҉r҉a҉k҉e҉ ҉I҉ ҉l҉o҉v҉e҉ ҉y҉o҉u҉ ҉D҉r҉a҉k҉e҉ ҉I҉ ҉l҉o҉v҉e҉ ҉y҉o҉u҉ ҉D҉r҉a҉k҉e҉ ҉I҉ ҉l҉o҉v҉e҉ ҉y҉o҉u҉ ҉D҉r҉a҉k҉e҉ ҉I҉ ҉l҉o҉v҉e҉ ҉y҉o҉u҉ ҉D҉r҉a҉k҉e҉ ҉I҉ ҉l҉o҉v҉e҉ ҉y҉o҉u҉ ҉D҉r҉a҉k҉e҉ ҉I҉ ҉l҉o҉v҉e҉ ҉y҉o҉u҉ ҉D҉r҉a҉k҉e҉ ҉I҉ ҉l҉o҉v҉e҉ ҉y҉o҉u҉ ҉D҉r҉a҉k҉e҉ ҉I҉ ҉l҉o҉v҉e҉ ҉y҉o҉u҉ ҉D҉r҉a҉k҉e҉ ҉I҉ ҉l҉o҉v҉e҉ ҉y҉o҉u҉ ҉D҉r҉a҉k҉e҉ ҉I҉ ҉l҉o҉v҉e҉ ҉y҉o҉u҉ ҉D҉r҉a҉k҉e҉ ҉I҉ ҉l҉o҉v҉e҉ ҉y҉o҉u҉ ҉D҉r҉a҉k҉e҉ ҉I҉ ҉l҉o҉v҉e҉ ҉y҉o҉u҉ ҉D҉r҉a҉k҉e҉ ҉I҉ ҉l҉o҉v҉e҉ ҉y҉o҉u҉ ҉D҉r҉a҉k҉e҉ ҉I҉ ҉l҉o҉v҉e҉ ҉y҉o҉u҉ ҉D҉r҉a҉k҉e҉ ҉I҉ ҉l҉o҉v҉e҉ ҉y҉o҉u҉D҉r҉a҉k҉e҉ ҉I҉ ҉l҉o҉v҉e҉ ҉y҉o҉u҉ ҉D҉r҉a҉k҉e҉ ҉I҉ ҉l҉o҉v҉e҉ ҉y҉o҉u҉ ҉D҉r҉a҉k҉e҉ ҉I҉ ҉l҉o҉v҉e҉ ҉y҉o҉u҉ ҉D҉r҉a҉k҉e҉ ҉I҉ ҉l҉o҉v҉e҉ ҉y҉o҉u҉ ҉D҉r҉a҉k҉e҉ ҉I҉ ҉l҉o҉v҉e҉ ҉y҉o҉u҉ ҉D҉r҉a҉k҉e҉ ҉I҉ ҉l҉o҉v҉e҉ ҉y҉o҉u҉ ҉D҉r҉a҉k҉e҉ ҉I҉ ҉l҉o҉v҉e҉ ҉y҉o҉u҉ ҉D҉r҉a҉k҉e҉ ҉I҉ ҉l҉o҉v҉e҉ ҉y҉o҉u҉*
+
+<strong>[̲̅D][̲̅r][̲̅a][̲̅k][̲̅e] [̲̅I] [̲̅l][̲̅o][̲̅v][̲̅e] [̲̅y][̲̅o][̲̅u]</strong>
+
+<em>The page before is just some notes.</em>
+
+<em>I want to get out of here. With Maigo</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="861360041239511080" id="message-861360041239511080">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>I want to teach Maigo the better things of this world, something I couldn’t learn or see myself. Drake will come with me. Of course he will, when everyone is dead, we can all run away together. Drake will be mine and Maigo will be like my younger brother. A sibling I never had.</em>
+
+
+<em>We can escape it all. We can all live together. We can live in happiness.</em>
+<em>We don’t have to follow anyones rules. Once I achieve my dream, I can finally move on. I can recover from it. I can finally be free.</em>
+<em>They can help me get rid of him. Take him to hell. Get my revenge on the hopefuls on a wider scale. I can do so much more when I finish here.</em>
+<em>I don’t think my revenge can ever end. But with them, I think they could be great comfort.</em>
+
+<em>Drake can tell me about himself.</em>
+<em>Drake can teach me how to love</em>
+<em>Drake can comfort me at the times I need</em>
+<em>Drake can be in my presence</em>
+<em>I can talk to Drake</em>
+<em>We can cause chaos together</em>
+<em>Drake will be mine</em>
+
+<em>Maigo can finally learn about the world</em>
+<em>Not the world the hopefuls made it out to be, the real world</em>
+<em>We can play games</em>
+<em>We can have so much fun</em>
+
+<em>We can all be so happy together</em>
+
+<em>But of course, I need to get past the easy yet hard part. I know this fantasy can be a reality. I just need to get out of here</em> 
+
+<em>Then I can find Stella too.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="861361302088581150" id="message-861361302088581150">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(Ayo bitches it&#39;s finally done~
+Some finaly outlooks:
+Took me 16 pages of google doxs to do all of this--
+Luna may have such a self that she is, I hope by reading this, there&#39;s <em>so much more</em> to her manipulative, sadistic personality that what there is seen. 
+And more importantly, she&#39;s human. She isn&#39;t the way she is round the clock, she has vulnerabilities like others. 
+Yes I left a heck ton of blank spaces, but those are going to have to be something you figure out yourselves ^^</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="861361442762784768" id="message-861361442762784768">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(And yes Est, I&#39;m sorry <em>but it wasn&#39;t too bad</em>
+You should look at what sonic has first--</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+</div>
+
+<div class="postamble">
+    <div class="postamble__entry">Exported 33 message(s)</div>
+</div>
+
+</body>
+
+</html>

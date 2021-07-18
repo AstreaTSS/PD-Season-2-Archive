@@ -1,0 +1,3386 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Danganronpa: Prospective Despair - clothing-brand-store</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <style>
+        /* General */
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-300.woff);
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-400.woff);
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-500.woff);
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-600.woff);
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-700.woff);
+    font-weight: 700;
+}
+
+body {
+    font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 17px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+img {
+    object-fit: contain;
+}
+
+.markdown {
+    max-width: 100%;
+    line-height: 1.3;
+    overflow-wrap: break-word;
+}
+
+.preserve-whitespace {
+    white-space: pre-wrap;
+}
+
+.spoiler {
+    /* width: fit-content; */
+    display: inline-block;
+    /* This is more consistent across browsers, the old attribute worked well under Chrome but not FireFox. */
+}
+
+.spoiler--hidden {
+    cursor: pointer;
+}
+
+.spoiler-text {
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-text {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler--hidden .spoiler-text::selection {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-image {
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.spoiler--hidden .spoiler-image * {
+    filter: blur(44px);
+}
+
+.spoiler--hidden .spoiler-image:after {
+    content: "SPOILER";
+    color: #dcddde;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 600;
+    padding: 100%;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+    font-size: 0.9em;
+}
+
+.spoiler--hidden:hover .spoiler-image:after {
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.quote {
+    margin: 0.1em 0;
+    padding-left: 0.6em;
+    border-left: 4px solid;
+    border-radius: 3px;
+}
+
+.pre {
+    font-family: "Consolas", "Courier New", Courier, monospace;
+}
+
+.pre--multiline {
+    margin-top: 0.25em;
+    padding: 0.5em;
+    border: 2px solid;
+    border-radius: 5px;
+}
+
+.pre--inline {
+    padding: 2px;
+    border-radius: 3px;
+    font-size: 0.85em;
+}
+
+.mention {
+    border-radius: 3px;
+    padding: 0 2px;
+    color: #7289da;
+    background: rgba(114, 137, 218, .1);
+    font-weight: 500;
+}
+
+.emoji {
+    width: 1.25em;
+    height: 1.25em;
+    margin: 0 0.06em;
+    vertical-align: -0.4em;
+}
+
+.emoji--small {
+    width: 1em;
+    height: 1em;
+}
+
+.emoji--large {
+    width: 2.8em;
+    height: 2.8em;
+}
+
+/* Preamble */
+
+.preamble {
+    display: grid;
+    margin: 0 0.3em 0.6em 0.3em;
+    max-width: 100%;
+    grid-template-columns: auto 1fr;
+}
+
+.preamble__guild-icon-container {
+    grid-column: 1;
+}
+
+.preamble__guild-icon {
+    max-width: 88px;
+    max-height: 88px;
+}
+
+.preamble__entries-container {
+    grid-column: 2;
+    margin-left: 0.6em;
+}
+
+.preamble__entry {
+    font-size: 1.4em;
+}
+
+.preamble__entry--small {
+    font-size: 1em;
+}
+
+/* Chatlog */
+
+.chatlog {
+    max-width: 100%;
+}
+
+.chatlog__message-group {
+    display: grid;
+    margin: 0 0.6em;
+    padding: 0.9em 0;
+    border-top: 1px solid;
+    grid-template-columns: auto 1fr;
+}
+
+.chatlog__reference-symbol {
+    grid-column: 1;
+    border-style: solid;
+    border-width: 2px 0 0 2px;
+    border-radius: 8px 0 0 0;
+    margin-left: 16px;
+    margin-top: 8px;
+}
+
+.chatlog__reference {
+    display: flex;
+    grid-column: 2;
+    margin-left: 1.2em;
+    margin-bottom: 0.25em;
+    font-size: 0.875em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    align-items: center;
+}
+
+.chatlog__reference-avatar {
+    border-radius: 50%;
+    height: 16px;
+    width: 16px;
+    margin-right: 0.25em;
+}
+
+.chatlog__reference-name {
+    margin-right: 0.25em;
+    font-weight: 600;
+}
+
+.chatlog__reference-link {
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.chatlog__reference-link:hover {
+    text-decoration: none;
+}
+
+.chatlog__reference-content > * {
+    display: inline;
+}
+
+.chatlog__reference-edited-timestamp {
+    margin-left: 0.25em;
+    font-size: 0.8em;
+}
+
+.chatlog__author-avatar-container {
+    grid-column: 1;
+    width: 40px;
+    height: 40px;
+}
+
+.chatlog__author-avatar {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}
+
+.chatlog__messages {
+    grid-column: 2;
+    margin-left: 1.2em;
+    min-width: 50%;
+}
+
+.chatlog__author-name {
+    font-weight: 500;
+}
+
+.chatlog__timestamp {
+    margin-left: 0.3em;
+    font-size: 0.75em;
+}
+
+.chatlog__message {
+    padding: 0.1em 0.3em;
+    margin: 0 -0.3em;
+    background-color: transparent;
+    transition: background-color 1s ease;
+}
+
+.chatlog__content {
+    font-size: 0.95em;
+    word-wrap: break-word;
+}
+
+.chatlog__edited-timestamp {
+    margin-left: 0.15em;
+    font-size: 0.8em;
+}
+
+.chatlog__attachment {
+    margin-top: 0.3em;
+}
+
+.chatlog__attachment-thumbnail {
+    vertical-align: top;
+    max-width: 45vw;
+    max-height: 500px;
+    border-radius: 3px;
+}
+
+.chatlog__attachment-container {
+    height: 40px;
+    width: 100%;
+    max-width: 520px;
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.chatlog__attachment-icon {
+    float: left;
+    height: 100%;
+    margin-right: 10px;
+}
+
+.chatlog__attachment-icon > .a {
+    fill: #f4f5fb;
+    d: path("M50,935a25,25,0,0,1-25-25V50A25,25,0,0,1,50,25H519.6L695,201.32V910a25,25,0,0,1-25,25Z");
+}
+
+.chatlog__attachment-icon > .b {
+    fill: #7789c4;
+    d: path("M509.21,50,670,211.63V910H50V50H509.21M530,0H50A50,50,0,0,0,0,50V910a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50h0V191Z");
+}
+
+.chatlog__attachment-icon > .c {
+    fill: #f4f5fb;
+    d: path("M530,215a25,25,0,0,1-25-25V50a25,25,0,0,1,16.23-23.41L693.41,198.77A25,25,0,0,1,670,215Z");
+}
+
+.chatlog__attachment-icon > .d {
+    fill: #7789c4;
+    d: path("M530,70.71,649.29,190H530V70.71M530,0a50,50,0,0,0-50,50V190a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50Z");
+}
+
+.chatlog__attachment-filesize {
+    color: #72767d;
+    font-size: 12px;
+}
+
+.chatlog__attachment-filename {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.chatlog__embed {
+    display: flex;
+    margin-top: 0.3em;
+    max-width: 520px;
+}
+
+.chatlog__embed-color-pill {
+    flex-shrink: 0;
+    width: 0.25em;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.chatlog__embed-content-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em 0.6em;
+    border: 1px solid;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.chatlog__embed-content {
+    display: flex;
+    width: 100%;
+}
+
+.chatlog__embed-text {
+    flex: 1;
+}
+
+.chatlog__embed-author {
+    display: flex;
+    margin-bottom: 0.3em;
+    align-items: center;
+}
+
+.chatlog__embed-author-icon {
+    margin-right: 0.5em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.chatlog__embed-author-name {
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-title {
+    margin-bottom: 0.2em;
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-description {
+    font-weight: 500;
+    font-size: 0.85em;
+}
+
+.chatlog__embed-fields {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.chatlog__embed-field {
+    flex: 0;
+    min-width: 100%;
+    max-width: 506px;
+    padding-top: 0.6em;
+    font-size: 0.875em;
+}
+
+.chatlog__embed-field--inline {
+    flex: 1;
+    flex-basis: auto;
+    min-width: 150px;
+}
+
+.chatlog__embed-field-name {
+    margin-bottom: 0.2em;
+    font-weight: 600;
+}
+
+.chatlog__embed-field-value {
+    font-weight: 500;
+}
+
+.chatlog__embed-thumbnail {
+    flex: 0;
+    margin-left: 1.2em;
+    max-width: 80px;
+    max-height: 80px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-image-container {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-image {
+    max-width: 500px;
+    max-height: 400px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-footer {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-footer-icon {
+    margin-right: 0.2em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.chatlog__embed-footer-text {
+    font-size: 0.75em;
+    font-weight: 500;
+}
+
+.chatlog__reactions {
+    display: flex;
+}
+
+.chatlog__reaction {
+    display: flex;
+    align-items: center;
+    margin: 0.35em 0.1em 0.1em 0.1em;
+    padding: 0.2em 0.35em;
+    border-radius: 3px;
+}
+
+.chatlog__reaction-count {
+    min-width: 9px;
+    margin-left: 0.35em;
+    font-size: 0.875em;
+}
+
+.chatlog__bot-tag {
+    position: relative;
+    top: -.2em;
+    margin-left: 0.3em;
+    padding: 0.05em 0.3em;
+    border-radius: 3px;
+    vertical-align: middle;
+    line-height: 1.3;
+    background: #7289da;
+    color: #ffffff;
+    font-size: 0.625em;
+    font-weight: 500;
+}
+
+/* Postamble */
+
+.postamble {
+    margin: 1.4em 0.3em 0.6em 0.3em;
+    padding: 1em;
+    border-top: 1px solid;
+}
+    </style>
+    <style>
+        /* General */
+
+body {
+    background-color: #36393e;
+    color: #dcddde;
+}
+
+a {
+    color: #0096cf;
+}
+
+.spoiler-text {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.spoiler--hidden .spoiler-text {
+    background-color: #202225;
+}
+
+.spoiler--hidden:hover .spoiler-text {
+    background-color: rgba(32, 34, 37, 0.8);
+}
+
+.quote {
+    border-color: #4f545c;
+}
+
+.pre {
+    background-color: #2f3136 !important;
+}
+
+.pre--multiline {
+    border-color: #282b30 !important;
+    color: #b9bbbe !important;
+}
+
+/* === Preamble === */
+
+.preamble__entry {
+    color: #ffffff;
+}
+
+/* Chatlog */
+
+.chatlog__message-group {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.chatlog__reference-symbol {
+    border-color: #4f545c;
+}
+
+.chatlog__reference {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link:hover {
+    color: #ffffff;
+}
+
+.chatlog__reference-edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__author-name {
+    color: #ffffff;
+}
+
+.chatlog__timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__message--highlighted {
+    background-color: rgba(114, 137, 218, 0.2) !important;
+}
+
+.chatlog__message--pinned {
+    background-color: rgba(249, 168, 37, 0.05);
+}
+
+.chatlog__attachment-container {
+    background-color: #2f3136;
+    border-color: #292b2f;
+}
+
+.chatlog__edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__embed-color-pill--default {
+    background-color: rgba(79, 84, 92, 1);
+}
+
+.chatlog__embed-content-container {
+    background-color: rgba(46, 48, 54, 0.3);
+    border-color: rgba(46, 48, 54, 0.6);
+}
+
+.chatlog__embed-author-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-author-name-link {
+    color: #ffffff;
+}
+
+.chatlog__embed-title {
+    color: #ffffff;
+}
+
+.chatlog__embed-description {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-field-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-field-value {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-footer {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__reaction {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.chatlog__reaction-count {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* Postamble */
+
+.postamble {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.postamble__entry {
+    color: #ffffff;
+}
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/solarized-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.pre--multiline').forEach(block => hljs.highlightBlock(block));
+        });
+    </script>
+
+    <script>
+        function scrollToMessage(event, id) {
+            var element = document.getElementById('message-' + id);
+
+            if (element) {
+                event.preventDefault();
+
+                element.classList.add('chatlog__message--highlighted');
+
+                window.scrollTo({
+                    top: element.getBoundingClientRect().top - document.body.getBoundingClientRect().top - (window.innerHeight / 2),
+                    behavior: 'smooth'
+                });
+
+                window.setTimeout(function() {
+                    element.classList.remove('chatlog__message--highlighted');
+                }, 2000);
+            }
+        }
+
+        function showSpoiler(event, element) {
+            if (element && element.classList.contains('spoiler--hidden')) {
+                event.preventDefault();
+                element.classList.remove('spoiler--hidden');
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="preamble">
+    <div class="preamble__guild-icon-container">
+        <img class="preamble__guild-icon" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/a_2feefaa4b9661f5afc56fdc0a2cb52a3-DDE8C.png" alt="Guild icon">
+    </div>
+    <div class="preamble__entries-container">
+        <div class="preamble__entry">Danganronpa: Prospective Despair</div>
+        <div class="preamble__entry">Old Mall (KG) / clothing-brand-store</div>
+
+
+    </div>
+</div>
+
+<div class="chatlog">
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/16621ef5d6c0752a007ce930a8104c18-5C715.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Sonic49 | ???</span>
+
+
+        <span class="chatlog__timestamp">25-Jun-21 09:56 PM</span>
+
+            <div class="chatlog__message chatlog__message--pinned" data-message-id="858163718739066903" id="message-858163718739066903">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Well, I guess every mall has to have one.</em>
+
+<em>Before we continue: yes, this place is as deteriorated as the other places. Rubble is on the ground, some shelves have given away, some labels here have worn off... your typical affair, really.</em>
+
+<em>But this place was huge. It was probably the biggest area in the store; while it didn&#39;t span two floors, it did span one, and it took quite a sizable chunk of that one floor. Maybe you could do something here if you moved some things here and there? Who knows.</em>
+
+<em>Regardless, the place was as you expect. There was plenty of clothing, for both boys and girls, men and women, and even a section for non-binary people. However, most of the clothing here has seen better days - much of it has faded out and would be uncomfortable to wear, and some of it, oddly enough, has holes through it. Huh. Regardless, it makes it impossible to tell which brand this store was.</em>
+<em>Before you ask: the clothes seemed to be somewhat modern. Maybe 10-20 years out of date.</em>
+
+<em>The signs and general furniture are in a similar worn-down shape. Not even the signs that had directions to navigate the place were doing so well - you&#39;ll have to navigate this place with no help, although it&#39;s hard to get lost.</em>
+
+<em>However, you can see some tags indicating there was a sale when this was left to rot. The sale clearly says &quot;Everything must go!&quot;... clearly, they were trying to move out of the place when they left it. But most of the merchandise is intact - you would expect most of it to be gone if they were vacating.</em>
+
+<em>Even the cash registers were intact - certainly, they also could be in better shape, but they worked, interestingly enough. Opening them reveals no money whatsoever - it must have been taken out beforehand. Would Drake take the money? Maybe.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/b14526a72fc8e3280e38cc94e1f46c20-2EABA.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Rita Sestina Toscani#0000" data-user-id="859140657871847484" style="">Rita Sestina Toscani</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Jun-21 02:38 PM</span>
+
+            <div class="chatlog__message " data-message-id="859140659579715585" id="message-859140659579715585">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Rita walks into the room with Jack before looking utterly disgusted by what she is seeing <strong>Commoner clothing</strong>. Disgusting</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/2a00365930d3fc2457ab1809b26814ac-42039.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jack Enjo#0000" data-user-id="859140657871847484" style="">Jack Enjo</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Jun-21 02:39 PM</span>
+
+            <div class="chatlog__message " data-message-id="859141052572762143" id="message-859141052572762143">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Jack enters and looks around</em> &quot;.....This place is....quite the shit hole......shame....might have been able to steal some clothing......free clothes is free clothes....and I don&#39;t think I&#39;d get arrested for stealing.......&quot; <em>he looks at the sign</em> &quot;.....whatever happened here....must have been happening quickly.....they wanted everything gone.......probably didn&#39;t make enough money.....&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/b14526a72fc8e3280e38cc94e1f46c20-2EABA.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Rita Sestina Toscani#0000" data-user-id="859140657871847484" style="">Rita Sestina Toscani</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Jun-21 02:43 PM</span>
+
+            <div class="chatlog__message " data-message-id="859142003286474772" id="message-859142003286474772">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“I mean, I can probably sew some of these clothes back with the materials I have. They’re not unsalvageable. Just tell me which articles of clothing you want and I can easily bring it back to regular condition.”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/bda13cd2bcfb866a9cfb5af8d2444d11-8E56A.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Prospective Despair Bot#1095" data-user-id="847686380410241074" style="color: rgb(96,125,139)">Prospective Despair Bot</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Jun-21 02:44 PM</span>
+
+            <div class="chatlog__message " data-message-id="859142246972522546" id="message-859142246972522546">
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill" style="background-color: rgba(46,186,225,255)"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace"><span class="mention" title="Unknown">@Unknown</span>, <span class="mention" title="Unknown">@Unknown</span> got an interaction!</div>
+                                        </div>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/2a00365930d3fc2457ab1809b26814ac-42039.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jack Enjo#0000" data-user-id="859140657871847484" style="">Jack Enjo</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Jun-21 02:46 PM</span>
+
+            <div class="chatlog__message " data-message-id="859142614691610635" id="message-859142614691610635">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;.....On second thought.....there&#39;s probably nothing much here worth wearing.....I&#39;ve got plenty of jackets and red shirts.....and the rest in the airship....I&#39;ll live.......what about you....see anything worth taking....?&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/b14526a72fc8e3280e38cc94e1f46c20-2EABA.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Rita Sestina Toscani#0000" data-user-id="859140657871847484" style="">Rita Sestina Toscani</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Jun-21 02:49 PM</span>
+
+            <div class="chatlog__message " data-message-id="859143587204038676" id="message-859143587204038676">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>she walks around</em> “Of course not, I would never wear any of this commoner cheap material.” <em>But she then sees something in the corner of her eye and walks over to it</em> “Though this skirt is pretty cute…and that blouse looks really good if I stitched it up a bit and gave it a good wash. That shirt looks pretty good.”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="859143639271342141" id="message-859143639271342141">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>she walks around grabbing clothes</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/2a00365930d3fc2457ab1809b26814ac-42039.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jack Enjo#0000" data-user-id="859140657871847484" style="">Jack Enjo</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Jun-21 02:51 PM</span>
+
+            <div class="chatlog__message " data-message-id="859144104738160670" id="message-859144104738160670">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;......Fuck.....I shouldn&#39;t have asked......&quot; <em>he sighs</em> &quot;......Commoner cheap material....huh.......you&#39;ve gone full shopper......&quot; <em>he slowly shakes his head</em> &quot;......I&#39;ll just stay here......you have your fun running around......&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/b14526a72fc8e3280e38cc94e1f46c20-2EABA.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Rita Sestina Toscani#0000" data-user-id="859140657871847484" style="">Rita Sestina Toscani</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Jun-21 02:55 PM</span>
+
+            <div class="chatlog__message " data-message-id="859145094556024883" id="message-859145094556024883">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“How are some of these clothes like 15$! I’d so price them up to like $60 at least! I should grab some more clothes in case someone else needs some different clothes.”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/2a00365930d3fc2457ab1809b26814ac-42039.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jack Enjo#0000" data-user-id="859140657871847484" style="">Jack Enjo</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Jun-21 02:57 PM</span>
+
+            <div class="chatlog__message " data-message-id="859145617593860116" id="message-859145617593860116">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;......Rita.........What are you doing......I know you&#39;re into fashion but....this place is a fucking dump.....You insulted the material now you&#39;re crazy for it.....what the fuck.....should I leave.....before you get me involved.....&quot; <em>He&#39;s not asking to leave btw, he&#39;s just slightly concerned you&#39;ll make him carry shit</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/b14526a72fc8e3280e38cc94e1f46c20-2EABA.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Rita Sestina Toscani#0000" data-user-id="859140657871847484" style="">Rita Sestina Toscani</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Jun-21 03:07 PM</span>
+
+            <div class="chatlog__message " data-message-id="859148020939882496" id="message-859148020939882496">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“Jack…darling, when you’re away from other pieces of clothing that you haven’t seen in a while, anything to work with will do.” <em>She looks at Jack</em> “Could you come over here for a second?”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/553040d99bf8b60bfa2294a588fa913e-1D743.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ame/Est55#7858" data-user-id="328149026266677248" style="color: rgb(253,253,150)">Asahi Hasegawa | Est</span>
+
+
+        <span class="chatlog__timestamp">28-Jun-21 03:07 PM</span>
+
+            <div class="chatlog__message " data-message-id="859148104359215154" id="message-859148104359215154">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(Oh no)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/b14526a72fc8e3280e38cc94e1f46c20-2EABA.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Rita Sestina Toscani#0000" data-user-id="859140657871847484" style="">Rita Sestina Toscani</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Jun-21 03:08 PM</span>
+
+            <div class="chatlog__message " data-message-id="859148266767253574" id="message-859148266767253574">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Jack can clearly see a huge pile of clothes next to her on the floor</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/2a00365930d3fc2457ab1809b26814ac-42039.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jack Enjo#0000" data-user-id="859140657871847484" style="">Jack Enjo</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Jun-21 03:09 PM</span>
+
+            <div class="chatlog__message " data-message-id="859148529182965760" id="message-859148529182965760">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Jack just walks over to her, his hands in his pockets</em> &quot;......What do you want......I didn&#39;t think you&#39;d be desperate for clothes.....&quot; <em>sigh</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="859148660141719582" id="message-859148660141719582">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;...&quot; <em>He looks at the pile of clothes</em> &quot;......Why did you put so many bits of clothing on the floor.....&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/6832d0940c60006e19b4c5b8d2e0a575-17053.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="augusty#1287" data-user-id="723768708433969243" style="color: rgb(244,127,255)">augusty</span>
+
+
+        <span class="chatlog__timestamp">28-Jun-21 03:12 PM</span>
+
+            <div class="chatlog__message " data-message-id="859149380781867038" id="message-859149380781867038">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">((to burn light em up</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/b14526a72fc8e3280e38cc94e1f46c20-2EABA.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Rita Sestina Toscani#0000" data-user-id="859140657871847484" style="">Rita Sestina Toscani</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Jun-21 03:12 PM</span>
+
+            <div class="chatlog__message " data-message-id="859149390207647754" id="message-859149390207647754">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“Okay look, I need an outsiders opinion.” <em>she holds up two different skirts</em> “Which one would look better on me?” <em>One is a yellow pencil skirt and the other is a pink draped skirt</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/2a00365930d3fc2457ab1809b26814ac-42039.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jack Enjo#0000" data-user-id="859140657871847484" style="">Jack Enjo</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Jun-21 03:14 PM</span>
+
+            <div class="chatlog__message " data-message-id="859149815379787829" id="message-859149815379787829">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;........You&#39;re asking.....my advice....I swear our last conversation was...you criticizing my fashion.....for a good 10 minutes....if you want my opinion......&quot; <em>he sighs as he points at the yellow one</em> &quot;......That I guess........&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="859149895978057741" id="message-859149895978057741">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;.....or is the test....I chose that one which means the other one is better.....in which case fuck you....&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/b14526a72fc8e3280e38cc94e1f46c20-2EABA.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Rita Sestina Toscani#0000" data-user-id="859140657871847484" style="">Rita Sestina Toscani</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Jun-21 03:20 PM</span>
+
+            <div class="chatlog__message " data-message-id="859151268533633044" id="message-859151268533633044">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“Hmm…I think you’re right…I’ll take the pencil skirt looks better. But I think the draped skirt will be easier to fix. Both are good…” <em>she grabs the pencil skirt into Jack’s face and puts the draped dress into her pile</em> “Could you put that somewhere.”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/2a00365930d3fc2457ab1809b26814ac-42039.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jack Enjo#0000" data-user-id="859140657871847484" style="">Jack Enjo</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Jun-21 03:21 PM</span>
+
+            <div class="chatlog__message " data-message-id="859151542253780992" id="message-859151542253780992">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;....&quot; <em>He just slowly removes the skirt from his face. He does not look impressed</em> &quot;......God dammit...&quot; <em>he rolls it up into a ball and just throws it somewhere random</em> &quot;....there.....gone....&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/b14526a72fc8e3280e38cc94e1f46c20-2EABA.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Rita Sestina Toscani#0000" data-user-id="859140657871847484" style="">Rita Sestina Toscani</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Jun-21 03:24 PM</span>
+
+            <div class="chatlog__message " data-message-id="859152366292697088" id="message-859152366292697088">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“Okay we’re going to do a few more okay. I just need to eliminate the ones I won’t wear. I’ll still sew them, but I want to make two different piles of my clothes and everyone else’s clothes.” <em>She spends half a goddamn hour doing a tournament style bracket of which articles of clothing would look good on her.</em></span>
+
+                                <span class="chatlog__edited-timestamp" title="28-Jun-21 03:25 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/2a00365930d3fc2457ab1809b26814ac-42039.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jack Enjo#0000" data-user-id="859140657871847484" style="">Jack Enjo</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Jun-21 03:26 PM</span>
+
+            <div class="chatlog__message " data-message-id="859152690491293696" id="message-859152690491293696">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;.......Why did I agree to come here........&quot; <em>sigh</em> &quot;.......Why are you making this so complicated.......&quot; <em>he says throughout the hour</em> &quot;.....I should&#39;ve left when I had the chance......I can&#39;t even walk out because I can&#39;t be assed with the aftermath.........&quot; <em>sigh</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/b14526a72fc8e3280e38cc94e1f46c20-2EABA.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Rita Sestina Toscani#0000" data-user-id="859140657871847484" style="">Rita Sestina Toscani</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Jun-21 03:31 PM</span>
+
+            <div class="chatlog__message " data-message-id="859153955627204639" id="message-859153955627204639">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>The clothes are finally sorted and takes her clothes which is quite small in comparison to the clothes which she’ll sew for everyone else. She carries her clothes in one big hug</em> “So hey, can you help carry these clothes to my room.” <em>The pile is like a meter and half tall and wide</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/2a00365930d3fc2457ab1809b26814ac-42039.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jack Enjo#0000" data-user-id="859140657871847484" style="">Jack Enjo</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Jun-21 03:32 PM</span>
+
+            <div class="chatlog__message " data-message-id="859154354812616715" id="message-859154354812616715">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;.......No.......I don&#39;t think I will.......I refuse to let you dump them all in my hand.....&quot; <em>he says as he crosses his arms</em> &quot;....You got yourself into this....not me...&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/b14526a72fc8e3280e38cc94e1f46c20-2EABA.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Rita Sestina Toscani#0000" data-user-id="859140657871847484" style="">Rita Sestina Toscani</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Jun-21 03:33 PM</span>
+
+            <div class="chatlog__message " data-message-id="859154682860535840" id="message-859154682860535840">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“I didn’t want to have to do this.” <em>she pulls out her lighter and puts up a flame</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/d8ee9e29b4522fd9f6689538b4d31171-9125E.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Crepe#2518" data-user-id="269156561320935426" style="color: rgb(26,112,26)">Jack Enjo || The Crep</span>
+
+
+        <span class="chatlog__timestamp">28-Jun-21 03:34 PM</span>
+
+            <div class="chatlog__message " data-message-id="859154862386315295" id="message-859154862386315295">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(Mother fucker)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/2a00365930d3fc2457ab1809b26814ac-42039.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jack Enjo#0000" data-user-id="859140657871847484" style="">Jack Enjo</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Jun-21 03:35 PM</span>
+
+            <div class="chatlog__message " data-message-id="859154954690232380" id="message-859154954690232380">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>He goes back to staring at the flame</em> &quot;.......&quot; <em>Yeah ask him to carry your clothes again and that&#39;s what he&#39;ll do</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/553040d99bf8b60bfa2294a588fa913e-1D743.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ame/Est55#7858" data-user-id="328149026266677248" style="color: rgb(253,253,150)">Asahi Hasegawa | Est</span>
+
+
+        <span class="chatlog__timestamp">28-Jun-21 03:35 PM</span>
+
+            <div class="chatlog__message " data-message-id="859154960360931378" id="message-859154960360931378">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(You are now our slave with the flames)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/d8ee9e29b4522fd9f6689538b4d31171-9125E.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Crepe#2518" data-user-id="269156561320935426" style="color: rgb(26,112,26)">Jack Enjo || The Crep</span>
+
+
+        <span class="chatlog__timestamp">28-Jun-21 03:35 PM</span>
+
+            <div class="chatlog__message " data-message-id="859155062151839744" id="message-859155062151839744">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(Trust me, I had to tone down Jacks fire obsession a LOT because it was found so early)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="859155122922979328" id="message-859155122922979328">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(but trust me, if he managed to keep it hidden till c3, he would literally be a slave to the one with a flame)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/b14526a72fc8e3280e38cc94e1f46c20-2EABA.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Rita Sestina Toscani#0000" data-user-id="859140657871847484" style="">Rita Sestina Toscani</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Jun-21 03:39 PM</span>
+
+            <div class="chatlog__message " data-message-id="859156141165379614" id="message-859156141165379614">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“Hold on one second.” <em>She grabs some shopping baskets and fills them up with the clothes</em> “Okays grab all five of your baskets and I’ll grab my single basket.” <em>She puts the basket on her shoulder and holds the lighter with her hand.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/2a00365930d3fc2457ab1809b26814ac-42039.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jack Enjo#0000" data-user-id="859140657871847484" style="">Jack Enjo</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Jun-21 03:40 PM</span>
+
+            <div class="chatlog__message " data-message-id="859156320665731093" id="message-859156320665731093">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>You asshole. Jack does exactly as he&#39;s told. Surprised it took someone this long to take advantage of this. Jack grabs all 5 baskets</em> &quot;......is that good....?&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/b14526a72fc8e3280e38cc94e1f46c20-2EABA.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Rita Sestina Toscani#0000" data-user-id="859140657871847484" style="">Rita Sestina Toscani</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Jun-21 03:43 PM</span>
+
+            <div class="chatlog__message " data-message-id="859157008192503849" id="message-859157008192503849">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“Good. Good. Now follow my flame okay.” <em>The baskets roughly 65-70 kg</em> “We’re walking back to my room.”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="859157123690004501" id="message-859157123690004501">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>she starts walking, making sure Jack is in at least a meter vicinity</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/965f43e008eb91b4e208ecc74fd44139-6C208.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="FactGuy#0391" data-user-id="333099173677105153" style="color: rgb(135,50,96)">Fact || Rita Sestina Toscani</span>
+
+
+        <span class="chatlog__timestamp">28-Jun-21 03:43 PM</span>
+
+            <div class="chatlog__message " data-message-id="859157167491907606" id="message-859157167491907606">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">//not 60-70 kg</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="859157227432706058" id="message-859157227432706058">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">//65-70 lb</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="859157312131301417" id="message-859157312131301417">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">//it’s roughly 25-30kg</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/2a00365930d3fc2457ab1809b26814ac-42039.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jack Enjo#0000" data-user-id="859140657871847484" style="">Jack Enjo</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Jun-21 03:48 PM</span>
+
+            <div class="chatlog__message " data-message-id="859158434460336169" id="message-859158434460336169">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Yeah yeah Jack carries the baskets as told of him. No matter how heavy it is, Jack would find a way to get all 5 baskets to her room, if he has to use more strength than he normally can use then when he comes out of flame mode his body just says &#39;fuck you&#39;</em> &quot;....fine....&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/b14526a72fc8e3280e38cc94e1f46c20-2EABA.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Rita Sestina Toscani#0000" data-user-id="859140657871847484" style="">Rita Sestina Toscani</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Jun-21 03:49 PM</span>
+
+            <div class="chatlog__message " data-message-id="859158632359788575" id="message-859158632359788575">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“Off we go…”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/965f43e008eb91b4e208ecc74fd44139-6C208.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="FactGuy#0391" data-user-id="333099173677105153" style="color: rgb(135,50,96)">Fact || Rita Sestina Toscani</span>
+
+
+        <span class="chatlog__timestamp">28-Jun-21 03:49 PM</span>
+
+            <div class="chatlog__message " data-message-id="859158661830279208" id="message-859158661830279208">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">// <span class="mention">#rita-toscani</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/5b933e030d944842380949f9979844bf-1F8D8.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Kai Yazzie#0000" data-user-id="859140657871847484" style="">Kai Yazzie</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Jun-21 07:18 PM</span>
+
+            <div class="chatlog__message " data-message-id="859211305101164584" id="message-859211305101164584">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">And they make it into here! Almost immediately, Kai pouted at the state of the entire place. It was all worn down just like the space room, and the clothes were just dreadful from a first glance, just like Noriko predicted. Well, it was a smart prediction anyway, as context clues would get any person to assume the same. She sighed.
+
+&quot;This place is pretty huge, isn&#39;t it?&quot; She asked whilst avoiding tripping over any lose ground.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-85C20.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="859140657871847484" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Jun-21 07:29 PM</span>
+
+            <div class="chatlog__message " data-message-id="859213872320872479" id="message-859213872320872479">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Noriko was never much the sort to go crazy over clothing - so long as it was comfortable and didn&#39;t look completely awful, that was fine by her. Even still though, she couldn&#39;t help but be a little disappointed by the state the clothes were in.</em>
+&quot;This is... this is practically a <em>sea</em> of clothes. Or maybe a maze would be more accurate...&quot; <em>She paces over to some clothing - not touching it but instead inspecting it. The clothes were in simply awful condition, and there even seemed to be holes in some... for whatever reason.</em> &quot;Wonder if this stuff can even be salvaged? Maybe it&#39;s too far gone...&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/5b933e030d944842380949f9979844bf-1F8D8.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Kai Yazzie#0000" data-user-id="859140657871847484" style="">Kai Yazzie</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Jun-21 07:37 PM</span>
+
+            <div class="chatlog__message " data-message-id="859216062419173386" id="message-859216062419173386">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Salvaged for a makeshift knife?&quot; She nods whilst stepping over to the worn down sale sign. &quot;Crafty weapons can be made from here... provided that they&#39;re handled with care.&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-85C20.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="859140657871847484" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Jun-21 07:43 PM</span>
+
+            <div class="chatlog__message " data-message-id="859217363727417374" id="message-859217363727417374">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Crafty weapons...?&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/5b933e030d944842380949f9979844bf-1F8D8.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Kai Yazzie#0000" data-user-id="859140657871847484" style="">Kai Yazzie</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Jun-21 07:49 PM</span>
+
+            <div class="chatlog__message " data-message-id="859218872393007124" id="message-859218872393007124">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Mhm. Like in those wilderness survival tutorials. Doubt anyone would do so anyway, which is a relief in of itself.&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-85C20.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="859140657871847484" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Jun-21 07:54 PM</span>
+
+            <div class="chatlog__message " data-message-id="859220157997383690" id="message-859220157997383690">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Makes sense, but... couldn&#39;t someone just get a knife from the cargo bay?&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/5b933e030d944842380949f9979844bf-1F8D8.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Kai Yazzie#0000" data-user-id="859140657871847484" style="">Kai Yazzie</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Jun-21 08:02 PM</span>
+
+            <div class="chatlog__message " data-message-id="859222338867560459" id="message-859222338867560459">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Yeah, that seems much easier, doesn&#39;t it?&quot; She chuckled with a sigh following after. &quot;I&#39;m just thinking too much. Looks like these clothes are kinda good for nothing after all.&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-85C20.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="859140657871847484" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Jun-21 08:04 PM</span>
+
+            <div class="chatlog__message " data-message-id="859222683254521856" id="message-859222683254521856">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Eh... maybe there&#39;s reasons why someone would just make a knife here, though.&quot; <em>She suggests, looking over at the sign.</em> &quot;Like... maybe it&#39;s easier to get rid of, or maybe they just don&#39;t wanna take one from the cargo bay or something...?&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/5b933e030d944842380949f9979844bf-1F8D8.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Kai Yazzie#0000" data-user-id="859140657871847484" style="">Kai Yazzie</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Jun-21 08:10 PM</span>
+
+            <div class="chatlog__message " data-message-id="859224333971750962" id="message-859224333971750962">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">She thinks for a moment before eventually nodding with a satisfied expression. &quot;That first reason sounds pretty clever to me. Now we have that as a prediction for the chance a knife from the cargo bay wasn&#39;t moved or used at all. You could just burn the cloth to get rid of it!&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-85C20.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="859140657871847484" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Jun-21 08:13 PM</span>
+
+            <div class="chatlog__message " data-message-id="859225022844239872" id="message-859225022844239872">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Clever, eh...? I was just kinda throwing ideas at the wall there, but... maybe there&#39;s something to it.&quot; <em>She affirmatively nods.</em> &quot;Well...! On the chance someone does this, then we&#39;re gonna be prepared.&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/5b933e030d944842380949f9979844bf-1F8D8.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Kai Yazzie#0000" data-user-id="859140657871847484" style="">Kai Yazzie</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Jun-21 08:20 PM</span>
+
+            <div class="chatlog__message " data-message-id="859226716030631937" id="message-859226716030631937">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Hehe, look at ya, throwing brilliant theories out before any of those scenarios have happened.&quot; She crossed her arms with a bit of a grin. &quot;You should be a detective or something!&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/220860aa80b67d802f69c4b57df0cd3a-6853D.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Saga#0460" data-user-id="475324575815565332" style="color: rgb(163,220,235)">Kai Yazzie || Saga</span>
+
+
+        <span class="chatlog__timestamp">28-Jun-21 08:20 PM</span>
+
+            <div class="chatlog__message " data-message-id="859226736255827968" id="message-859226736255827968">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">I&#39;ll brb//</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/3b7730e08bf56682814b639e1c7deeba-4247D.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="A Generic User#7302" data-user-id="248410976808992768" style="color: rgb(220,20,60)">Noriko Nakai ||| Generic</span>
+
+
+        <span class="chatlog__timestamp">28-Jun-21 08:20 PM</span>
+
+            <div class="chatlog__message " data-message-id="859226910516445204" id="message-859226910516445204">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(gotcha, no problem)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-85C20.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="859140657871847484" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Jun-21 08:22 PM</span>
+
+            <div class="chatlog__message " data-message-id="859227415170252810" id="message-859227415170252810">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;A-a detective...? Uuu... kinda feel like that&#39;s a little too much praise, ehe...&quot; <em>Noriko turns away, fidgeting with her hands.</em> &quot;It&#39;d be pretty cool to be a detective, though... helpful, too.&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/220860aa80b67d802f69c4b57df0cd3a-6853D.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Saga#0460" data-user-id="475324575815565332" style="color: rgb(163,220,235)">Kai Yazzie || Saga</span>
+
+
+        <span class="chatlog__timestamp">28-Jun-21 09:06 PM</span>
+
+            <div class="chatlog__message " data-message-id="859238396013707274" id="message-859238396013707274">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Alrighty, back!//</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/5b933e030d944842380949f9979844bf-1F8D8.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Kai Yazzie#0000" data-user-id="859140657871847484" style="">Kai Yazzie</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Jun-21 09:11 PM</span>
+
+            <div class="chatlog__message " data-message-id="859239582003888158" id="message-859239582003888158">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;I&#39;m sure it is! You&#39;ll gather a lot of fame too, though, that depends on how happy you are to receive it. Just be prepared to see a lot of dead people. That&#39;s always fun.&quot; She puts a hand to her neck.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-85C20.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="859140657871847484" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Jun-21 09:16 PM</span>
+
+            <div class="chatlog__message " data-message-id="859240835484090368" id="message-859240835484090368">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;... In a way, I guess we&#39;re all becoming detectives, then...&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/5b933e030d944842380949f9979844bf-1F8D8.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Kai Yazzie#0000" data-user-id="859140657871847484" style="">Kai Yazzie</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Jun-21 09:22 PM</span>
+
+            <div class="chatlog__message " data-message-id="859242362957987851" id="message-859242362957987851">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;That&#39;s probably the only good thing that could come out of this situation I suppose. Good detectives, a not so good way to prepare em.&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-85C20.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="859140657871847484" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Jun-21 09:28 PM</span>
+
+            <div class="chatlog__message " data-message-id="859243863444815882" id="message-859243863444815882">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Mmm...&quot; <em>She nods in agreement.</em> &quot;If this is what it&#39;s like to be a detective, then... it&#39;s not for me. That Ultimate Detective - that Benjamin guy... man, he must&#39;ve had a tough job.&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/5b933e030d944842380949f9979844bf-1F8D8.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Kai Yazzie#0000" data-user-id="859140657871847484" style="">Kai Yazzie</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Jun-21 09:35 PM</span>
+
+            <div class="chatlog__message " data-message-id="859245627773681705" id="message-859245627773681705">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Makes it even less fair that he&#39;s not here to help us. It&#39;s as though it was set up to be that way- have someone with an ultimate that would serve well during the difficult parts of this game, and then let him get killed first.&quot; She shook her head in disdain. &quot;Maybe that&#39;s the reason why the first blackened targeted him first. So we could try and solve his murder despite having little to no experience in such a field.&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-85C20.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="859140657871847484" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Jun-21 09:47 PM</span>
+
+            <div class="chatlog__message " data-message-id="859248616468119592" id="message-859248616468119592">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;That talent of his... yeah, it would paint a target over him, wouldn&#39;t it...? That&#39;s... that&#39;s <em>rough</em>...&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/5b933e030d944842380949f9979844bf-1F8D8.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Kai Yazzie#0000" data-user-id="859140657871847484" style="">Kai Yazzie</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Jun-21 09:54 PM</span>
+
+            <div class="chatlog__message " data-message-id="859250467259547678" id="message-859250467259547678">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">She sighed. &quot;Totally... I hope the same logic doesn&#39;t apply to anyone else here! If they couldn&#39;t tell with how well we handle trials.&quot; She shrugged before yawning slightly.
+
+&quot;I might as well head back into the aircraft for some genuine sleep. Haven&#39;t had any shut eye for several hours yesterday.&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-85C20.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="859140657871847484" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Jun-21 10:07 PM</span>
+
+            <div class="chatlog__message " data-message-id="859253639897940008" id="message-859253639897940008">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Yeah... you and me both. Starting to get a little drowzy...&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="859253748773945385" id="message-859253748773945385">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Thanks for tagging up with me to explore this place, though... well, that and sharing theories and stuff.&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/5b933e030d944842380949f9979844bf-1F8D8.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Kai Yazzie#0000" data-user-id="859140657871847484" style="">Kai Yazzie</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Jun-21 10:11 PM</span>
+
+            <div class="chatlog__message " data-message-id="859254614749478942" id="message-859254614749478942">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Of course. You know I&#39;m always willing to hang out with ya.&quot; She smiled as she turned for the exit.
+
+Before she left however, she turned to wave. &quot;See ya next time, Kai sister.&quot;
+
+And with that, it was off to her dreadful room.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/f5483377bf3f0940503e56ecaeca167a-85C20.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Noriko Nakai#0000" data-user-id="859140657871847484" style="">Noriko Nakai</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">28-Jun-21 10:12 PM</span>
+
+            <div class="chatlog__message " data-message-id="859254905798000670" id="message-859254905798000670">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;See ya! Hopefully we convinced Drake... hopefully, your room is full of butterflies!&quot; <em>She farewells with a wave. Little did she know that Kai&#39;s room was full of butterflies...</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/9c87b83581844ae0aa2bb960c396ee73-7A420.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Akira Yakou#0000" data-user-id="859140657871847484" style="">Akira Yakou</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Jun-21 12:54 PM</span>
+
+            <div class="chatlog__message " data-message-id="859476940942999602" id="message-859476940942999602">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Akira wonders if this is what a liminal space feels like. It certainly <em>looks</em> like one, this sort of post-apocalyptic mess. It feels like there should be people here, but... there aren&#39;t. And this place has probably been like this for a long time, unseen by other people. Until now, anyways. The yarn bomber peruses the clothes, wondering if he could take some to repurpose them.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/845c55d14af83c763315538ecb08a577-E2022.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="North Olsen#0000" data-user-id="859140657871847484" style="">North Olsen</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Jun-21 12:57 PM</span>
+
+            <div class="chatlog__message " data-message-id="859477773495959552" id="message-859477773495959552">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>He walks on in. He’s never been to a store with clothes in it. He usually just gets his clothes through his parents. He would walk around examining everything. Yes, he doesn’t seem that bothered by the rubble and stuff like that. Not even bothered by how worn out these clothes were. He mainly wasn’t bothered because he didn’t feel like freaking out again… he’s trying to act like it’s normal. He needs to go back to normal after all…</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/9c87b83581844ae0aa2bb960c396ee73-7A420.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Akira Yakou#0000" data-user-id="859140657871847484" style="">Akira Yakou</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Jun-21 01:03 PM</span>
+
+            <div class="chatlog__message " data-message-id="859479279262498816" id="message-859479279262498816">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Oh,</em> Akira thinks upon finally noticing North had entered, <em>that&#39;s a big boy.</em> His second thought is <em>hey wait isn&#39;t that guy that sorta freaked out at the end of the trial</em>, a thought that is quickly followed by <em>god what a fucking mood</em>. In any case what sort of person would he be if he didn&#39;t greet the new guy? Antisocial, probably, and he&#39;s not that. &quot;Yo! How ya doin&#39;?&quot; he calls out, waving.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/845c55d14af83c763315538ecb08a577-E2022.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="North Olsen#0000" data-user-id="859140657871847484" style="">North Olsen</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Jun-21 01:06 PM</span>
+
+            <div class="chatlog__message " data-message-id="859479861915680783" id="message-859479861915680783">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>He would turn to Akira, and his expression quickly turned into a smile. It was a bit weird looking, but he was trying. He would give a stiff wave back.</em> “Hej! I… I’m doing A-O-K!!” <em>he said with an awkward chuckle, as he rubbed the back of his neck with his free hand.</em> “Er… uh… how are you?”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/9c87b83581844ae0aa2bb960c396ee73-7A420.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Akira Yakou#0000" data-user-id="859140657871847484" style="">Akira Yakou</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Jun-21 01:09 PM</span>
+
+            <div class="chatlog__message " data-message-id="859480620517556254" id="message-859480620517556254">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Wow, this guy copes fast. Akira thinks North is a bit awkward, but mainly chalks it up to being a new guy and meeting new people. &quot;I&#39;m doing fine! Just looking around for clothes to use.&quot; And back to perusing the selection he goes. &quot;So, uh, what brings you here? I dunno if any of this stuff is good for wearing anyways...&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/845c55d14af83c763315538ecb08a577-E2022.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="North Olsen#0000" data-user-id="859140657871847484" style="">North Olsen</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Jun-21 01:14 PM</span>
+
+            <div class="chatlog__message " data-message-id="859482066806112276" id="message-859482066806112276">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“Ah, good! These clothes are interesting Huh? Never seen anything like it! They seem so… dull?… is that the right word?” <em>he would then begin to tap his index fingers together.</em> “Oh, Er, just wanted to get out! Explore! Nothing much, really… Just kinda… curious by the different… um… store?…”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/a_5f949a6de11d6776898f96a7249b53ac-77229.gif" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="TOMOxWATER (king of crabs)#6118" data-user-id="303254061644382219" style="color: rgb(231,76,60)">Tomo &#129683; North Olsen</span>
+
+
+        <span class="chatlog__timestamp">29-Jun-21 01:15 PM</span>
+
+            <div class="chatlog__message " data-message-id="859482100419657728" id="message-859482100419657728">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">((*stores</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/9c87b83581844ae0aa2bb960c396ee73-7A420.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Akira Yakou#0000" data-user-id="859140657871847484" style="">Akira Yakou</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Jun-21 01:19 PM</span>
+
+            <div class="chatlog__message " data-message-id="859483179941625876" id="message-859483179941625876">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Akira looks at the state of the clothes. &quot;Dull... ain&#39;t exactly the word I&#39;d use for it. I guess they <em>are</em> all kinda faded though... maybe they&#39;d go well with things with more vibrant colors...&quot; He chuckles before muttering to himself &quot;Looks like it&#39;s all on sale anyways, not like anyone could buy it... Hey, wanna help me steal a bunch of old clothes?&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/845c55d14af83c763315538ecb08a577-E2022.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="North Olsen#0000" data-user-id="859140657871847484" style="">North Olsen</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Jun-21 01:22 PM</span>
+
+            <div class="chatlog__message " data-message-id="859484061797318676" id="message-859484061797318676">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“Ah.. sorry…” <em>He apologizes for what exactly? For not using a word Akira would have. Huh.</em> “er… um… isn’t like… stealing?… a bad thing? I don’t know about that…”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/9c87b83581844ae0aa2bb960c396ee73-7A420.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Akira Yakou#0000" data-user-id="859140657871847484" style="">Akira Yakou</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Jun-21 01:32 PM</span>
+
+            <div class="chatlog__message " data-message-id="859486560008142878" id="message-859486560008142878">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Akira looks up at North with a raised eyebrow. &quot;I don&#39;t think anyone&#39;s planning on coming back for these.&quot; Already, he&#39;s lifting shirts and pants and other things off hangers and shelves, making a messy, but still holdable bundle.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/845c55d14af83c763315538ecb08a577-E2022.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="North Olsen#0000" data-user-id="859140657871847484" style="">North Olsen</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Jun-21 01:37 PM</span>
+
+            <div class="chatlog__message " data-message-id="859487633163550780" id="message-859487633163550780">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“Er… um… I guess you’re right… Er…” <em>He would tap his index fingers a few more times, before taking a deep breath. He might as well help this person. They seem kind after all, unlike… he would begin to just take the clothes off the hanger racks, keeping the hangers on. He’d throw them over his shoulders, drape them on top of his head, and hold them over his arms. He was just a hanger rack now.</em> “Is… um… this good…?” <em>He said muffled by the clothes over his face.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/9c87b83581844ae0aa2bb960c396ee73-7A420.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Akira Yakou#0000" data-user-id="859140657871847484" style="">Akira Yakou</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Jun-21 01:40 PM</span>
+
+            <div class="chatlog__message " data-message-id="859488637783244820" id="message-859488637783244820">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Akira stifles a laugh at the rather ridiculous sight. &quot;Yeah, that works. C&#39;mon you giant coatrack, let&#39;s uh... Hm.&quot; He pauses, pensive. &quot;Where are we going to take these?&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/845c55d14af83c763315538ecb08a577-E2022.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="North Olsen#0000" data-user-id="859140657871847484" style="">North Olsen</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Jun-21 01:44 PM</span>
+
+            <div class="chatlog__message " data-message-id="859489491399213087" id="message-859489491399213087">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>he would chuckle, but again, was muffled by the clothes.</em> “Er… uh… I don’t know… do you want them in your room, or… uh… somewhere else on the floating house?”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/bda13cd2bcfb866a9cfb5af8d2444d11-8E56A.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Prospective Despair Bot#1095" data-user-id="847686380410241074" style="color: rgb(96,125,139)">Prospective Despair Bot</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Jun-21 01:46 PM</span>
+
+            <div class="chatlog__message " data-message-id="859489940136001578" id="message-859489940136001578">
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill" style="background-color: rgba(46,186,225,255)"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace"><span class="mention" title="TOMOxWATER (king of crabs)#6118">@Tomo &#129683; North Olsen</span>, <span class="mention" title="Unknown">@Unknown</span> got an interaction!</div>
+                                        </div>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/9c87b83581844ae0aa2bb960c396ee73-7A420.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Akira Yakou#0000" data-user-id="859140657871847484" style="">Akira Yakou</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Jun-21 01:52 PM</span>
+
+            <div class="chatlog__message " data-message-id="859491647170281522" id="message-859491647170281522">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Yeah, my room sounds nice! Wanna head over there? I&#39;ve got...&quot; He pauses for dramatic effect. &quot;<em>Plans.</em>&quot; Akira does some jazz hands, but this means that all the clothes he&#39;s holding fall to the floor. &quot;Oh fuck-.&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/845c55d14af83c763315538ecb08a577-E2022.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="North Olsen#0000" data-user-id="859140657871847484" style="">North Olsen</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Jun-21 01:56 PM</span>
+
+            <div class="chatlog__message " data-message-id="859492527031058472" id="message-859492527031058472">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>He would nod his head, causing the clothes on his head to fall, and then we he reaches down to pick them out, the rest of the clothes he has on his arms and shoulders fall too. He paused.</em> “Er… um… that just happened…” <em>He chuckled lightly, before just piling them up, and then picking them all up in his arms. He holds them low, so they don’t block his vision, and he leans back a bit, so they don’t fall forward.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/9c87b83581844ae0aa2bb960c396ee73-7A420.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Akira Yakou#0000" data-user-id="859140657871847484" style="">Akira Yakou</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Jun-21 02:04 PM</span>
+
+            <div class="chatlog__message " data-message-id="859494476161220668" id="message-859494476161220668">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Alright! Follow me, then, big guy.&quot; Akira bunches up all the fallen clothes near him and moves to leave, stealing more clothes as he does so. Theft is okay.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/845c55d14af83c763315538ecb08a577-E2022.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="North Olsen#0000" data-user-id="859140657871847484" style="">North Olsen</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Jun-21 02:06 PM</span>
+
+            <div class="chatlog__message " data-message-id="859495112685256714" id="message-859495112685256714">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">*He nods again, and follows after Akira. Theft is not okay, but since this place was left to rot, it’s a little okay in this case.+</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/99740abe4abd9b042ae6d435e8c8c4c9-14CF5.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Rita Sestina Toscani#0000" data-user-id="859140657871847484" style="">Rita Sestina Toscani</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">03-Jul-21 02:52 PM</span>
+
+            <div class="chatlog__message " data-message-id="860956296585150484" id="message-860956296585150484">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>she drags Jack here</em> “I need you to grab as much clothes in as many baskets as possible.”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/965f43e008eb91b4e208ecc74fd44139-6C208.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="FactGuy#0391" data-user-id="333099173677105153" style="color: rgb(135,50,96)">Fact || Rita Sestina Toscani</span>
+
+
+        <span class="chatlog__timestamp">03-Jul-21 02:53 PM</span>
+
+            <div class="chatlog__message " data-message-id="860956319841124362" id="message-860956319841124362">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">// <span class="mention" title="Crepe#2518">@Jack Enjo || The Crep</span></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/2a00365930d3fc2457ab1809b26814ac-42039.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jack Enjo#0000" data-user-id="859140657871847484" style="">Jack Enjo</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">03-Jul-21 02:53 PM</span>
+
+            <div class="chatlog__message " data-message-id="860956332316164106" id="message-860956332316164106">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Mother fucker-&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="860956429745913856" id="message-860956429745913856">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;.....Fine......I&#39;ll help...Anything I shouldn&#39;t grab....?&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/99740abe4abd9b042ae6d435e8c8c4c9-14CF5.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Rita Sestina Toscani#0000" data-user-id="859140657871847484" style="">Rita Sestina Toscani</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">03-Jul-21 02:54 PM</span>
+
+            <div class="chatlog__message " data-message-id="860956574180179968" id="message-860956574180179968">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“Nah, grab everything you can!”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/2a00365930d3fc2457ab1809b26814ac-42039.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jack Enjo#0000" data-user-id="859140657871847484" style="">Jack Enjo</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">03-Jul-21 02:55 PM</span>
+
+            <div class="chatlog__message " data-message-id="860956902703628288" id="message-860956902703628288">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>And so he does</em> &quot;How did making those clothes go? I never actually checked if you made me anything?&quot; <em>he tries to talk without making any pauses for that sentence, in an attempt to show he miiiight care a little</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/99740abe4abd9b042ae6d435e8c8c4c9-14CF5.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Rita Sestina Toscani#0000" data-user-id="859140657871847484" style="">Rita Sestina Toscani</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">03-Jul-21 02:57 PM</span>
+
+            <div class="chatlog__message " data-message-id="860957370220937257" id="message-860957370220937257">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“Did you not see the pile of clothes in my room that I completed! You could grab something, try it on in my bathroom, and take it with you!”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="860957465784352818" id="message-860957465784352818">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>she begins to grab all sorts of articles of clothing</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/2a00365930d3fc2457ab1809b26814ac-42039.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jack Enjo#0000" data-user-id="859140657871847484" style="">Jack Enjo</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">03-Jul-21 02:58 PM</span>
+
+            <div class="chatlog__message " data-message-id="860957738163372042" id="message-860957738163372042">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;I couldn&#39;t picture myself wearing something different...since you criticized my clothes so much..I&#39;ll let you pick.&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/99740abe4abd9b042ae6d435e8c8c4c9-14CF5.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Rita Sestina Toscani#0000" data-user-id="859140657871847484" style="">Rita Sestina Toscani</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">03-Jul-21 02:59 PM</span>
+
+            <div class="chatlog__message " data-message-id="860958063287992340" id="message-860958063287992340">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“How about a suit? Or a hoodie?” <em>She’s holding roughly 30lb worth of clothes</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/2a00365930d3fc2457ab1809b26814ac-42039.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jack Enjo#0000" data-user-id="859140657871847484" style="">Jack Enjo</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">03-Jul-21 03:00 PM</span>
+
+            <div class="chatlog__message " data-message-id="860958276430200852" id="message-860958276430200852">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Like I said...you can choose...surprise me....Just nothing stupid.&quot; <em>he&#39;s holding not-30lb worth</em> &quot;Emptying stock before we leave....? You think you&#39;ll do multiple trips...?&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/99740abe4abd9b042ae6d435e8c8c4c9-14CF5.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Rita Sestina Toscani#0000" data-user-id="859140657871847484" style="">Rita Sestina Toscani</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">03-Jul-21 03:02 PM</span>
+
+            <div class="chatlog__message " data-message-id="860958687010357288" id="message-860958687010357288">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“We’re definitely doing multiple trips! In fact, I’m going to take this back!” <em>she begins to sprint to her room</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/2a00365930d3fc2457ab1809b26814ac-42039.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jack Enjo#0000" data-user-id="859140657871847484" style="">Jack Enjo</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">03-Jul-21 03:02 PM</span>
+
+            <div class="chatlog__message " data-message-id="860958779749957703" id="message-860958779749957703">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;What the fuck-&quot; <em>she&#39;s gone...</em> &quot;She has...so much fucking energy....&quot; <em>he carries what he has back to her room at normal walking speed</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/99740abe4abd9b042ae6d435e8c8c4c9-14CF5.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Rita Sestina Toscani#0000" data-user-id="859140657871847484" style="">Rita Sestina Toscani</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">03-Jul-21 03:03 PM</span>
+
+            <div class="chatlog__message " data-message-id="860958969714704406" id="message-860958969714704406">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Rita comes running back to grab more pieces of clothing. Shoes, hats, shirts, all that fun stuff</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="860959168910983188" id="message-860959168910983188">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>I think we can fast forward this moment a bit. Rita is running back and forth picking up and dropping dresses off</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/2a00365930d3fc2457ab1809b26814ac-42039.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jack Enjo#0000" data-user-id="859140657871847484" style="">Jack Enjo</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">03-Jul-21 03:04 PM</span>
+
+            <div class="chatlog__message " data-message-id="860959189426110514" id="message-860959189426110514">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>And jack comes back a few minutes after she returns</em> &quot;You&#39;re...going at quite the speed.....You&#39;ll clear the whole place....every last scrap....&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="860959235507224587" id="message-860959235507224587">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>he says that when they&#39;re both there and she isn&#39;t running off</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/99740abe4abd9b042ae6d435e8c8c4c9-14CF5.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Rita Sestina Toscani#0000" data-user-id="859140657871847484" style="">Rita Sestina Toscani</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">03-Jul-21 03:06 PM</span>
+
+            <div class="chatlog__message " data-message-id="860959636785725451" id="message-860959636785725451">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“Well I don’t want to waste potentially good looking piece of clothing! That would be shameful.” <em>she runs back with more clothing than comes back in exhausted</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/2a00365930d3fc2457ab1809b26814ac-42039.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jack Enjo#0000" data-user-id="859140657871847484" style="">Jack Enjo</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">03-Jul-21 03:06 PM</span>
+
+            <div class="chatlog__message " data-message-id="860959800955371532" id="message-860959800955371532">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Jack is also on the ground sitting down</em> &quot;...Fuck......there&#39;s going to be no room in your room...just piles of clothes...&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/99740abe4abd9b042ae6d435e8c8c4c9-14CF5.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Rita Sestina Toscani#0000" data-user-id="859140657871847484" style="">Rita Sestina Toscani</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">03-Jul-21 03:09 PM</span>
+
+            <div class="chatlog__message " data-message-id="860960421895733269" id="message-860960421895733269">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“Okay! I think we’re good!” <em>she lies on the ground</em> “I think I’m going to eat some cake! In fact I’ll do that right now!” <em>Rita stands up</em> “Thanks for the help, Jack! I appreciate it! See you!”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Old%20Mall%20%28KG%29%20-%20clothing-brand-store%20%5B846585798593347594%5D.html_Files/2a00365930d3fc2457ab1809b26814ac-42039.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Jack Enjo#0000" data-user-id="859140657871847484" style="">Jack Enjo</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">03-Jul-21 03:10 PM</span>
+
+            <div class="chatlog__message " data-message-id="860960634007322634" id="message-860960634007322634">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Wait...you&#39;re just going now....? All that....and...ok.....Remind me to pick something to wear from your room later on....like I said...you can choose....&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+</div>
+
+<div class="postamble">
+    <div class="postamble__entry">Exported 107 message(s)</div>
+</div>
+
+</body>
+
+</html>

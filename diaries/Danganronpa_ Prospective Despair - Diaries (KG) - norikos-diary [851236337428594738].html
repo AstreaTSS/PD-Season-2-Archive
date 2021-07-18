@@ -1,0 +1,1200 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Danganronpa: Prospective Despair - norikos-diary</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <style>
+        /* General */
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-300.woff);
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-400.woff);
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-500.woff);
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-600.woff);
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-700.woff);
+    font-weight: 700;
+}
+
+body {
+    font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 17px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+img {
+    object-fit: contain;
+}
+
+.markdown {
+    max-width: 100%;
+    line-height: 1.3;
+    overflow-wrap: break-word;
+}
+
+.preserve-whitespace {
+    white-space: pre-wrap;
+}
+
+.spoiler {
+    /* width: fit-content; */
+    display: inline-block;
+    /* This is more consistent across browsers, the old attribute worked well under Chrome but not FireFox. */
+}
+
+.spoiler--hidden {
+    cursor: pointer;
+}
+
+.spoiler-text {
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-text {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler--hidden .spoiler-text::selection {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-image {
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.spoiler--hidden .spoiler-image * {
+    filter: blur(44px);
+}
+
+.spoiler--hidden .spoiler-image:after {
+    content: "SPOILER";
+    color: #dcddde;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 600;
+    padding: 100%;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+    font-size: 0.9em;
+}
+
+.spoiler--hidden:hover .spoiler-image:after {
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.quote {
+    margin: 0.1em 0;
+    padding-left: 0.6em;
+    border-left: 4px solid;
+    border-radius: 3px;
+}
+
+.pre {
+    font-family: "Consolas", "Courier New", Courier, monospace;
+}
+
+.pre--multiline {
+    margin-top: 0.25em;
+    padding: 0.5em;
+    border: 2px solid;
+    border-radius: 5px;
+}
+
+.pre--inline {
+    padding: 2px;
+    border-radius: 3px;
+    font-size: 0.85em;
+}
+
+.mention {
+    border-radius: 3px;
+    padding: 0 2px;
+    color: #7289da;
+    background: rgba(114, 137, 218, .1);
+    font-weight: 500;
+}
+
+.emoji {
+    width: 1.25em;
+    height: 1.25em;
+    margin: 0 0.06em;
+    vertical-align: -0.4em;
+}
+
+.emoji--small {
+    width: 1em;
+    height: 1em;
+}
+
+.emoji--large {
+    width: 2.8em;
+    height: 2.8em;
+}
+
+/* Preamble */
+
+.preamble {
+    display: grid;
+    margin: 0 0.3em 0.6em 0.3em;
+    max-width: 100%;
+    grid-template-columns: auto 1fr;
+}
+
+.preamble__guild-icon-container {
+    grid-column: 1;
+}
+
+.preamble__guild-icon {
+    max-width: 88px;
+    max-height: 88px;
+}
+
+.preamble__entries-container {
+    grid-column: 2;
+    margin-left: 0.6em;
+}
+
+.preamble__entry {
+    font-size: 1.4em;
+}
+
+.preamble__entry--small {
+    font-size: 1em;
+}
+
+/* Chatlog */
+
+.chatlog {
+    max-width: 100%;
+}
+
+.chatlog__message-group {
+    display: grid;
+    margin: 0 0.6em;
+    padding: 0.9em 0;
+    border-top: 1px solid;
+    grid-template-columns: auto 1fr;
+}
+
+.chatlog__reference-symbol {
+    grid-column: 1;
+    border-style: solid;
+    border-width: 2px 0 0 2px;
+    border-radius: 8px 0 0 0;
+    margin-left: 16px;
+    margin-top: 8px;
+}
+
+.chatlog__reference {
+    display: flex;
+    grid-column: 2;
+    margin-left: 1.2em;
+    margin-bottom: 0.25em;
+    font-size: 0.875em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    align-items: center;
+}
+
+.chatlog__reference-avatar {
+    border-radius: 50%;
+    height: 16px;
+    width: 16px;
+    margin-right: 0.25em;
+}
+
+.chatlog__reference-name {
+    margin-right: 0.25em;
+    font-weight: 600;
+}
+
+.chatlog__reference-link {
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.chatlog__reference-link:hover {
+    text-decoration: none;
+}
+
+.chatlog__reference-content > * {
+    display: inline;
+}
+
+.chatlog__reference-edited-timestamp {
+    margin-left: 0.25em;
+    font-size: 0.8em;
+}
+
+.chatlog__author-avatar-container {
+    grid-column: 1;
+    width: 40px;
+    height: 40px;
+}
+
+.chatlog__author-avatar {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}
+
+.chatlog__messages {
+    grid-column: 2;
+    margin-left: 1.2em;
+    min-width: 50%;
+}
+
+.chatlog__author-name {
+    font-weight: 500;
+}
+
+.chatlog__timestamp {
+    margin-left: 0.3em;
+    font-size: 0.75em;
+}
+
+.chatlog__message {
+    padding: 0.1em 0.3em;
+    margin: 0 -0.3em;
+    background-color: transparent;
+    transition: background-color 1s ease;
+}
+
+.chatlog__content {
+    font-size: 0.95em;
+    word-wrap: break-word;
+}
+
+.chatlog__edited-timestamp {
+    margin-left: 0.15em;
+    font-size: 0.8em;
+}
+
+.chatlog__attachment {
+    margin-top: 0.3em;
+}
+
+.chatlog__attachment-thumbnail {
+    vertical-align: top;
+    max-width: 45vw;
+    max-height: 500px;
+    border-radius: 3px;
+}
+
+.chatlog__attachment-container {
+    height: 40px;
+    width: 100%;
+    max-width: 520px;
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.chatlog__attachment-icon {
+    float: left;
+    height: 100%;
+    margin-right: 10px;
+}
+
+.chatlog__attachment-icon > .a {
+    fill: #f4f5fb;
+    d: path("M50,935a25,25,0,0,1-25-25V50A25,25,0,0,1,50,25H519.6L695,201.32V910a25,25,0,0,1-25,25Z");
+}
+
+.chatlog__attachment-icon > .b {
+    fill: #7789c4;
+    d: path("M509.21,50,670,211.63V910H50V50H509.21M530,0H50A50,50,0,0,0,0,50V910a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50h0V191Z");
+}
+
+.chatlog__attachment-icon > .c {
+    fill: #f4f5fb;
+    d: path("M530,215a25,25,0,0,1-25-25V50a25,25,0,0,1,16.23-23.41L693.41,198.77A25,25,0,0,1,670,215Z");
+}
+
+.chatlog__attachment-icon > .d {
+    fill: #7789c4;
+    d: path("M530,70.71,649.29,190H530V70.71M530,0a50,50,0,0,0-50,50V190a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50Z");
+}
+
+.chatlog__attachment-filesize {
+    color: #72767d;
+    font-size: 12px;
+}
+
+.chatlog__attachment-filename {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.chatlog__embed {
+    display: flex;
+    margin-top: 0.3em;
+    max-width: 520px;
+}
+
+.chatlog__embed-color-pill {
+    flex-shrink: 0;
+    width: 0.25em;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.chatlog__embed-content-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em 0.6em;
+    border: 1px solid;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.chatlog__embed-content {
+    display: flex;
+    width: 100%;
+}
+
+.chatlog__embed-text {
+    flex: 1;
+}
+
+.chatlog__embed-author {
+    display: flex;
+    margin-bottom: 0.3em;
+    align-items: center;
+}
+
+.chatlog__embed-author-icon {
+    margin-right: 0.5em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.chatlog__embed-author-name {
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-title {
+    margin-bottom: 0.2em;
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-description {
+    font-weight: 500;
+    font-size: 0.85em;
+}
+
+.chatlog__embed-fields {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.chatlog__embed-field {
+    flex: 0;
+    min-width: 100%;
+    max-width: 506px;
+    padding-top: 0.6em;
+    font-size: 0.875em;
+}
+
+.chatlog__embed-field--inline {
+    flex: 1;
+    flex-basis: auto;
+    min-width: 150px;
+}
+
+.chatlog__embed-field-name {
+    margin-bottom: 0.2em;
+    font-weight: 600;
+}
+
+.chatlog__embed-field-value {
+    font-weight: 500;
+}
+
+.chatlog__embed-thumbnail {
+    flex: 0;
+    margin-left: 1.2em;
+    max-width: 80px;
+    max-height: 80px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-image-container {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-image {
+    max-width: 500px;
+    max-height: 400px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-footer {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-footer-icon {
+    margin-right: 0.2em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.chatlog__embed-footer-text {
+    font-size: 0.75em;
+    font-weight: 500;
+}
+
+.chatlog__reactions {
+    display: flex;
+}
+
+.chatlog__reaction {
+    display: flex;
+    align-items: center;
+    margin: 0.35em 0.1em 0.1em 0.1em;
+    padding: 0.2em 0.35em;
+    border-radius: 3px;
+}
+
+.chatlog__reaction-count {
+    min-width: 9px;
+    margin-left: 0.35em;
+    font-size: 0.875em;
+}
+
+.chatlog__bot-tag {
+    position: relative;
+    top: -.2em;
+    margin-left: 0.3em;
+    padding: 0.05em 0.3em;
+    border-radius: 3px;
+    vertical-align: middle;
+    line-height: 1.3;
+    background: #7289da;
+    color: #ffffff;
+    font-size: 0.625em;
+    font-weight: 500;
+}
+
+/* Postamble */
+
+.postamble {
+    margin: 1.4em 0.3em 0.6em 0.3em;
+    padding: 1em;
+    border-top: 1px solid;
+}
+    </style>
+    <style>
+        /* General */
+
+body {
+    background-color: #36393e;
+    color: #dcddde;
+}
+
+a {
+    color: #0096cf;
+}
+
+.spoiler-text {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.spoiler--hidden .spoiler-text {
+    background-color: #202225;
+}
+
+.spoiler--hidden:hover .spoiler-text {
+    background-color: rgba(32, 34, 37, 0.8);
+}
+
+.quote {
+    border-color: #4f545c;
+}
+
+.pre {
+    background-color: #2f3136 !important;
+}
+
+.pre--multiline {
+    border-color: #282b30 !important;
+    color: #b9bbbe !important;
+}
+
+/* === Preamble === */
+
+.preamble__entry {
+    color: #ffffff;
+}
+
+/* Chatlog */
+
+.chatlog__message-group {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.chatlog__reference-symbol {
+    border-color: #4f545c;
+}
+
+.chatlog__reference {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link:hover {
+    color: #ffffff;
+}
+
+.chatlog__reference-edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__author-name {
+    color: #ffffff;
+}
+
+.chatlog__timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__message--highlighted {
+    background-color: rgba(114, 137, 218, 0.2) !important;
+}
+
+.chatlog__message--pinned {
+    background-color: rgba(249, 168, 37, 0.05);
+}
+
+.chatlog__attachment-container {
+    background-color: #2f3136;
+    border-color: #292b2f;
+}
+
+.chatlog__edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__embed-color-pill--default {
+    background-color: rgba(79, 84, 92, 1);
+}
+
+.chatlog__embed-content-container {
+    background-color: rgba(46, 48, 54, 0.3);
+    border-color: rgba(46, 48, 54, 0.6);
+}
+
+.chatlog__embed-author-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-author-name-link {
+    color: #ffffff;
+}
+
+.chatlog__embed-title {
+    color: #ffffff;
+}
+
+.chatlog__embed-description {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-field-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-field-value {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-footer {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__reaction {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.chatlog__reaction-count {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* Postamble */
+
+.postamble {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.postamble__entry {
+    color: #ffffff;
+}
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/solarized-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.pre--multiline').forEach(block => hljs.highlightBlock(block));
+        });
+    </script>
+
+    <script>
+        function scrollToMessage(event, id) {
+            var element = document.getElementById('message-' + id);
+
+            if (element) {
+                event.preventDefault();
+
+                element.classList.add('chatlog__message--highlighted');
+
+                window.scrollTo({
+                    top: element.getBoundingClientRect().top - document.body.getBoundingClientRect().top - (window.innerHeight / 2),
+                    behavior: 'smooth'
+                });
+
+                window.setTimeout(function() {
+                    element.classList.remove('chatlog__message--highlighted');
+                }, 2000);
+            }
+        }
+
+        function showSpoiler(event, element) {
+            if (element && element.classList.contains('spoiler--hidden')) {
+                event.preventDefault();
+                element.classList.remove('spoiler--hidden');
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="preamble">
+    <div class="preamble__guild-icon-container">
+        <img class="preamble__guild-icon" src="Danganronpa_%20Prospective%20Despair%20-%20Diaries%20%28KG%29%20-%20norikos-diary%20%5B851236337428594738%5D.html_Files/a_2feefaa4b9661f5afc56fdc0a2cb52a3-DDE8C.png" alt="Guild icon">
+    </div>
+    <div class="preamble__entries-container">
+        <div class="preamble__entry">Danganronpa: Prospective Despair</div>
+        <div class="preamble__entry">Diaries (KG) / norikos-diary</div>
+
+
+    </div>
+</div>
+
+<div class="chatlog">
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Diaries%20%28KG%29%20-%20norikos-diary%20%5B851236337428594738%5D.html_Files/16621ef5d6c0752a007ce930a8104c18-5C715.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Sonic49 | ???</span>
+
+
+        <span class="chatlog__timestamp">06-Jun-21 07:10 PM</span>
+
+            <div class="chatlog__message " data-message-id="851236665555943514" id="message-851236665555943514">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(<span class="mention" title="A Generic User#7302">@Noriko Nakai ||| Generic</span>  &#229;
+(welcome to norikos diary - you can do anything here, although note most people still treat this as an rp channel and use ooc marks and the like
+
+(by default, the diary will be revealed upon death or once the game ends. if you dont wish for that, just say so</span>
+
+                                <span class="chatlog__edited-timestamp" title="06-Jun-21 07:10 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Diaries%20%28KG%29%20-%20norikos-diary%20%5B851236337428594738%5D.html_Files/3b7730e08bf56682814b639e1c7deeba-4247D.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="A Generic User#7302" data-user-id="248410976808992768" style="color: rgb(220,20,60)">Noriko Nakai ||| Generic</span>
+
+
+        <span class="chatlog__timestamp">09-Jun-21 04:14 AM</span>
+
+            <div class="chatlog__message " data-message-id="852098319576596501" id="message-852098319576596501">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">day 1(tho maybe it could be day 2 or 3?????? cant really remember.... but this is day 1 of having a diary!!!)
+
+basically i got kidnapped........ by some jackass dipshit called <s>dork</s> drack or somthing... whyd he kidnap me???!!??!? its not like im anything special... MAYBE THATS EXACTLY WY HE DID IT! CUZ HE THINKS IM SOME KINDA IDOIT OR SOMETHING........ now im pissed off..... when i find him ill give him a peace of my mind!!!!!!!!!!!!!!!
+
+hes tryin to make us play in this thing caled a killing game. apparently its a thing where people kill eachother. its kinda scarey to think about it... i dont wanna dye or anything.... but nobodys gonna kill i think. thats what this yarn guy said and im hoping hes right!!!!! if anyone thinks im an easy target cause im small tho... theyd beter think again! my knifell have someting to say about it!
+
+anyways its a dairy and your supposed to record stuff in these so..... i met some people!! met this david guy. hes kinda an idoit but hes got a good heart and we talked about our plans to escape. he thinks we can get outa here with a long rope... no way buddy, heh heh... life isnt that simple... ull figure out 1 day
+
+theres also this guy who calls himself a yarn bomber..... isnt that kinda <s>wired</s> <s>weird</s> wierd?? but he dosnt blow people up with yarn so thats nice. he seems like a good person thogh... his names akira! its a cool name that reminds me of somthing.
+
+today i met someone called maigo. he... i duno how to put this... kinda talks... strange. hes very nice thogh! hes just a bit taller than me, too! that makes us allies against the tall species... and speeking of the tall species, i also met this guy caled roach today, honestly... and if anyone else is reading this, dont tell anyone!! - but hes kinda scary to me. it feels like im a little ant that he could crush at any second... if he wanted to kill me, then what could i do?? 
+
+ive still gotta say sorry to him, too... i dropped my cereal on him... i hope hes not mad.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Diaries%20%28KG%29%20-%20norikos-diary%20%5B851236337428594738%5D.html_Files/3b7730e08bf56682814b639e1c7deeba-4247D.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="A Generic User#7302" data-user-id="248410976808992768" style="color: rgb(220,20,60)">Noriko Nakai ||| Generic</span>
+
+
+        <span class="chatlog__timestamp">09-Jun-21 04:30 AM</span>
+
+            <div class="chatlog__message " data-message-id="852102254135083008" id="message-852102254135083008">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">i drew this art peice... its whats gonna happen!!!!!!!!!!!!!!!!!</span>
+
+                                <span class="chatlog__edited-timestamp" title="09-Jun-21 04:30 AM">(edited)</span>
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Danganronpa_%20Prospective%20Despair%20-%20Diaries%20%28KG%29%20-%20norikos-diary%20%5B851236337428594738%5D.html_Files/norikodraw1-DD7AE.png">
+                                        <img class="chatlog__attachment-thumbnail" src="Danganronpa_%20Prospective%20Despair%20-%20Diaries%20%28KG%29%20-%20norikos-diary%20%5B851236337428594738%5D.html_Files/norikodraw1-DD7AE.png" alt="Image attachment" title="Image: norikodraw1.png (32.34 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Diaries%20%28KG%29%20-%20norikos-diary%20%5B851236337428594738%5D.html_Files/633ff6a6b4424dc32afe8afe6690a856-CEACD.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Mass#6343" data-user-id="217419998677696512" style="color: rgb(210,165,214)">Kojima Akihiro | Mass</span>
+
+
+        <span class="chatlog__timestamp">09-Jun-21 04:39 AM</span>
+
+            <div class="chatlog__message " data-message-id="852104577105002517" id="message-852104577105002517">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Oh. Oh my god--))</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Diaries%20%28KG%29%20-%20norikos-diary%20%5B851236337428594738%5D.html_Files/3b7730e08bf56682814b639e1c7deeba-4247D.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="A Generic User#7302" data-user-id="248410976808992768" style="color: rgb(220,20,60)">Noriko Nakai ||| Generic</span>
+
+
+        <span class="chatlog__timestamp">11-Jun-21 07:21 PM</span>
+
+            <div class="chatlog__message " data-message-id="853051470956724235" id="message-853051470956724235">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Day 2 (of writing)
+
+... hmm. what the hell was i thinking in that first <s>dairy</s> diary entry? sounds like it was writen by a complete numbskull. geez, what if someone reads this stuff? they&#39;ll think im a complete moron, all because i wrote like an <s>idoit</s> idiot. sure, its not untrue or anything but still.
+
+too much stuff happened to sum it up.. i cant rely be bothered to either. but, just then i met these two girls. kai and... miss tosscanny...? duno how to spell her name... theyre nice and all, well, maybe not miss tosscanny.... i can tell shes lookin down on me or something. she even whipped me like some kinda animal... makes me mad. anyways, thats not the point. its their talents.
+
+kais some master of not just math but history i think!! and tosscanny comes from a big family of fashion people. people say i shouldnt compare myself to others but.... how cant i? its just a joke that some ultimate fashion girl and some ultimate polimath were in the same room as... the ultimate cup stacker. thats not a talent. whod give a damn about a cup stacker? i dont belong with these people.
+
+i want to <s>thogh</s> though, but thats never gonna happen. i wasnt born with talent or anything...
+
+i wanna be someone others look up to, not down upon.
+
+I bet they know im not some &#39;ultimate of ultimates&#39;... they know what i really am, and look down on me.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Diaries%20%28KG%29%20-%20norikos-diary%20%5B851236337428594738%5D.html_Files/3b7730e08bf56682814b639e1c7deeba-4247D.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="A Generic User#7302" data-user-id="248410976808992768" style="color: rgb(220,20,60)">Noriko Nakai ||| Generic</span>
+
+
+        <span class="chatlog__timestamp">11-Jun-21 07:29 PM</span>
+
+            <div class="chatlog__message " data-message-id="853053338739408926" id="message-853053338739408926">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">... geez, this probably reads like a pity party, huh. i guess i just needed to get this off my chest. maybe its not as bad as i think. anyways... while im stuck here, i may as well write some other stuff</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Diaries%20%28KG%29%20-%20norikos-diary%20%5B851236337428594738%5D.html_Files/3b7730e08bf56682814b639e1c7deeba-4247D.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="A Generic User#7302" data-user-id="248410976808992768" style="color: rgb(220,20,60)">Noriko Nakai ||| Generic</span>
+
+
+        <span class="chatlog__timestamp">11-Jun-21 07:43 PM</span>
+
+            <div class="chatlog__message " data-message-id="853056934055247882" id="message-853056934055247882">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><strong>NORIKO NAKAI&#39;S METAL REVIEW: EP 1</strong>
+
+right, so if your reading this, youve found my <s>dairy</s> diary. i guess thats something? im just gonna jot down some stuff that interests me thogh, instead of lettig it fade away, nefer to be heared again. diaries like ths are kinda like prove we exist yknow...
+
+so heres some metal albums reviews
+
+<em><strong>RHAPSODY OF HELLFIRE ANEW by BLOODY-RED</strong></em>: probly the best album of DEAD-RED&#39;s music yet. all the songs kick major ass!! the vocals are as killer as it gets, and holy hell can these guys loose one helluva scream.... you arent a true metal fan if you havent listened to it at <s>last</s> least 3 times...!!!!
+
+<em><strong>MURDER ENGINE by IRON MARCH</strong></em>: kinda awesom to have a bunch of songs dedcated to triked out cars, but...... the delivery didnt really hit the mark. the only song on this album really worth anyting is Hairpin Ride but even thats a strech
+
+<em><strong>FATED ODYSSEY by MILLION SWORDS</strong></em>: its the usual from Million Swords - thats to say complete and uter fuckin garbage. these guys are an absolote disgrace to power metal and it rely pisses me off that theyr so poplar, when bands like ASHTAR get pased over by ignorant fans. if you like fated odyssey by million swords, youre stupid, im sorry to say. and if you like milion swords, well... get your head checked! THATS ALL.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Diaries%20%28KG%29%20-%20norikos-diary%20%5B851236337428594738%5D.html_Files/3b7730e08bf56682814b639e1c7deeba-4247D.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="A Generic User#7302" data-user-id="248410976808992768" style="color: rgb(220,20,60)">Noriko Nakai ||| Generic</span>
+
+
+        <span class="chatlog__timestamp">27-Jun-21 04:55 PM</span>
+
+            <div class="chatlog__message " data-message-id="858812703844990996" id="message-858812703844990996">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">day ???
+
+been a while, huh diary....? havent written in here for what, ages? a lot has happened in that time. more death and more damn killers. somehow im still alive...? why? not like i&#39;d be tough to kill or anything, yet still here i am. just kill me alredy and get it over with. not like im gonna live anyway, is it? but so long as im alive....
+
+im gonna make sure all any killers get their just deserts... theyre the weakest people of all of us, with how they get played by drake! its unforgivable to just KILL someone... ill never change my mind on it. speaking of which..... i cant forgive david. saying were playing this the &#39;wrong way&#39;, and instead talking about some plan to get stuff wrong on purpose - letting the murderer go free AND killing innocent people, as if thats the better way. if you do that youre not better than a murderer...
+
+... this just pisses me off... all these years i wanted a talent, any talent... and this is where it lead me. to die on some flying ship without anyting to be proud of.
+
+i just want to see natsumi and naho again... i wanna see my parents again. anything but this
+
+I dont wanna die... but thats the only thing that awaits me</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Diaries%20%28KG%29%20-%20norikos-diary%20%5B851236337428594738%5D.html_Files/3b7730e08bf56682814b639e1c7deeba-4247D.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="A Generic User#7302" data-user-id="248410976808992768" style="color: rgb(220,20,60)">Noriko Nakai ||| Generic</span>
+
+
+        <span class="chatlog__timestamp">04-Jul-21 10:05 PM</span>
+
+            <div class="chatlog__message " data-message-id="861427658516463647" id="message-861427658516463647">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">day ??? 2
+
+alots happened since last time... good things, bad things....... im gonna write those things down soon. just... just kinda feel drawing... gotta make sure maigo doesnt completely leave me the in dust! with art skills
+
+so im gonna draw some things</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="861428319252906004" id="message-861428319252906004">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">WHAT IF NORIKO NAKAI WAS TURNED INTO A ROBOT???
+
+this is what ud get.... her arms can change betwen a bunch of different wepons like FLAMEFTHROWERS MASHINE GUNZ ROCKET LUNCHERS SORDS etc. one twintail is a spere and the others a pair of sissors.
+
+ROBOKO IS DESIGNED TO DESTROY DRAKE. WATCH OUT, DRAKE, YOU ARE FUKED
+
+if roboko ever comes for you
+
+... wanna find a scientist to make roboko</span>
+
+                        </div>
+                    </div>
+
+                    <div class="chatlog__attachment">
+                        <div class="" onclick="">
+                            <div class="">
+                                    <a href="Danganronpa_%20Prospective%20Despair%20-%20Diaries%20%28KG%29%20-%20norikos-diary%20%5B851236337428594738%5D.html_Files/roboko-503D7.png">
+                                        <img class="chatlog__attachment-thumbnail" src="Danganronpa_%20Prospective%20Despair%20-%20Diaries%20%28KG%29%20-%20norikos-diary%20%5B851236337428594738%5D.html_Files/roboko-503D7.png" alt="Image attachment" title="Image: roboko.png (6.24 KB)">
+                                    </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="Fukt" title="Fukt" src="Danganronpa_%20Prospective%20Despair%20-%20Diaries%20%28KG%29%20-%20norikos-diary%20%5B851236337428594738%5D.html_Files/786629592814321685-315EF.png">
+                                <span class="chatlog__reaction-count">1</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Diaries%20%28KG%29%20-%20norikos-diary%20%5B851236337428594738%5D.html_Files/3b7730e08bf56682814b639e1c7deeba-4247D.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="A Generic User#7302" data-user-id="248410976808992768" style="color: rgb(220,20,60)">Noriko Nakai ||| Generic</span>
+
+
+        <span class="chatlog__timestamp">05-Jul-21 02:17 PM</span>
+
+            <div class="chatlog__message " data-message-id="861672197327290388" id="message-861672197327290388">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">oh yeah, i never wrote down the thiries, huh? been thinking bout this one for a while......</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="861672817116577802" id="message-861672817116577802">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">drakes the ultimate <s>yutuber</s> Youtuber right? so he makes videos........ and some jerkofs make prank videos were they do horible stuff to peple, like punch them or slap them or cover them in water for NO REASON!!!! and people watch those and think its funy.... but those pranks sound kinda familar huh? kinda like.... TRAPS!
+
+i reckon drakes recording us geting hit by traps for his new video</span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="Fukt" title="Fukt" src="Danganronpa_%20Prospective%20Despair%20-%20Diaries%20%28KG%29%20-%20norikos-diary%20%5B851236337428594738%5D.html_Files/786629592814321685-315EF.png">
+                                <span class="chatlog__reaction-count">1</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Diaries%20%28KG%29%20-%20norikos-diary%20%5B851236337428594738%5D.html_Files/3b7730e08bf56682814b639e1c7deeba-4247D.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="A Generic User#7302" data-user-id="248410976808992768" style="color: rgb(220,20,60)">Noriko Nakai ||| Generic</span>
+
+
+        <span class="chatlog__timestamp">17-Jul-21 01:10 AM</span>
+
+            <div class="chatlog__message " data-message-id="865822708222656522" id="message-865822708222656522">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">Day ??? part 3
+
+anyone reading this..... yep, i probly dont need to go over what hapened today. hunter <s>dyed</s> died and theres some &#39;mastermind&#39; and &#39;traitor&#39; <s>weve</s> we&#39;ve gotta find... im tired of all this, but it sounds like we&#39;re close to the end...
+
+im tired of all the suspision though... but its not like i cant not be that...
+
+so anyways... the mastermind person...
+
+its jacob. i&#39;m 90% sure about it. that... doesnt really bother me, cause i didnt know him very much... but maigo? he and jacob are like... brothers. feels like yesterday where maigo was scared about everyone <s>betrying</s> betraying him... i felt awful for him, but now? the person hes closest to... they likely did some unforgivable things. 
+
+... the kids got it rough... he deserves better. everyone here does... everyone here <em>did</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="865823689051471904" id="message-865823689051471904">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">... no matter who the mastermind is... not gonna forgive them. its unforgivable what theyve done.
+
+maigo told me some stuff that makes it really likely that jacob is the mastermind... but he doesnt want me to tell anyone else unless we need to...
+... if i have to bring this up, im gonna have to think up a good excuse for why i know this info about him... just so it cant be linked back to him.
+
+... i really hope we&#39;re nearly out of this place... please.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20Diaries%20%28KG%29%20-%20norikos-diary%20%5B851236337428594738%5D.html_Files/3b7730e08bf56682814b639e1c7deeba-4247D.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="A Generic User#7302" data-user-id="248410976808992768" style="color: rgb(220,20,60)">Noriko Nakai ||| Generic</span>
+
+
+        <span class="chatlog__timestamp">18-Jul-21 04:35 PM</span>
+
+            <div class="chatlog__message " data-message-id="866417934041088011" id="message-866417934041088011">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(admittedly, noriko changed up a lot in character details through the RP, and this diary kinda shows it - what with how her writing styles/spelling changes)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="866419427155509269" id="message-866419427155509269">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(since this won&#39;t get used anymore, i&#39;ll jot down some ooc notes on the character, if i feel like it. i can&#39;t guarantee it&#39;ll be interesting - there&#39;s not much backstory to note, mainly just my personal thoughts on how she played out. but i might or might not do that because i&#39;m lazy, see.)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+</div>
+
+<div class="postamble">
+    <div class="postamble__entry">Exported 16 message(s)</div>
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,2835 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Danganronpa: Prospective Despair - david-joseph-russell</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <style>
+        /* General */
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-300.woff);
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-400.woff);
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-500.woff);
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-600.woff);
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: Whitney;
+    src: url(https://cdn.jsdelivr.net/gh/Tyrrrz/DiscordFonts@master/whitney-700.woff);
+    font-weight: 700;
+}
+
+body {
+    font-family: "Whitney", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 17px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+img {
+    object-fit: contain;
+}
+
+.markdown {
+    max-width: 100%;
+    line-height: 1.3;
+    overflow-wrap: break-word;
+}
+
+.preserve-whitespace {
+    white-space: pre-wrap;
+}
+
+.spoiler {
+    /* width: fit-content; */
+    display: inline-block;
+    /* This is more consistent across browsers, the old attribute worked well under Chrome but not FireFox. */
+}
+
+.spoiler--hidden {
+    cursor: pointer;
+}
+
+.spoiler-text {
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-text {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler--hidden .spoiler-text::selection {
+    color: rgba(0, 0, 0, 0);
+}
+
+.spoiler-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 3px;
+}
+
+.spoiler--hidden .spoiler-image {
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.spoiler--hidden .spoiler-image * {
+    filter: blur(44px);
+}
+
+.spoiler--hidden .spoiler-image:after {
+    content: "SPOILER";
+    color: #dcddde;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 600;
+    padding: 100%;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+    font-size: 0.9em;
+}
+
+.spoiler--hidden:hover .spoiler-image:after {
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.quote {
+    margin: 0.1em 0;
+    padding-left: 0.6em;
+    border-left: 4px solid;
+    border-radius: 3px;
+}
+
+.pre {
+    font-family: "Consolas", "Courier New", Courier, monospace;
+}
+
+.pre--multiline {
+    margin-top: 0.25em;
+    padding: 0.5em;
+    border: 2px solid;
+    border-radius: 5px;
+}
+
+.pre--inline {
+    padding: 2px;
+    border-radius: 3px;
+    font-size: 0.85em;
+}
+
+.mention {
+    border-radius: 3px;
+    padding: 0 2px;
+    color: #7289da;
+    background: rgba(114, 137, 218, .1);
+    font-weight: 500;
+}
+
+.emoji {
+    width: 1.25em;
+    height: 1.25em;
+    margin: 0 0.06em;
+    vertical-align: -0.4em;
+}
+
+.emoji--small {
+    width: 1em;
+    height: 1em;
+}
+
+.emoji--large {
+    width: 2.8em;
+    height: 2.8em;
+}
+
+/* Preamble */
+
+.preamble {
+    display: grid;
+    margin: 0 0.3em 0.6em 0.3em;
+    max-width: 100%;
+    grid-template-columns: auto 1fr;
+}
+
+.preamble__guild-icon-container {
+    grid-column: 1;
+}
+
+.preamble__guild-icon {
+    max-width: 88px;
+    max-height: 88px;
+}
+
+.preamble__entries-container {
+    grid-column: 2;
+    margin-left: 0.6em;
+}
+
+.preamble__entry {
+    font-size: 1.4em;
+}
+
+.preamble__entry--small {
+    font-size: 1em;
+}
+
+/* Chatlog */
+
+.chatlog {
+    max-width: 100%;
+}
+
+.chatlog__message-group {
+    display: grid;
+    margin: 0 0.6em;
+    padding: 0.9em 0;
+    border-top: 1px solid;
+    grid-template-columns: auto 1fr;
+}
+
+.chatlog__reference-symbol {
+    grid-column: 1;
+    border-style: solid;
+    border-width: 2px 0 0 2px;
+    border-radius: 8px 0 0 0;
+    margin-left: 16px;
+    margin-top: 8px;
+}
+
+.chatlog__reference {
+    display: flex;
+    grid-column: 2;
+    margin-left: 1.2em;
+    margin-bottom: 0.25em;
+    font-size: 0.875em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    align-items: center;
+}
+
+.chatlog__reference-avatar {
+    border-radius: 50%;
+    height: 16px;
+    width: 16px;
+    margin-right: 0.25em;
+}
+
+.chatlog__reference-name {
+    margin-right: 0.25em;
+    font-weight: 600;
+}
+
+.chatlog__reference-link {
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.chatlog__reference-link:hover {
+    text-decoration: none;
+}
+
+.chatlog__reference-content > * {
+    display: inline;
+}
+
+.chatlog__reference-edited-timestamp {
+    margin-left: 0.25em;
+    font-size: 0.8em;
+}
+
+.chatlog__author-avatar-container {
+    grid-column: 1;
+    width: 40px;
+    height: 40px;
+}
+
+.chatlog__author-avatar {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}
+
+.chatlog__messages {
+    grid-column: 2;
+    margin-left: 1.2em;
+    min-width: 50%;
+}
+
+.chatlog__author-name {
+    font-weight: 500;
+}
+
+.chatlog__timestamp {
+    margin-left: 0.3em;
+    font-size: 0.75em;
+}
+
+.chatlog__message {
+    padding: 0.1em 0.3em;
+    margin: 0 -0.3em;
+    background-color: transparent;
+    transition: background-color 1s ease;
+}
+
+.chatlog__content {
+    font-size: 0.95em;
+    word-wrap: break-word;
+}
+
+.chatlog__edited-timestamp {
+    margin-left: 0.15em;
+    font-size: 0.8em;
+}
+
+.chatlog__attachment {
+    margin-top: 0.3em;
+}
+
+.chatlog__attachment-thumbnail {
+    vertical-align: top;
+    max-width: 45vw;
+    max-height: 500px;
+    border-radius: 3px;
+}
+
+.chatlog__attachment-container {
+    height: 40px;
+    width: 100%;
+    max-width: 520px;
+    padding: 10px;
+    border: 1px solid;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.chatlog__attachment-icon {
+    float: left;
+    height: 100%;
+    margin-right: 10px;
+}
+
+.chatlog__attachment-icon > .a {
+    fill: #f4f5fb;
+    d: path("M50,935a25,25,0,0,1-25-25V50A25,25,0,0,1,50,25H519.6L695,201.32V910a25,25,0,0,1-25,25Z");
+}
+
+.chatlog__attachment-icon > .b {
+    fill: #7789c4;
+    d: path("M509.21,50,670,211.63V910H50V50H509.21M530,0H50A50,50,0,0,0,0,50V910a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50h0V191Z");
+}
+
+.chatlog__attachment-icon > .c {
+    fill: #f4f5fb;
+    d: path("M530,215a25,25,0,0,1-25-25V50a25,25,0,0,1,16.23-23.41L693.41,198.77A25,25,0,0,1,670,215Z");
+}
+
+.chatlog__attachment-icon > .d {
+    fill: #7789c4;
+    d: path("M530,70.71,649.29,190H530V70.71M530,0a50,50,0,0,0-50,50V190a50,50,0,0,0,50,50H670a50,50,0,0,0,50-50Z");
+}
+
+.chatlog__attachment-filesize {
+    color: #72767d;
+    font-size: 12px;
+}
+
+.chatlog__attachment-filename {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.chatlog__embed {
+    display: flex;
+    margin-top: 0.3em;
+    max-width: 520px;
+}
+
+.chatlog__embed-color-pill {
+    flex-shrink: 0;
+    width: 0.25em;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.chatlog__embed-content-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em 0.6em;
+    border: 1px solid;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.chatlog__embed-content {
+    display: flex;
+    width: 100%;
+}
+
+.chatlog__embed-text {
+    flex: 1;
+}
+
+.chatlog__embed-author {
+    display: flex;
+    margin-bottom: 0.3em;
+    align-items: center;
+}
+
+.chatlog__embed-author-icon {
+    margin-right: 0.5em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+.chatlog__embed-author-name {
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-title {
+    margin-bottom: 0.2em;
+    font-size: 0.875em;
+    font-weight: 600;
+}
+
+.chatlog__embed-description {
+    font-weight: 500;
+    font-size: 0.85em;
+}
+
+.chatlog__embed-fields {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.chatlog__embed-field {
+    flex: 0;
+    min-width: 100%;
+    max-width: 506px;
+    padding-top: 0.6em;
+    font-size: 0.875em;
+}
+
+.chatlog__embed-field--inline {
+    flex: 1;
+    flex-basis: auto;
+    min-width: 150px;
+}
+
+.chatlog__embed-field-name {
+    margin-bottom: 0.2em;
+    font-weight: 600;
+}
+
+.chatlog__embed-field-value {
+    font-weight: 500;
+}
+
+.chatlog__embed-thumbnail {
+    flex: 0;
+    margin-left: 1.2em;
+    max-width: 80px;
+    max-height: 80px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-image-container {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-image {
+    max-width: 500px;
+    max-height: 400px;
+    border-radius: 3px;
+}
+
+.chatlog__embed-footer {
+    margin-top: 0.6em;
+}
+
+.chatlog__embed-footer-icon {
+    margin-right: 0.2em;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.chatlog__embed-footer-text {
+    font-size: 0.75em;
+    font-weight: 500;
+}
+
+.chatlog__reactions {
+    display: flex;
+}
+
+.chatlog__reaction {
+    display: flex;
+    align-items: center;
+    margin: 0.35em 0.1em 0.1em 0.1em;
+    padding: 0.2em 0.35em;
+    border-radius: 3px;
+}
+
+.chatlog__reaction-count {
+    min-width: 9px;
+    margin-left: 0.35em;
+    font-size: 0.875em;
+}
+
+.chatlog__bot-tag {
+    position: relative;
+    top: -.2em;
+    margin-left: 0.3em;
+    padding: 0.05em 0.3em;
+    border-radius: 3px;
+    vertical-align: middle;
+    line-height: 1.3;
+    background: #7289da;
+    color: #ffffff;
+    font-size: 0.625em;
+    font-weight: 500;
+}
+
+/* Postamble */
+
+.postamble {
+    margin: 1.4em 0.3em 0.6em 0.3em;
+    padding: 1em;
+    border-top: 1px solid;
+}
+    </style>
+    <style>
+        /* General */
+
+body {
+    background-color: #36393e;
+    color: #dcddde;
+}
+
+a {
+    color: #0096cf;
+}
+
+.spoiler-text {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.spoiler--hidden .spoiler-text {
+    background-color: #202225;
+}
+
+.spoiler--hidden:hover .spoiler-text {
+    background-color: rgba(32, 34, 37, 0.8);
+}
+
+.quote {
+    border-color: #4f545c;
+}
+
+.pre {
+    background-color: #2f3136 !important;
+}
+
+.pre--multiline {
+    border-color: #282b30 !important;
+    color: #b9bbbe !important;
+}
+
+/* === Preamble === */
+
+.preamble__entry {
+    color: #ffffff;
+}
+
+/* Chatlog */
+
+.chatlog__message-group {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.chatlog__reference-symbol {
+    border-color: #4f545c;
+}
+
+.chatlog__reference {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link {
+    color: #b5b6b8;
+}
+
+.chatlog__reference-link:hover {
+    color: #ffffff;
+}
+
+.chatlog__reference-edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__author-name {
+    color: #ffffff;
+}
+
+.chatlog__timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__message--highlighted {
+    background-color: rgba(114, 137, 218, 0.2) !important;
+}
+
+.chatlog__message--pinned {
+    background-color: rgba(249, 168, 37, 0.05);
+}
+
+.chatlog__attachment-container {
+    background-color: #2f3136;
+    border-color: #292b2f;
+}
+
+.chatlog__edited-timestamp {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.chatlog__embed-color-pill--default {
+    background-color: rgba(79, 84, 92, 1);
+}
+
+.chatlog__embed-content-container {
+    background-color: rgba(46, 48, 54, 0.3);
+    border-color: rgba(46, 48, 54, 0.6);
+}
+
+.chatlog__embed-author-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-author-name-link {
+    color: #ffffff;
+}
+
+.chatlog__embed-title {
+    color: #ffffff;
+}
+
+.chatlog__embed-description {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-field-name {
+    color: #ffffff;
+}
+
+.chatlog__embed-field-value {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__embed-footer {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chatlog__reaction {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.chatlog__reaction-count {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* Postamble */
+
+.postamble {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.postamble__entry {
+    color: #ffffff;
+}
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/solarized-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.pre--multiline').forEach(block => hljs.highlightBlock(block));
+        });
+    </script>
+
+    <script>
+        function scrollToMessage(event, id) {
+            var element = document.getElementById('message-' + id);
+
+            if (element) {
+                event.preventDefault();
+
+                element.classList.add('chatlog__message--highlighted');
+
+                window.scrollTo({
+                    top: element.getBoundingClientRect().top - document.body.getBoundingClientRect().top - (window.innerHeight / 2),
+                    behavior: 'smooth'
+                });
+
+                window.setTimeout(function() {
+                    element.classList.remove('chatlog__message--highlighted');
+                }, 2000);
+            }
+        }
+
+        function showSpoiler(event, element) {
+            if (element && element.classList.contains('spoiler--hidden')) {
+                event.preventDefault();
+                element.classList.remove('spoiler--hidden');
+            }
+        }
+    </script>
+</head>
+<body>
+
+<div class="preamble">
+    <div class="preamble__guild-icon-container">
+        <img class="preamble__guild-icon" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/a_2feefaa4b9661f5afc56fdc0a2cb52a3-DDE8C.png" alt="Guild icon">
+    </div>
+    <div class="preamble__entries-container">
+        <div class="preamble__entry">Danganronpa: Prospective Despair</div>
+        <div class="preamble__entry">The Airship, Section C (KG) / david-joseph-russell</div>
+
+
+    </div>
+</div>
+
+<div class="chatlog">
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/633ff6a6b4424dc32afe8afe6690a856-CEACD.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Mass#6343" data-user-id="217419998677696512" style="color: rgb(210,165,214)">Kojima Akihiro | Mass</span>
+
+
+        <span class="chatlog__timestamp">01-Jun-21 11:18 PM</span>
+
+            <div class="chatlog__message chatlog__message--pinned" data-message-id="849487034224607284" id="message-849487034224607284">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">David Joseph Russell, the Ultimate Social Engineer&#39;s room. Honestly, the room itself isn&#39;t that big - if you&#39;ve ever been on a cruise ship in the lowest class, it&#39;s about as big as the rooms there.
+
+But what is here is decently nice. The bed is nice and large, and feels rather nice to sleep in. There&#39;s a TV opposite of the bed, too, but there&#39;s not so much as a remote in the room - it seems like it won&#39;t turn on.
+
+Looking to the left while being on the bed reveals a window that shows off the outside in all of its glory. It doesn&#39;t seem like you can open the window, but there are curtains to block off the windows at the very least.
+
+Other than that, there&#39;s a small closet with duplicates of your OC&#39;s clothes as well as a notebook and a pencil for good measure. There&#39;s also trash can in the corner, useful for getting rid of evidence.
+
+Finally, the room also has a bathroom, which seems to be pretty typical. It&#39;s nice, and has everything you need, but... there&#39;s not much more to say.</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/38be9e016a1196d41ec252e6ad62aec5-58A96.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="David Joseph Russell#0000" data-user-id="851304930953396286" style="">David Joseph Russell</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">06-Jun-21 11:41 PM</span>
+
+            <div class="chatlog__message " data-message-id="851304932417077248" id="message-851304932417077248">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Totally forgot to add this, but I should&#39;ve been here a while ago lol.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="Mastermindstrueidentity" title="Mastermindstrueidentity" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/786629561777258517-4F98D.png">
+                                <span class="chatlog__reaction-count">2</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/38be9e016a1196d41ec252e6ad62aec5-58A96.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="David Joseph Russell#0000" data-user-id="851304930953396286" style="">David Joseph Russell</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">07-Jun-21 01:45 PM</span>
+
+            <div class="chatlog__message " data-message-id="851517230288994405" id="message-851517230288994405">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>David somehow is awake. Whether or not he went to sleep or has been sitting here staring out the window this whole time is the real mystery.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="851517493473443851" id="message-851517493473443851">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>With the announcement having passed ages ago and not having eaten the day before, David decides starving to death is probably not for the best, and will conveniently arrive there at the current scene&#39;s end.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/16621ef5d6c0752a007ce930a8104c18-5C715.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Sonic49 | ???</span>
+
+
+        <span class="chatlog__timestamp">10-Jun-21 11:27 PM</span>
+
+            <div class="chatlog__message " data-message-id="852750934004989973" id="message-852750934004989973">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><span class="mention" title="augusty#1287">@augusty</span> <em>I know it&#39;s a rather bold assumption, but I assume David sleeps here. If he doesn&#39;t, this happened wherever he was sleeping.</em>
+
+<em>Some time in the middle of the night (probably like 2-4 AM), David was suddenly attacked. Well, suddenly whipped. A fuck ton. That&#39;s going to both burn and hurt.</em>
+
+<em>While David was presumably on the ground, recovering from the whips (I believe many things, someone not needing to recover from that is not one of those things), the wolf also squeezed lemon into his eye.</em>
+
+<em>Jeezus. Thankfully, the wolf did leave soon after.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/2fa57b425415134d4f8b279174131ad6-66B12.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="YAGPDB.xyz#8760" data-user-id="204255221017214977" style="color: rgb(96,125,139)">YAGPDB.xyz</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">10-Jun-21 11:27 PM</span>
+
+            <div class="chatlog__message " data-message-id="852750934579609662" id="message-852750934579609662">
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+
+
+                                </div>
+
+                            </div>
+
+
+                                <div class="chatlog__embed-footer">
+
+                                    <span class="chatlog__embed-footer-text">
+Above time (04:00 EDT) in your local time
+ • 
+10-Jun-21 04:00 AM                                    </span>
+                                </div>
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/6832d0940c60006e19b4c5b8d2e0a575-17053.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="augusty#1287" data-user-id="723768708433969243" style="color: rgb(244,127,255)">augusty</span>
+
+
+        <span class="chatlog__timestamp">10-Jun-21 11:28 PM</span>
+
+            <div class="chatlog__message " data-message-id="852750996802240512" id="message-852750996802240512">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">((called this</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/633ff6a6b4424dc32afe8afe6690a856-CEACD.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Mass#6343" data-user-id="217419998677696512" style="color: rgb(210,165,214)">Kojima Akihiro | Mass</span>
+
+
+        <span class="chatlog__timestamp">10-Jun-21 11:30 PM</span>
+
+            <div class="chatlog__message " data-message-id="852751726279655444" id="message-852751726279655444">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(KINKY</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="852751777400487997" id="message-852751777400487997">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(<s>SOUNDS LIKE A RITA THING TO DO IF YOU ASK ME</s></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/d5e6a15d83293460ea41b3fe04b911c4-B7AD6.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="A Person#7738" data-user-id="588749122643951616" style="color: rgb(95,95,95)">Hunter is fucking dead || Person</span>
+
+
+        <span class="chatlog__timestamp">10-Jun-21 11:31 PM</span>
+
+            <div class="chatlog__message " data-message-id="852751789732528168" id="message-852751789732528168">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">((HOT</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/6832d0940c60006e19b4c5b8d2e0a575-17053.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="augusty#1287" data-user-id="723768708433969243" style="color: rgb(244,127,255)">augusty</span>
+
+
+        <span class="chatlog__timestamp">10-Jun-21 11:32 PM</span>
+
+            <div class="chatlog__message " data-message-id="852752153691947058" id="message-852752153691947058">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">((oh shit i never sent my message of &#39;im going to sleep in the medbay because im going to get attacked&#39; and now its kind of late</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/16621ef5d6c0752a007ce930a8104c18-5C715.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Sonic49 | ???</span>
+
+
+        <span class="chatlog__timestamp">10-Jun-21 11:33 PM</span>
+
+            <div class="chatlog__message " data-message-id="852752253294739478" id="message-852752253294739478">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(ah</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/6832d0940c60006e19b4c5b8d2e0a575-17053.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="augusty#1287" data-user-id="723768708433969243" style="color: rgb(244,127,255)">augusty</span>
+
+
+        <span class="chatlog__timestamp">10-Jun-21 11:33 PM</span>
+
+            <div class="chatlog__message " data-message-id="852752275843055618" id="message-852752275843055618">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">((sadge</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/16621ef5d6c0752a007ce930a8104c18-5C715.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Sonic49 | ???</span>
+
+
+        <span class="chatlog__timestamp">10-Jun-21 11:33 PM</span>
+
+            <div class="chatlog__message " data-message-id="852752285527310396" id="message-852752285527310396">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(...he was attacked in medbay then</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/6832d0940c60006e19b4c5b8d2e0a575-17053.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="augusty#1287" data-user-id="723768708433969243" style="color: rgb(244,127,255)">augusty</span>
+
+
+        <span class="chatlog__timestamp">10-Jun-21 11:33 PM</span>
+
+            <div class="chatlog__message " data-message-id="852752462149713961" id="message-852752462149713961">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">((no i meant like its kind of late to say i was there, unless i can. ic i was talking about how i was a next target and so that was my plan</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/16621ef5d6c0752a007ce930a8104c18-5C715.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Sonic49 | ???</span>
+
+
+        <span class="chatlog__timestamp">10-Jun-21 11:34 PM</span>
+
+            <div class="chatlog__message " data-message-id="852752558694858776" id="message-852752558694858776">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(i mean you still can since the attack happens, as i said, somewhere between 2-4 am</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/2fa57b425415134d4f8b279174131ad6-66B12.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="YAGPDB.xyz#8760" data-user-id="204255221017214977" style="color: rgb(96,125,139)">YAGPDB.xyz</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">10-Jun-21 11:34 PM</span>
+
+            <div class="chatlog__message " data-message-id="852752559554166825" id="message-852752559554166825">
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill chatlog__embed-color-pill--default"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+
+
+                                </div>
+
+                            </div>
+
+
+                                <div class="chatlog__embed-footer">
+
+                                    <span class="chatlog__embed-footer-text">
+Above time (04:00 EDT) in your local time
+ • 
+10-Jun-21 04:00 AM                                    </span>
+                                </div>
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/16621ef5d6c0752a007ce930a8104c18-5C715.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Sonic49#7171" data-user-id="229350299909881876" style="color: rgb(67,120,252)">Sonic49 | ???</span>
+
+
+        <span class="chatlog__timestamp">10-Jun-21 11:34 PM</span>
+
+            <div class="chatlog__message " data-message-id="852752598657794048" id="message-852752598657794048">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(...got a couple of hours to move</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="852752654501281812" id="message-852752654501281812">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(doesnt change what happened that much anyways</span>
+
+                                <span class="chatlog__edited-timestamp" title="10-Jun-21 11:34 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="852752753129422899" id="message-852752753129422899">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(your choice honestly</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/6832d0940c60006e19b4c5b8d2e0a575-17053.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="augusty#1287" data-user-id="723768708433969243" style="color: rgb(244,127,255)">augusty</span>
+
+
+        <span class="chatlog__timestamp">10-Jun-21 11:35 PM</span>
+
+            <div class="chatlog__message " data-message-id="852752797849354260" id="message-852752797849354260">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">((yeah 
+((i can wash out my eyes faster</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/965f43e008eb91b4e208ecc74fd44139-6C208.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="FactGuy#0391" data-user-id="333099173677105153" style="color: rgb(135,50,96)">Fact || Rita Sestina Toscani</span>
+
+
+        <span class="chatlog__timestamp">10-Jun-21 11:51 PM</span>
+
+            <div class="chatlog__message " data-message-id="852756931620896769" id="message-852756931620896769">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">//<s>WAIT IM BEING FRAMED</s></span>
+
+                                <span class="chatlog__edited-timestamp" title="10-Jun-21 11:52 PM">(edited)</span>
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/633ff6a6b4424dc32afe8afe6690a856-CEACD.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Mass#6343" data-user-id="217419998677696512" style="color: rgb(210,165,214)">Kojima Akihiro | Mass</span>
+
+
+        <span class="chatlog__timestamp">11-Jun-21 12:32 AM</span>
+
+            <div class="chatlog__message " data-message-id="852767104465371166" id="message-852767104465371166">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(Nah man it definitely you and your whip <img class="emoji " alt="👀" title="👀" src="https://twemoji.maxcdn.com/2/72x72/1f440.png"></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/553040d99bf8b60bfa2294a588fa913e-1D743.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Ame/Est55#7858" data-user-id="328149026266677248" style="color: rgb(253,253,150)">Asahi Hasegawa | Est</span>
+
+
+        <span class="chatlog__timestamp">11-Jun-21 12:40 AM</span>
+
+            <div class="chatlog__message " data-message-id="852769258885873704" id="message-852769258885873704">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(LEMONS AND WHIPS)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/6832d0940c60006e19b4c5b8d2e0a575-17053.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="augusty#1287" data-user-id="723768708433969243" style="color: rgb(244,127,255)">augusty</span>
+
+
+        <span class="chatlog__timestamp">11-Jun-21 12:47 AM</span>
+
+            <div class="chatlog__message " data-message-id="852771111259078676" id="message-852771111259078676">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(its like a fancy restaurant</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/38be9e016a1196d41ec252e6ad62aec5-58A96.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="David Joseph Russell#0000" data-user-id="851304930953396286" style="">David Joseph Russell</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">11-Jun-21 12:42 PM</span>
+
+            <div class="chatlog__message " data-message-id="852951025891147836" id="message-852951025891147836">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Wherever he was, he&#39;s already begun making his way to medbay to start tending to his wounds like Jesus couldn&#39;t the wolves have been nicer.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/38be9e016a1196d41ec252e6ad62aec5-58A96.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="David Joseph Russell#0000" data-user-id="851304930953396286" style="">David Joseph Russell</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jun-21 08:00 AM</span>
+
+            <div class="chatlog__message " data-message-id="853242467541188648" id="message-853242467541188648">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>oh.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/38be9e016a1196d41ec252e6ad62aec5-58A96.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="David Joseph Russell#0000" data-user-id="851304930953396286" style="">David Joseph Russell</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">12-Jun-21 10:20 AM</span>
+
+            <div class="chatlog__message " data-message-id="853277554462294026" id="message-853277554462294026">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>mhm.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/38be9e016a1196d41ec252e6ad62aec5-58A96.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="David Joseph Russell#0000" data-user-id="851304930953396286" style="">David Joseph Russell</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">13-Jun-21 01:47 PM</span>
+
+            <div class="chatlog__message " data-message-id="853691972455759902" id="message-853691972455759902">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Maybe today i can rp well.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/38be9e016a1196d41ec252e6ad62aec5-58A96.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="David Joseph Russell#0000" data-user-id="851304930953396286" style="">David Joseph Russell</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">16-Jun-21 02:55 AM</span>
+
+            <div class="chatlog__message " data-message-id="854615148890423327" id="message-854615148890423327">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>here.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/38be9e016a1196d41ec252e6ad62aec5-58A96.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="David Joseph Russell#0000" data-user-id="851304930953396286" style="">David Joseph Russell</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">20-Jun-21 12:56 PM</span>
+
+            <div class="chatlog__message " data-message-id="856215861261238332" id="message-856215861261238332">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>making a way to da trial room.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/38be9e016a1196d41ec252e6ad62aec5-58A96.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="David Joseph Russell#0000" data-user-id="851304930953396286" style="">David Joseph Russell</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">21-Jun-21 02:35 PM</span>
+
+            <div class="chatlog__message " data-message-id="856603323817394176" id="message-856603323817394176">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">making a way to da lab</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/38be9e016a1196d41ec252e6ad62aec5-58A96.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="David Joseph Russell#0000" data-user-id="851304930953396286" style="">David Joseph Russell</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">22-Jun-21 07:18 PM</span>
+
+            <div class="chatlog__message " data-message-id="857036852279377940" id="message-857036852279377940">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>He heads to his room real fast, and drops off his lighter in a drawer. Now he wouldn&#39;t be lying if he had to tell Jack he didn&#39;t carry his lighter on him!</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/38be9e016a1196d41ec252e6ad62aec5-58A96.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="David Joseph Russell#0000" data-user-id="851304930953396286" style="">David Joseph Russell</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">23-Jun-21 02:55 PM</span>
+
+            <div class="chatlog__message " data-message-id="857333156642291742" id="message-857333156642291742">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Imagine waking up for events and not undergoing an existential crisis.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/38be9e016a1196d41ec252e6ad62aec5-58A96.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="David Joseph Russell#0000" data-user-id="851304930953396286" style="">David Joseph Russell</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">23-Jun-21 03:41 PM</span>
+
+            <div class="chatlog__message " data-message-id="857344683567349790" id="message-857344683567349790">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Let&#39;s ago.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/38be9e016a1196d41ec252e6ad62aec5-58A96.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="David Joseph Russell#0000" data-user-id="851304930953396286" style="">David Joseph Russell</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">24-Jun-21 02:48 PM</span>
+
+            <div class="chatlog__message " data-message-id="857693766159826965" id="message-857693766159826965">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Let&#39;s hang out here for a while.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/38be9e016a1196d41ec252e6ad62aec5-58A96.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="David Joseph Russell#0000" data-user-id="851304930953396286" style="">David Joseph Russell</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">26-Jun-21 02:58 AM</span>
+
+            <div class="chatlog__message " data-message-id="858239674010042418" id="message-858239674010042418">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>A while has passed.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/b14526a72fc8e3280e38cc94e1f46c20-8A436.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Rita Sestina Toscani#0000" data-user-id="851304930953396286" style="">Rita Sestina Toscani</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">27-Jun-21 03:56 AM</span>
+
+            <div class="chatlog__message " data-message-id="858616681609428992" id="message-858616681609428992">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Despite it being the middle of the night, David begins to hear noises at his door. What could it be? Maigo scaring of a fly? Is Kai begging for help at the door? No dipshits, it&#39;s Rita&#39;s cat scratching the outside of the door. And man is it annoying as hell</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/38be9e016a1196d41ec252e6ad62aec5-58A96.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="David Joseph Russell#0000" data-user-id="851304930953396286" style="">David Joseph Russell</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">27-Jun-21 04:00 AM</span>
+
+            <div class="chatlog__message " data-message-id="858617662543233044" id="message-858617662543233044">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>David blinks and sits up on his bed, watching the door. He knits his brow. Rita&#39;s cat is still an unknown variable, so two entire simulations run through his mind on what could possibly be outside. In the end, he figures that opening the door only gets him killed at worst or... Is there a best case? Not really, hm. He does it anyway, glancing down to match the height from which the noises came.</em>
+
+<em>Cat exists. He crouches down to look at the cat. Why is there a cat.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/b14526a72fc8e3280e38cc94e1f46c20-8A436.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Rita Sestina Toscani#0000" data-user-id="851304930953396286" style="">Rita Sestina Toscani</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">27-Jun-21 04:05 AM</span>
+
+            <div class="chatlog__message " data-message-id="858618921304326145" id="message-858618921304326145">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>He hears foots coming down the hall and up to your door. Would you look at that, it’s Rita, and she’s chasing after her cat. She looks up, only to see the person whom Snow disrupted. Now seeing it’s David, she lets out a sigh of relief, but still bows as an apology.</em> “Forgive me for disturbing you at this time of the night. Snow was surprising hyperactive today and he wanted to play. Unfortunately, he began to run away and started to scratch on the door.”
+
+<em>she peeks into the room.</em> “You keep your place quite organized, I must applaud. Much cleaner than how I keep my dorm.”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/38be9e016a1196d41ec252e6ad62aec5-58A96.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="David Joseph Russell#0000" data-user-id="851304930953396286" style="">David Joseph Russell</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">27-Jun-21 04:10 AM</span>
+
+            <div class="chatlog__message " data-message-id="858620317130555422" id="message-858620317130555422">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;I didn&#39;t know you had a cat. Or, that having a cat up here was possible. Certainly wouldn&#39;t <em>help</em> with keeping a room clean.&quot; <em>David holds out a finger to Snow, offering a truce. He glances up at Rita.</em> &quot;Or maybe all the mess is just out of view, and I only maintain the parts of my room that can be seen from the door.&quot; <em>He pauses.</em> &quot;Okay, someone who tries too hard would think of that door thing as some metaphorical insight into my psyche, and it&#39;s not. I didn&#39;t have anything else to do yesterday, so I cleaned.&quot; <em>He inched his hand a bit closer, wary of approaching Snow too quickly.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/c498ef0d17c1798bcbd590a7073bb8b8-4D079.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Snow Crash#0000" data-user-id="851304930953396286" style="">Snow Crash</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">27-Jun-21 04:16 AM</span>
+
+            <div class="chatlog__message " data-message-id="858621717638938624" id="message-858621717638938624">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Snow slowly raises her paw, potentially offering a high five</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/b14526a72fc8e3280e38cc94e1f46c20-8A436.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Rita Sestina Toscani#0000" data-user-id="851304930953396286" style="">Rita Sestina Toscani</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">27-Jun-21 04:16 AM</span>
+
+            <div class="chatlog__message " data-message-id="858621720130224168" id="message-858621720130224168">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“Oh yeah, I have a cat. I just found her in my room and I adopted her. Isn’t she the cutest.” <em>she looks down at Snow</em> “Looks she’s getting really comfortable with you. She’s a sweetheart, always so nice to people and strangers, which in hindsight is a danger, but y’know, I need to boost Snow up in rankings.” <em>she chuckles</em> “Perhaps you are, maybe everyone you own is in the bath and you sleep ass up in the shower. I won’t judge. I’m just guessing.” <em>she continues</em> “Yeah, not anything in life is metaphorical. Maybe we should take stuff in more of face value.”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/38be9e016a1196d41ec252e6ad62aec5-58A96.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="David Joseph Russell#0000" data-user-id="851304930953396286" style="">David Joseph Russell</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">27-Jun-21 04:19 AM</span>
+
+            <div class="chatlog__message " data-message-id="858622501734711296" id="message-858622501734711296">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;...Would people do any of that willingly?&quot; <em>He shakes his head. Not the point. He raises his hand to match the cat&#39;s.</em> &quot;What sort of rankings are you talking about? The only competition for being a cat is Maigo, and I doubt he&#39;d get into any sort of cat pageant.&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/b14526a72fc8e3280e38cc94e1f46c20-8A436.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Rita Sestina Toscani#0000" data-user-id="851304930953396286" style="">Rita Sestina Toscani</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">27-Jun-21 04:25 AM</span>
+
+            <div class="chatlog__message " data-message-id="858624092856516638" id="message-858624092856516638">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“Well, soon enough, she will be the greatest cat in the world. The only thing I would change is if she turned into a human child and I could take care of it.” <em>she picks up Snow and rubs her head</em> “One step at a time. First I’ll teach her the basics, then we’re destined for greatness!”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/38be9e016a1196d41ec252e6ad62aec5-58A96.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="David Joseph Russell#0000" data-user-id="851304930953396286" style="">David Joseph Russell</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">27-Jun-21 04:29 AM</span>
+
+            <div class="chatlog__message " data-message-id="858625150688690176" id="message-858625150688690176">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>He hops up to his feet.</em> &quot;Yeah, well, don&#39;t overwork her. She&#39;s still just a cat. I feel like you&#39;re mixing in some unhealthy sentiments. I&#39;m not sure how to take the &#39;if she turned into a human&#39; line.&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/b14526a72fc8e3280e38cc94e1f46c20-8A436.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Rita Sestina Toscani#0000" data-user-id="851304930953396286" style="">Rita Sestina Toscani</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">27-Jun-21 04:34 AM</span>
+
+            <div class="chatlog__message " data-message-id="858626402978103307" id="message-858626402978103307">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“Of course I won’t, why would I ever do that! She is my wuvvy dovey catty watty little child. I’ll make sure to take good care of her. I don’t know what you  mean by mixing unhealthy sentiments. Think of me as a cheerleader for my Snow.” <em>she laughs a bit</em> “Like if Snow turned into a small little human child with cute cat ears. Wouldn’t that be so cute.”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/38be9e016a1196d41ec252e6ad62aec5-58A96.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="David Joseph Russell#0000" data-user-id="851304930953396286" style="">David Joseph Russell</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">27-Jun-21 04:39 AM</span>
+
+            <div class="chatlog__message " data-message-id="858627709881024552" id="message-858627709881024552">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;Maybe. We&#39;ll see how it turns out.&quot; <em>He pauses.</em> &quot;I don&#39;t know. Would that mean that she became able to think at a human level, or was a cat trapped in a human body?&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/b14526a72fc8e3280e38cc94e1f46c20-8A436.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Rita Sestina Toscani#0000" data-user-id="851304930953396286" style="">Rita Sestina Toscani</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">27-Jun-21 04:45 AM</span>
+
+            <div class="chatlog__message " data-message-id="858629069389955082" id="message-858629069389955082">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“Well…” <em>she pauses</em> “I mean, theoretically it would be a normal cat with a human body. But in an ideal world, Snow would know English and could interact to others like a normal human being.”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/38be9e016a1196d41ec252e6ad62aec5-58A96.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="David Joseph Russell#0000" data-user-id="851304930953396286" style="">David Joseph Russell</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">27-Jun-21 04:48 AM</span>
+
+            <div class="chatlog__message " data-message-id="858629836984680488" id="message-858629836984680488">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">&quot;That sort of ethics is too deep for me. I&#39;ll just say that it&#39;s good you love your cat this much.&quot;</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/b14526a72fc8e3280e38cc94e1f46c20-8A436.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Rita Sestina Toscani#0000" data-user-id="851304930953396286" style="">Rita Sestina Toscani</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">27-Jun-21 04:50 AM</span>
+
+            <div class="chatlog__message " data-message-id="858630438783680532" id="message-858630438783680532">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“Thank you.” <em>she smiles</em> “Well me and Snow should go, you have a good night. Snow wave David goodbye.” <em>she waves Snow’s paw</em> “Good girl, one anchovy for you miss.”</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/c498ef0d17c1798bcbd590a7073bb8b8-4D079.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Snow Crash#0000" data-user-id="851304930953396286" style="">Snow Crash</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">27-Jun-21 04:50 AM</span>
+
+            <div class="chatlog__message " data-message-id="858630440725381121" id="message-858630440725381121">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Nuzzles</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/b14526a72fc8e3280e38cc94e1f46c20-8A436.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Rita Sestina Toscani#0000" data-user-id="851304930953396286" style="">Rita Sestina Toscani</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">27-Jun-21 04:50 AM</span>
+
+            <div class="chatlog__message " data-message-id="858630443071045683" id="message-858630443071045683">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">“Anyways, see you.” <em>she walks away</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/38be9e016a1196d41ec252e6ad62aec5-58A96.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="David Joseph Russell#0000" data-user-id="851304930953396286" style="">David Joseph Russell</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">27-Jun-21 04:51 AM</span>
+
+            <div class="chatlog__message " data-message-id="858630548821377044" id="message-858630548821377044">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>He nods and goes back into his room.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/965f43e008eb91b4e208ecc74fd44139-6C208.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="FactGuy#0391" data-user-id="333099173677105153" style="color: rgb(135,50,96)">Fact || Rita Sestina Toscani</span>
+
+
+        <span class="chatlog__timestamp">27-Jun-21 04:51 AM</span>
+
+            <div class="chatlog__message " data-message-id="858630642651627521" id="message-858630642651627521">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">//stop timer</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/6832d0940c60006e19b4c5b8d2e0a575-17053.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="augusty#1287" data-user-id="723768708433969243" style="color: rgb(244,127,255)">augusty</span>
+
+
+        <span class="chatlog__timestamp">27-Jun-21 04:51 AM</span>
+
+            <div class="chatlog__message " data-message-id="858630728987443221" id="message-858630728987443221">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">((...i hit my pause timer thing at 9 min</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/965f43e008eb91b4e208ecc74fd44139-6C208.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="FactGuy#0391" data-user-id="333099173677105153" style="color: rgb(135,50,96)">Fact || Rita Sestina Toscani</span>
+
+
+        <span class="chatlog__timestamp">27-Jun-21 04:55 AM</span>
+
+            <div class="chatlog__message " data-message-id="858631674828292106" id="message-858631674828292106">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">//lol</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/6832d0940c60006e19b4c5b8d2e0a575-17053.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="augusty#1287" data-user-id="723768708433969243" style="color: rgb(244,127,255)">augusty</span>
+
+
+        <span class="chatlog__timestamp">27-Jun-21 04:56 AM</span>
+
+            <div class="chatlog__message " data-message-id="858631775635111957" id="message-858631775635111957">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">((this is my fault for messing with the keybinds</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/cf40ae9abdd445796fe3b76d5a822886-FCEE6.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="angie / ral#7700" data-user-id="543853525038530561" style="color: rgb(198,94,206)">&#128251;&#129302; angie</span>
+
+
+        <span class="chatlog__timestamp">27-Jun-21 04:56 AM</span>
+
+            <div class="chatlog__message " data-message-id="858631861847719945" id="message-858631861847719945">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(( did you try to speedrun an interaction-</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/6832d0940c60006e19b4c5b8d2e0a575-17053.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="augusty#1287" data-user-id="723768708433969243" style="color: rgb(244,127,255)">augusty</span>
+
+
+        <span class="chatlog__timestamp">27-Jun-21 04:57 AM</span>
+
+            <div class="chatlog__message " data-message-id="858632193228144641" id="message-858632193228144641">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">((i drew up splits</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/cf40ae9abdd445796fe3b76d5a822886-FCEE6.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="angie / ral#7700" data-user-id="543853525038530561" style="color: rgb(198,94,206)">&#128251;&#129302; angie</span>
+
+
+        <span class="chatlog__timestamp">27-Jun-21 04:57 AM</span>
+
+            <div class="chatlog__message " data-message-id="858632243169853441" id="message-858632243169853441">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(( why</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/6832d0940c60006e19b4c5b8d2e0a575-17053.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="augusty#1287" data-user-id="723768708433969243" style="color: rgb(244,127,255)">augusty</span>
+
+
+        <span class="chatlog__timestamp">27-Jun-21 05:10 AM</span>
+
+            <div class="chatlog__message " data-message-id="858635456782925824" id="message-858635456782925824">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">(( to speedrun an interaction</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/bda13cd2bcfb866a9cfb5af8d2444d11-8E56A.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Prospective Despair Bot#1095" data-user-id="847686380410241074" style="color: rgb(96,125,139)">Prospective Despair Bot</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">27-Jun-21 07:25 AM</span>
+
+            <div class="chatlog__message " data-message-id="858669450176757761" id="message-858669450176757761">
+
+
+                    <div class="chatlog__embed">
+                            <div class="chatlog__embed-color-pill" style="background-color: rgba(46,186,225,255)"></div>
+
+                        <div class="chatlog__embed-content-container">
+                            <div class="chatlog__embed-content">
+                                <div class="chatlog__embed-text">
+
+
+                                        <div class="chatlog__embed-description">
+                                            <div class="markdown preserve-whitespace"><span class="mention" title="augusty#1287">@augusty</span>, <span class="mention" title="FactGuy#0391">@Fact || Rita Sestina Toscani</span> got an interaction!</div>
+                                        </div>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/38be9e016a1196d41ec252e6ad62aec5-58A96.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="David Joseph Russell#0000" data-user-id="851304930953396286" style="">David Joseph Russell</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">27-Jun-21 04:19 PM</span>
+
+            <div class="chatlog__message " data-message-id="858803683701686292" id="message-858803683701686292">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>He is possibly here.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/38be9e016a1196d41ec252e6ad62aec5-58A96.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="David Joseph Russell#0000" data-user-id="851304930953396286" style="">David Joseph Russell</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">29-Jun-21 01:02 AM</span>
+
+            <div class="chatlog__message " data-message-id="859297682312527892" id="message-859297682312527892">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>He is definitively here.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/38be9e016a1196d41ec252e6ad62aec5-58A96.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="David Joseph Russell#0000" data-user-id="851304930953396286" style="">David Joseph Russell</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">30-Jun-21 02:31 PM</span>
+
+            <div class="chatlog__message " data-message-id="859863645051813909" id="message-859863645051813909">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Will elaborate later. Woke up unable to speak.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/38be9e016a1196d41ec252e6ad62aec5-58A96.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="David Joseph Russell#0000" data-user-id="851304930953396286" style="">David Joseph Russell</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">01-Jul-21 02:43 AM</span>
+
+            <div class="chatlog__message " data-message-id="860048050495029268" id="message-860048050495029268">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>He is in his room, mentally monologuing and stuff because I&#39;m bored, and wow did my take on this motive make my life that much harder.</em>
+
+<em>David sits on the edge of his bed, staring down at the room&#39;s provided notepad, a hand on his face. It&#39;s impossible to plan for every interaction. It&#39;s impossible to know everything he&#39;d need to say. Paralyzed by the sheer amount of things that run through his mind, listing moments of &#39;just in case&#39; and &#39;maybe&#39;. He curls his hand into an irritated fist over his eye and holds back the urge to scream with deep, calculated breaths. Stay calm. Stay three steps ahead.</em>
+
+<em>He glances down and to the side, a sidelong glance at his jacket, discarded on the floor. He gives it a wry smile. With this restriction, those three steps were practically a mile. Still, have to try. Can&#39;t fall behind. If you don&#39;t have your best weapon, you make do. He turns back to the page, tapping his pen on the top margin. Start simple.</em>
+
+<em>Only one greeting. Only one farewell. A yes and a no. No clever phrasing. Nothing special.</em>
+
+<em>He writes down a few choice words, large enough to be seen from a short distance away.</em>
+
+-
+<em>&quot;Hey.&quot;</em>
+
+<em>&quot;See ya.&quot;</em>
+
+<em>&quot;Yeah.&quot;</em>
+
+<em>&quot;No.&quot;</em>
+
+<em>&quot;Sorta.&quot;</em>
+
+<em>&quot;I refuse to go further into depth, this is a pain god damnit.&quot;</em>
+-
+
+<em>He continues writing other phrases of similar caliber. Eventually, it becomes rote behavior, running through possible conversations in his head and how to guide them in as few words as possible.</em>
+
+-
+<em>&quot;Been a while.</em>
+
+<em>&quot;You ever think about that?&quot;</em>
+
+<em>&quot;We&#39;re on an airship, which is kind of a plane, right?&quot;</em>
+
+<em>&quot;And we don&#39;t know how the mess hall works, right?&quot;</em>
+
+<em>&quot;So, what&#39;s the deal with food on airplanes?&quot;</em>
+
+<em>&quot;You can go, don&#39;t worry about me.</em>
+-</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/3ba09fa76b4688a5e2273c56a4d8856c-64040.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="Tupperbox#4754" data-user-id="431544605209788416" style="color: rgb(96,125,139)">Tupperbox</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">01-Jul-21 02:44 AM</span>
+
+            <div class="chatlog__message " data-message-id="860048131877371934" id="message-860048131877371934">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">There was an error performing the operation. Please report this to the support server if issues persist. (50035)</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/6832d0940c60006e19b4c5b8d2e0a575-17053.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="augusty#1287" data-user-id="723768708433969243" style="color: rgb(244,127,255)">augusty</span>
+
+
+        <span class="chatlog__timestamp">01-Jul-21 02:44 AM</span>
+
+            <div class="chatlog__message " data-message-id="860048206850818069" id="message-860048206850818069">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">((tupper doesnt have nitro</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/38be9e016a1196d41ec252e6ad62aec5-58A96.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="David Joseph Russell#0000" data-user-id="851304930953396286" style="">David Joseph Russell</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">01-Jul-21 02:44 AM</span>
+
+            <div class="chatlog__message " data-message-id="860048309813116939" id="message-860048309813116939">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>David&#39;s throat catches with every couple phrases, naturally trying to talk through his own script. The words hardly form, scattering back down into his chest like burning sparks. It sends shivers down his spine, making him twitch. The real discomfort wasn&#39;t even because of the motive itself. The sensation was unsettling, sure, but the disconnect between his intention to speak and the painful silence coming from his lips hurt him in a completely different way. What&#39;s a speaker who can&#39;t speak?</em>
+
+-
+<em>&quot;What are you doing?&quot;</em>
+
+<em>&quot;I understand.&quot;</em>
+
+<em>&quot;Good luck.”</em>
+
+<em>&quot;Be careful.&quot;</em>
+
+<em>&quot;How have you been?&quot;</em>
+
+<em>&quot;What&#39;s wrong?&quot;</em>
+-
+
+<em>David stands up, tossing back his notepad and pen onto the bed. He paces the room, back and forth, and holds a hand to his chest. Pressure on his diaphragm. Force it to work. Only two words can make it out of his mouth before he stops, shivering, and goes to a wall to steady himself and stop the trembling. His hand curls in, folding his fingers halfway. They turn red from the push.</em>
+
+<em>He doesn’t need to fight the urge to shout anymore. He now understands that it either wouldn’t work, or it would permanently shred his voice. David turns away from the wall and trudges back to his bed, trailing his hand along the wall beside him. He kicks away his jacket as he passes by, clattering against the front of a cabinet. He sits down on the bed. Pen and paper in hand, he continues.</em>
+
+-</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+            <div class="chatlog__message " data-message-id="860048332267978772" id="message-860048332267978772">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>&quot;Have you visited [insert place here]?&quot;</em>
+
+<em>&quot;What do you think about [insert person here]&quot;</em>
+
+<em>&quot;How’ve you been holding up with the motive?&quot;</em>
+
+<em>&quot;Completely honestly, what do you think about me?&quot;</em>
+
+<em>&quot;Not like that, idiot.&quot;</em>
+
+<em><s>&quot;What the hell is wrong with you? What did I do to everyone? Why can’t I do anything but fail this time? Why does not a single person here trust me? Can you even survive in the outside world? When was the last time you spoke to someone that wasn&#39;t family or a classmate? You have ten seconds to try and remember before&quot;</s></em>
+-
+
+<em>David scribbles the last one out, tearing out the page and crumpling it in a tightly clenched fist. No anger. Calm. He doesn&#39;t mean it. Mostly. He&#39;s irritated. That&#39;s all it is. He closes his eyes and takes a deep breath to remind himself. He doesn&#39;t mean it. He doesn&#39;t. And he</em> has <em>to believe that. He blindly tosses the page away with as much force as he can. It rattles to a stop in some corner of the room. Good riddance.</em>
+
+<em>Nothing works without his voice. He can’t communicate right. Everything he tries comes out wrong. He can’t correct himself. Even with his voice, this crowd is tough. Somehow, he’s been ejected from the center of things without his knowledge-- normally, not an issue, but when he’s effectively barred from affecting what’s inside? The roles he carries start to come apart.</em>
+
+<em>After several moments of quiet, he opens his eyes and writes the last phrase that comes to mind.</em>
+
+-
+<em>&quot;Try not to die.&quot;</em>
+-
+
+
+<em>He sets down the notepad at his bedside and falls back into the mattress, staring at the ceiling. Remember. It could always be worse. At least it isn’t the Were-Rabbit.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/965f43e008eb91b4e208ecc74fd44139-6C208.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="FactGuy#0391" data-user-id="333099173677105153" style="color: rgb(135,50,96)">Fact || Rita Sestina Toscani</span>
+
+
+        <span class="chatlog__timestamp">01-Jul-21 02:45 AM</span>
+
+            <div class="chatlog__message " data-message-id="860048426334552104" id="message-860048426334552104">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">//im gonna buy David a Were rabbit</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/6832d0940c60006e19b4c5b8d2e0a575-17053.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="augusty#1287" data-user-id="723768708433969243" style="color: rgb(244,127,255)">augusty</span>
+
+
+        <span class="chatlog__timestamp">01-Jul-21 02:46 AM</span>
+
+            <div class="chatlog__message " data-message-id="860048820620492840" id="message-860048820620492840">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace">((those things are unkillable, dont do it</span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/38be9e016a1196d41ec252e6ad62aec5-58A96.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="David Joseph Russell#0000" data-user-id="851304930953396286" style="">David Joseph Russell</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">01-Jul-21 06:19 AM</span>
+
+            <div class="chatlog__message " data-message-id="860102371195879425" id="message-860102371195879425">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Skips the whole thing and just goes here and sleeps, gl Noriko!</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/38be9e016a1196d41ec252e6ad62aec5-58A96.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="David Joseph Russell#0000" data-user-id="851304930953396286" style="">David Joseph Russell</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">06-Jul-21 03:38 PM</span>
+
+            <div class="chatlog__message " data-message-id="862055048900902912" id="message-862055048900902912">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Hangin out.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/38be9e016a1196d41ec252e6ad62aec5-58A96.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="David Joseph Russell#0000" data-user-id="851304930953396286" style="">David Joseph Russell</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">08-Jul-21 01:32 PM</span>
+
+            <div class="chatlog__message " data-message-id="862747963057897482" id="message-862747963057897482">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Obviously wakes up in pain and is miserable, gritting his teeth and clutching his right arm. He stays in bed for a moment, twitching, before forcing himself to stand up, hurriedly getting ready to go outside, and heading for the medbay. There won&#39;t be any antivenom, or whatever the sort of antidote would be, but being able to bandage the would, take some cheap pain medicine, and carry a towel on him to wipe away the sweat all sound pretty good.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/38be9e016a1196d41ec252e6ad62aec5-58A96.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="David Joseph Russell#0000" data-user-id="851304930953396286" style="">David Joseph Russell</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">16-Jul-21 03:09 PM</span>
+
+            <div class="chatlog__message " data-message-id="865671471744942090" id="message-865671471744942090">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>Equally needless to say, he ignored Jacob and kept sleeping.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+            </div>
+    </div>
+</div>
+
+
+<div class="chatlog__message-group">
+    <div class="chatlog__author-avatar-container">
+        <img class="chatlog__author-avatar" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/38be9e016a1196d41ec252e6ad62aec5-58A96.png" alt="Avatar">
+    </div>
+    <div class="chatlog__messages">
+        <span class="chatlog__author-name" title="David Joseph Russell#0000" data-user-id="851304930953396286" style="">David Joseph Russell</span>
+
+            <span class="chatlog__bot-tag">BOT</span>
+
+        <span class="chatlog__timestamp">18-Jul-21 12:45 PM</span>
+
+            <div class="chatlog__message " data-message-id="866359940512088074" id="message-866359940512088074">
+                    <div class="chatlog__content">
+                        <div class="markdown">
+                            <span class="preserve-whitespace"><em>He is sitting here. He is breathing. Hopefully he won&#39;t stop that breathing part for a few more years.</em></span>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="chatlog__reactions">
+                            <div class="chatlog__reaction">
+                                <img class="emoji emoji--small" alt="Fukt" title="Fukt" src="Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20C%20%28KG%29%20-%20david-joseph-russell%20%5B849485807148204062%5D.html_Files/786629592814321685-315EF.png">
+                                <span class="chatlog__reaction-count">3</span>
+                            </div>
+                    </div>
+            </div>
+    </div>
+</div>
+
+</div>
+
+<div class="postamble">
+    <div class="postamble__entry">Exported 78 message(s)</div>
+</div>
+
+</body>
+
+</html>
