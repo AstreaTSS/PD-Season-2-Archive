@@ -1,7 +1,7 @@
 # Home Page
 
 All Categories:
-* [Trial Room](https://sonic4999.github.io/PD-Season-2-Archive/trials/TRIALS)
+* [Trials](https://sonic4999.github.io/PD-Season-2-Archive/trials/TRIALS)
 * [The Airship, Section A](https://sonic4999.github.io/PD-Season-2-Archive/section_a/SECTIONA)
 * [The Airship, Section B](https://sonic4999.github.io/PD-Season-2-Archive/section_b/SECTIONB)
 * [The Airship, Section C](https://sonic4999.github.io/PD-Season-2-Archive/section_c/SECTIONC)
