@@ -8,7 +8,7 @@ All Locations:
 * [Mess Hall](https://astrea49.github.io/PD-Season-2-Archive/section_b/Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20B%20(KG)%20-%20mess-hall%20%5B834783082011033660%5D.html)
 * [Medbay](https://astrea49.github.io/PD-Season-2-Archive/section_b/Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20B%20(KG)%20-%20medbay%20%5B834931957237415967%5D.html)
 * [Greenhouse Room](https://astrea49.github.io/PD-Season-2-Archive/section_b/Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20B%20(KG)%20-%20greenhouse-room%20%5B838212202019684393%5D.html)
-* [Viewing Area](https://github.com/astrea49/PD-Season-2-Archive/blob/main/section_b/Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20B%20(KG)%20-%20viewing-area%20%5B838212323448455189%5D.html)
+* [Viewing Area]((https://astrea49.github.io/PD-Season-2-Archive/section_b/Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20B%20(KG)%20-%20viewing-area%20%5B838212323448455189%5D.html)
 * [Lounge](https://astrea49.github.io/PD-Season-2-Archive/section_b/Danganronpa_%20Prospective%20Despair%20-%20The%20Airship%2C%20Section%20B%20(KG)%20-%20lounge%20%5B838212422938132530%5D.html)
 
 [Back to Home](https://astrea49.github.io/PD-Season-2-Archive/)
